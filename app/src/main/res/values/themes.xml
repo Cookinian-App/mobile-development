@@ -16,6 +16,8 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowBackground">@color/white</item>
 
+        <item name="android:textColor">@color/black</item>
+
         <!--Custom Component Style-->
         <item name="bottomNavigationStyle">@style/BottomNavigationCustom</item>
         <item name="circularProgressIndicatorStyle">@style/CircularProgressIndicatorCustom</item>
@@ -48,7 +50,7 @@
 
     <style name="BottomNavigationColor" parent="">
         <item name="colorSurfaceContainer">@color/white</item>
-        <item name="colorOnSurfaceVariant">@color/dark_gray</item>
+        <item name="colorOnSurfaceVariant">@color/black</item>
         <item name="colorOnSurface">@color/green</item>
         <item name="colorOnSecondaryContainer">@color/green</item>
     </style>
