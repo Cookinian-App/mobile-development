@@ -74,6 +74,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.room.paging)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.runtime.saved.instance.state)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     ksp(libs.androidx.room.compiler)
 
     // Glide

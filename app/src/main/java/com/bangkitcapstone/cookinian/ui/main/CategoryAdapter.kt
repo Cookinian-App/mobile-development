@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkitcapstone.cookinian.data.api.response.CategoryItem
 import com.bangkitcapstone.cookinian.databinding.ItemCategoryBinding
-import com.bangkitcapstone.cookinian.databinding.ItemRecipeBinding
-import com.bumptech.glide.Glide
+import com.bangkitcapstone.cookinian.helper.capitalizeWords
 
 class CategoryAdapter(private val recipeList: List<CategoryItem>) :
     RecyclerView.Adapter<CategoryAdapter.RecipeViewHolder>() {
@@ -21,7 +20,7 @@ class CategoryAdapter(private val recipeList: List<CategoryItem>) :
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val category = recipeList[position]
-        holder.binding.tvItemCategoryName.text = category.category
+        holder.binding.tvItemCategoryName.text = capitalizeWords(category.category)
     }
 
     override fun getItemCount(): Int = recipeList.size

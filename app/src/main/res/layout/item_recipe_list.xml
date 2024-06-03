@@ -43,7 +43,7 @@
 
         <TextView
             android:id="@+id/tv_item_recipe_list_time"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
@@ -56,7 +56,7 @@
 
         <TextView
             android:id="@+id/tv_item_recipe_list_level"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="16dp"

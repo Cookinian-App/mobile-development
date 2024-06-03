@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:windowSoftInputMode="adjustPan">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
             android:paddingHorizontal="16dp"
-            app:layout_scrollFlags="scroll">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <TextView
                 android:id="@+id/textView2"
@@ -87,6 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
                     android:paddingStart="16dp"
                     android:paddingEnd="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -128,6 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
                     android:paddingStart="16dp"
                     android:paddingEnd="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -169,6 +171,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
                     android:paddingStart="16dp"
                     android:paddingEnd="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"

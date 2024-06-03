@@ -34,12 +34,12 @@ class Repository private constructor(
     fun getRecipesWithPaging(): LiveData<PagingData<RecipeItem>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 5,
+                pageSize = 5
             ),
+            remoteMediator = RecipeRemoteMediator(database, recipeApiService),
             pagingSourceFactory = {
                 database.recipeDao().getRecipes()
-            } ,
-            remoteMediator = RecipeRemoteMediator(database, recipeApiService)
+            }
         ).liveData
     }
 

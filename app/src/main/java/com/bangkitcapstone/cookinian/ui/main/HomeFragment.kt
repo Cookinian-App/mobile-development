@@ -45,7 +45,6 @@ class HomeFragment : Fragment() {
         }
 
         binding.rvRecipe.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rvRecipe.isNestedScrollingEnabled = false
     }
 
     private fun setupCategoryRecyclerView() {
@@ -55,7 +54,6 @@ class HomeFragment : Fragment() {
         }
 
         binding.rvCategory.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rvCategory.isNestedScrollingEnabled = false
     }
 
     private fun setupArticleRecyclerView() {
@@ -66,7 +64,6 @@ class HomeFragment : Fragment() {
         }
 
         binding.rvArticle.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rvArticle.isNestedScrollingEnabled = false
     }
 
     override fun onDestroyView() {

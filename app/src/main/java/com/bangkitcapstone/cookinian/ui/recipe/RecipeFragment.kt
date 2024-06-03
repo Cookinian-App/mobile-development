@@ -17,8 +17,6 @@ class RecipeFragment : Fragment() {
         ViewModelFactory.getInstance(requireActivity())
     }
 
-    private lateinit var recipeListAdapter: RecipeListAdapter
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,6 +27,9 @@ class RecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.rvRecipeList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rvRecipeList.isNestedScrollingEnabled = false
 
         setupRecipeListRecyclerView()
     }
@@ -41,14 +42,10 @@ class RecipeFragment : Fragment() {
             }
         )
 
-        recipeViewModel.getRecipesWithPaging().observe(viewLifecycleOwner) { recipe ->
+        recipeViewModel.recipe.observe(viewLifecycleOwner) { recipe ->
             adapter.submitData(viewLifecycleOwner.lifecycle, recipe)
         }
-
-        binding.rvRecipeList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rvRecipeList.isNestedScrollingEnabled = false
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

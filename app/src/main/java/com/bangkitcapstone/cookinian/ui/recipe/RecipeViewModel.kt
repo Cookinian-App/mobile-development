@@ -9,5 +9,6 @@ import com.bangkitcapstone.cookinian.data.Repository
 import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
 
 class RecipeViewModel(private val repository: Repository): ViewModel() {
-    fun getRecipesWithPaging(): LiveData<PagingData<RecipeItem>> = repository.getRecipesWithPaging().cachedIn(viewModelScope)
+//    fun getRecipesWithPaging(): LiveData<PagingData<RecipeItem>> = repository.getRecipesWithPaging().cachedIn(viewModelScope)
+    val recipe: LiveData<PagingData<RecipeItem>> = repository.getRecipesWithPaging().cachedIn(viewModelScope)
 }
