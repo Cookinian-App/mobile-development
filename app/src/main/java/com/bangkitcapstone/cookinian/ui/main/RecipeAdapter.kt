@@ -2,6 +2,7 @@ package com.bangkitcapstone.cookinian.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
 import com.bangkitcapstone.cookinian.databinding.ItemRecipeBinding
@@ -25,6 +26,13 @@ class RecipeAdapter(private val recipeList: List<RecipeItem>) :
             .into(holder.binding.ivItemRecipeImage)
         holder.binding.tvItemRecipeName.text = recipe.title
         holder.binding.tvItemRecipeTime.text = recipe.times
+
+        holder.itemView.setOnClickListener {
+            val toDetailRecipeFragment = HomeFragmentDirections.actionNavHomeToRecipeDetailFragment()
+            toDetailRecipeFragment.key = recipe.key
+            toDetailRecipeFragment.thumb = recipe.thumb
+            it.findNavController().navigate(toDetailRecipeFragment)
+        }
     }
 
     override fun getItemCount(): Int = recipeList.size

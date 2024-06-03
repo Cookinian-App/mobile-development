@@ -29,6 +29,7 @@ class Repository private constructor(
     suspend fun getCategory() = recipeApiService.getCategory()
     suspend fun getArticles() = recipeApiService.getArticles()
     suspend fun getRecipes() = recipeApiService.getRecipes()
+    suspend fun getDetailRecipe(key: String) = recipeApiService.getDetailRecipe(key)
 
     @OptIn(ExperimentalPagingApi::class)
     fun getRecipesWithPaging(): LiveData<PagingData<RecipeItem>> {

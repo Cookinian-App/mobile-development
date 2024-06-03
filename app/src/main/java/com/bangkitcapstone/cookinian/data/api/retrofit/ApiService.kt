@@ -3,6 +3,7 @@ package com.bangkitcapstone.cookinian.data.api.retrofit
 import com.bangkitcapstone.cookinian.data.api.response.ArticleResponse
 import com.bangkitcapstone.cookinian.data.api.response.CategoryResponse
 import com.bangkitcapstone.cookinian.data.api.response.LoginResponse
+import com.bangkitcapstone.cookinian.data.api.response.RecipeDetailResponse
 import com.bangkitcapstone.cookinian.data.api.response.RecipeResponse
 import com.bangkitcapstone.cookinian.data.api.response.RegisterResponse
 import retrofit2.http.Field
@@ -40,4 +41,9 @@ interface ApiService {
     suspend fun getRecipesWithPaging(
         @Path("page") page: Int
     ): RecipeResponse
+
+    @GET("recipe/{key}")
+    suspend fun getDetailRecipe(
+        @Path("key") key: String
+    ): RecipeDetailResponse
 }

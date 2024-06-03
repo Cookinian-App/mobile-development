@@ -9,7 +9,11 @@
         android:id="@+id/nav_home"
         android:name="com.bangkitcapstone.cookinian.ui.main.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_recipe"
         android:name="com.bangkitcapstone.cookinian.ui.recipe.RecipeFragment"
@@ -20,5 +24,18 @@
         android:name="com.bangkitcapstone.cookinian.ui.profile.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.bangkitcapstone.cookinian.ui.recipe_detail.RecipeDetailFragment"
+        android:label="RecipeDetailFragment" >
+        <argument
+            android:name="key"
+            app:argType="string"
+            android:defaultValue="default_name" />
+        <argument
+            android:name="thumb"
+            app:argType="string"
+            android:defaultValue="default_name" />
+    </fragment>
 
 </navigation>

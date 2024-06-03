@@ -6,6 +6,7 @@ val recipeApiUrl: String = gradleLocalProperties(rootDir, providers).getProperty
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id ("androidx.navigation.safeargs")
     alias(libs.plugins.ksp)
 }
 

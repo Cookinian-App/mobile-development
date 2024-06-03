@@ -241,14 +241,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_detail_recipe_description" />
 
-            <TextView
-                android:id="@+id/tv_detail_recipe_ingredient"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_detail_recipe_ingredient"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="Bahan"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_detail_info_ingredient" />
@@ -265,16 +264,15 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_detail_recipe_ingredient" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_detail_recipe_ingredient" />
 
-            <TextView
-                android:id="@+id/tv_detail_recipe_step"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_detail_recipe_step"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="Langkah"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_detail_info_step" />
