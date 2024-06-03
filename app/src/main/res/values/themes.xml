@@ -1,0 +1,88 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Cookinian" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSurfaceContainerHigh">@color/white_bg</item>
+        <item name="colorSurfaceContainer">@color/white</item>
+
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0dp</item>
+
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@color/white</item>
+
+        <!--Custom Component Style-->
+        <item name="bottomNavigationStyle">@style/BottomNavigationCustom</item>
+        <item name="circularProgressIndicatorStyle">@style/CircularProgressIndicatorCustom</item>
+        <item name="materialAlertDialogTheme">@style/AlertDialogCustom</item>
+        <item name="materialCardViewStyle">@style/CardViewCustom</item>
+    </style>
+
+    <style name="CardViewCustom" parent="">
+        <item name="shapeAppearance">@style/CardViewCornerCustom</item>
+    </style>
+
+    <style name="CardViewCornerCustom" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Card" parent="">
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/white</item>
+    </style>
+
+    <style name="ActiveBottomNavigationCustom" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/green_sec</item>
+    </style>
+
+    <style name="BottomNavigationCustom" parent="Widget.Material3.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/BottomNavigationColor</item>
+    </style>
+
+    <style name="BottomNavigationColor" parent="">
+        <item name="colorSurfaceContainer">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/dark_gray</item>
+        <item name="colorOnSurface">@color/green</item>
+        <item name="colorOnSecondaryContainer">@color/green</item>
+    </style>
+
+    <style name="CircularProgressIndicatorCustom" parent="Widget.Material3.CircularProgressIndicator">
+        <item name="trackCornerRadius">8dp</item>
+        <item name="android:indeterminate">true</item>
+    </style>
+
+    <style name="AlertDialogCustom" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/AlertDialogTextCustom</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/AlertDialogTitleCustom</item>
+        <item name="shapeAppearanceOverlay">@style/AlertDialogShape</item>
+    </style>
+
+    <style name="AlertDialogTextCustom" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="AlertDialogTitleCustom" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <style name="AlertDialogShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="RoundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="Theme.Cookinian" parent="Base.Theme.Cookinian" />
+</resources>
