@@ -15,6 +15,7 @@
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowBackground">@color/white</item>
+        <item name="android:navigationBarColor">@color/white</item>
 
         <item name="android:textColor">@color/black</item>
 
@@ -23,6 +24,11 @@
         <item name="circularProgressIndicatorStyle">@style/CircularProgressIndicatorCustom</item>
         <item name="materialAlertDialogTheme">@style/AlertDialogCustom</item>
         <item name="materialCardViewStyle">@style/CardViewCustom</item>
+        <item name="materialDividerStyle">@style/DividerCustom</item>
+    </style>
+
+    <style name="DividerCustom" parent="Widget.MaterialComponents.MaterialDivider">
+        <item name="dividerColor">@color/gray</item>
     </style>
 
     <style name="CardViewCustom" parent="">
@@ -34,14 +40,9 @@
         <item name="cornerSize">20dp</item>
     </style>
 
-    <style name="ThemeOverlay.App.Card" parent="">
-        <item name="colorSecondary">@color/white</item>
-        <item name="colorSurface">@color/white</item>
-        <item name="colorOnSurfaceVariant">@color/white</item>
-    </style>
 
     <style name="ActiveBottomNavigationCustom" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/green_sec</item>
+        <item name="android:color">@android:color/transparent</item>
     </style>
 
     <style name="BottomNavigationCustom" parent="Widget.Material3.BottomNavigationView">

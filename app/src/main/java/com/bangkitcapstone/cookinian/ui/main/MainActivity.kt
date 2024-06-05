@@ -1,11 +1,14 @@
 package com.bangkitcapstone.cookinian.ui.main
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.ActivityMainBinding
+import com.google.android.material.color.DynamicColors
+import com.google.android.material.elevation.SurfaceColors
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

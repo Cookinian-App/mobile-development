@@ -1,11 +1,13 @@
 package com.bangkitcapstone.cookinian.ui.main
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
 import com.bangkitcapstone.cookinian.databinding.ItemRecipeBinding
+import com.bangkitcapstone.cookinian.ui.recipe_detail.RecipeDetailActivity
 import com.bumptech.glide.Glide
 
 class RecipeAdapter(private val recipeList: List<RecipeItem>) :
@@ -28,10 +30,14 @@ class RecipeAdapter(private val recipeList: List<RecipeItem>) :
         holder.binding.tvItemRecipeTime.text = recipe.times
 
         holder.itemView.setOnClickListener {
-            val toDetailRecipeFragment = HomeFragmentDirections.actionNavHomeToRecipeDetailFragment()
-            toDetailRecipeFragment.key = recipe.key
-            toDetailRecipeFragment.thumb = recipe.thumb
-            it.findNavController().navigate(toDetailRecipeFragment)
+            val context = holder.itemView.context
+            val intent = Intent(context, RecipeDetailActivity::class.java).apply {
+                putExtra("key", recipe.key)
+                putExtra("thumb", recipe.thumb)
+                putExtra("serving", recipe.serving)
+                putExtra("calories", recipe.calories)
+            }
+            context.startActivity(intent)
         }
     }
 

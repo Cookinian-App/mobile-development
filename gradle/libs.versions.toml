@@ -1,5 +1,6 @@
 [versions]
 agp = "8.3.0"
+expandabletextviewVersion = "1.0.4"
 fragmentKtx = "1.7.1"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
@@ -9,7 +10,7 @@ espressoCore = "3.5.1"
 appcompat = "1.6.1"
 lifecycleViewmodelKtx = "2.8.1"
 lifecycleLivedataKtx = "2.8.1"
-material = "1.12.0"
+material = "1.13.0-alpha02"
 activity = "1.9.0"
 constraintlayout = "2.1.4"
 datastoreCoreAndroid = "1.1.1"
@@ -38,6 +39,7 @@ androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:na
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomPaging" }
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomPaging" }
+github-expandabletextview = { module = "io.github.glailton.expandabletextview:expandabletextview", version.ref = "expandabletextviewVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

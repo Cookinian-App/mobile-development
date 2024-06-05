@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Cookinian"
         tools:targetApi="31">
         <activity
+            android:name=".ui.recipe_detail.RecipeDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.welcome.WelcomeActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

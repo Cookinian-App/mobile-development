@@ -1,5 +1,6 @@
 package com.bangkitcapstone.cookinian.ui.recipe
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
 import com.bangkitcapstone.cookinian.databinding.ItemRecipeListBinding
+import com.bangkitcapstone.cookinian.ui.recipe_detail.RecipeDetailActivity
 import com.bumptech.glide.Glide
 
 class RecipeListAdapter : PagingDataAdapter<RecipeItem, RecipeListAdapter.RecipeListViewHolder>(DIFF_CALLBACK) {
@@ -29,6 +31,17 @@ class RecipeListAdapter : PagingDataAdapter<RecipeItem, RecipeListAdapter.Recipe
             binding.tvItemRecipeListTime.text = recipe.times
             binding.tvItemRecipeListLevel.text = recipe.difficulty
             Glide.with(binding.root.context).load(recipe.thumb).into(binding.ivItemRecipeListImage)
+
+            itemView.setOnClickListener {
+                val context = itemView.context
+                val intent = Intent(context, RecipeDetailActivity::class.java).apply {
+                    putExtra("key", recipe.key)
+                    putExtra("thumb", recipe.thumb)
+                    putExtra("serving", recipe.serving)
+                    putExtra("calories", recipe.calories)
+                }
+                context.startActivity(intent)
+            }
         }
 
     }

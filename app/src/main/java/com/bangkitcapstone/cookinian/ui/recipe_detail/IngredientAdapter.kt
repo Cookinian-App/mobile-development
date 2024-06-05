@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkitcapstone.cookinian.databinding.ItemIngredientBinding
 
-class IngredientsAdapter(private val ingredientsList: List<String>) : RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder>(){
+class IngredientAdapter(private val ingredientsList: List<String>) : RecyclerView.Adapter<IngredientAdapter.IngredientsViewHolder>(){
     inner class IngredientsViewHolder(val binding: ItemIngredientBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientsViewHolder {

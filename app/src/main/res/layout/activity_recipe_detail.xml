@@ -1,36 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_detail_recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:contentScrim="@color/white"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-            <ImageView
-                android:id="@+id/iv_detail_recipe_image"
-                android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/register_banner"
-                app:layout_collapseMode="parallax" />
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:menu="@menu/detail_recipe_menu" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -43,6 +31,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_detail_recipe_image"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/register_banner"
+                app:layout_collapseMode="parallax"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/RoundedImageView"
+                tools:src="@drawable/register_banner" />
+
             <TextView
                 android:id="@+id/tv_detail_recipe_title"
                 android:layout_width="0dp"
@@ -50,14 +53,35 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="Nasi Goreng Ayam Spesial"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_detail_recipe_image"
+                tools:text="Nasi Goreng Ayam Spesial" />
+
+            <TextView
+                android:id="@+id/tv_detail_recipe_user"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/dark_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail_recipe_title"
+                tools:text="Valentina Limbong" />
+
+            <TextView
+                android:id="@+id/tv_detail_recipe_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/dark_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_detail_recipe_user"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_detail_recipe_user"
+                tools:text="Mei 27, 2024" />
 
             <LinearLayout
                 android:id="@+id/ll_detail_info_times"
@@ -84,13 +108,14 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginVertical="4dp"
                     android:background="@drawable/background_icon"
-                    android:src="@drawable/ic_clock" />
+                    android:src="@drawable/ic_clock"
+                    app:tint="@color/green" />
 
                 <TextView
                     android:id="@+id/tv_detail_recipe_times"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1jam" />
+                    tools:text="1 jam" />
 
             </LinearLayout>
 
@@ -117,13 +142,14 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginVertical="4dp"
                     android:background="@drawable/background_icon"
-                    android:src="@drawable/ic_salad" />
+                    android:src="@drawable/ic_calories"
+                    app:tint="@color/green" />
 
                 <TextView
                     android:id="@+id/tv_detail_recipe_calories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1200 kkal" />
+                    tools:text="1200 kkal" />
 
             </LinearLayout>
 
@@ -150,13 +176,14 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginVertical="4dp"
                     android:background="@drawable/background_icon"
-                    android:src="@drawable/ic_profile" />
+                    android:src="@drawable/ic_bowl"
+                    app:tint="@color/green" />
 
                 <TextView
                     android:id="@+id/tv_detail_recipe_serving"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1 orang" />
+                    tools:text="1 orang" />
 
             </LinearLayout>
 
@@ -182,50 +209,37 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginVertical="4dp"
                     android:background="@drawable/background_icon"
-                    android:src="@drawable/ic_kitchen" />
+                    android:src="@drawable/ic_flame"
+                    app:tint="@color/green" />
 
                 <TextView
                     android:id="@+id/tv_detail_recipe_difficulty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mudah" />
+                    tools:text="Mudah" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_detail_recipe_user"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:text="Valentina Limbong"
-                android:textColor="@color/dark_gray"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_detail_recipe_title" />
-
-            <TextView
-                android:id="@+id/tv_detail_recipe_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
-                android:text="Mei 27, 2024"
-                android:textColor="@color/dark_gray"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_detail_recipe_user"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_detail_recipe_user" />
-
-            <TextView
+            <io.github.glailton.expandabletextview.ExpandableTextView
                 android:id="@+id/tv_detail_recipe_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:text="Sudah pernah cobain resep ayam goreng bawang putih sederhana yang viral akhir-akhir ini? Proses memasaknya praktis dan cocok banget jadi masakan sehari-hari."
+                app:animDuration="500"
+                app:collapsedLines="4"
+                app:ellipsizeTextColor="@color/green"
+                app:expandType="layout"
+                app:isExpanded="false"
+                app:isUnderlined="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_detail_info_difficulty" />
+                app:layout_constraintTop_toBottomOf="@+id/ll_detail_info_times"
+                app:readLessText="Sembunyikan"
+                app:readMoreText="Selengkapnya"
+                app:textMode="line"
+                tools:text="Sudah pernah cobain resep ayam goreng bawang putih sederhana yang viral akhir-akhir ini? Proses memasaknya praktis dan cocok banget jadi masakan sehari-hari." />
 
             <TextView
                 android:id="@+id/tv_detail_info_ingredient"
@@ -235,7 +249,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="Bahan"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -245,9 +259,8 @@
                 android:id="@+id/rv_detail_recipe_ingredient"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:paddingHorizontal="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_detail_info_ingredient" />
@@ -260,7 +273,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="Langkah"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -270,9 +283,8 @@
                 android:id="@+id/rv_detail_recipe_step"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:paddingHorizontal="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_detail_info_step" />
