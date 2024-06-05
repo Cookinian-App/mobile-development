@@ -12,6 +12,7 @@ Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="retry">Coba lagi</string>
+    <string name="greeting">Halo, %1$s!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

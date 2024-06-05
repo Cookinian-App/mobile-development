@@ -7,6 +7,8 @@ import android.os.Handler
 import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import com.bangkitcapstone.cookinian.data.preference.UserPreference
 import com.bangkitcapstone.cookinian.databinding.ActivitySplashBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 import com.bangkitcapstone.cookinian.ui.main.MainActivity
@@ -26,6 +28,8 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        observeThemeMode()
+
         Handler(Looper.getMainLooper()).postDelayed({
             checkIsLogin()
         }, 1500L)
@@ -39,6 +43,16 @@ class SplashActivity : AppCompatActivity() {
             } else {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
+            }
+        }
+    }
+
+    private fun observeThemeMode() {
+        splashViewModel.getThemeMode().observe(this) { themeMode ->
+            when (themeMode) {
+               UserPreference.SYSTEM_DEFAULT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+               UserPreference.LIGHT_MODE -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+               UserPreference.DARK_MODE -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
         }
     }

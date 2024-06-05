@@ -40,6 +40,18 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
+    suspend fun saveThemeMode(themeMode: String) {
+        dataStore.edit { preferences ->
+            preferences[THEME_MODE] = themeMode
+        }
+    }
+
+    fun getThemeMode(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[THEME_MODE] ?: SYSTEM_DEFAULT
+        }
+    }
+
     companion object {
         @Volatile
         private var INSTANCE: UserPreference? = null
@@ -48,6 +60,11 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         private val EMAIL = stringPreferencesKey("email")
         private val TOKEN = stringPreferencesKey("token")
         private val IS_LOGIN = booleanPreferencesKey("isLogin")
+        private val THEME_MODE = stringPreferencesKey("themeMode")
+
+        const val SYSTEM_DEFAULT = "system_default"
+        const val LIGHT_MODE = "light"
+        const val DARK_MODE = "dark"
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
             return INSTANCE ?: synchronized(this) {

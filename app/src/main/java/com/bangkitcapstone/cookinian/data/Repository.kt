@@ -44,6 +44,13 @@ class Repository private constructor(
         ).liveData
     }
 
+    suspend fun saveThemeMode(themeMode: String) {
+        userPreference.saveThemeMode(themeMode)
+    }
+    fun getThemeMode(): Flow<String> {
+        return userPreference.getThemeMode()
+    }
+
     companion object {
         fun getInstance(
             authApiService: ApiService,

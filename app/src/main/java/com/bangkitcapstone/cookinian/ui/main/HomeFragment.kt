@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.FragmentHomeBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 
@@ -33,6 +34,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setName()
         setupCategoryRecyclerView()
         setupRecipeRecyclerView()
         setupArticleRecyclerView()
@@ -64,6 +66,12 @@ class HomeFragment : Fragment() {
         }
 
         binding.rvArticle.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    private fun setName() {
+        mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
+            binding.textView2.text = getString(R.string.greeting, user.name)
+        }
     }
 
     override fun onDestroyView() {
