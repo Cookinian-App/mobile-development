@@ -25,10 +25,12 @@ class ProfileFragment : Fragment() {
         ViewModelFactory.getInstance(requireActivity())
     }
 
+    private var selectedCheckedItem: Int = -1
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -42,7 +44,6 @@ class ProfileFragment : Fragment() {
         binding.llProfileMode.setOnClickListener{ showThemeModeDialog() }
         binding.llProfileLogout.setOnClickListener{ logout() }
         binding.llProfileContact.setOnClickListener{ contactUs() }
-
     }
 
     private fun observeThemeMode() {
@@ -51,6 +52,13 @@ class ProfileFragment : Fragment() {
                 UserPreference.SYSTEM_DEFAULT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                 UserPreference.LIGHT_MODE -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 UserPreference.DARK_MODE -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+
+            selectedCheckedItem = when (themeMode) {
+                UserPreference.SYSTEM_DEFAULT -> 0
+                UserPreference.LIGHT_MODE -> 1
+                UserPreference.DARK_MODE -> 2
+                else -> -1
             }
         }
     }
@@ -74,38 +82,28 @@ class ProfileFragment : Fragment() {
     }
 
     private fun showThemeModeDialog() {
-        profileViewModel.getThemeMode().observe(viewLifecycleOwner) { currentThemeMode ->
-            val options = arrayOf("Default Sistem", "Terang", "Gelap")
-            val checkedItem = when (currentThemeMode) {
-                UserPreference.SYSTEM_DEFAULT -> 0
-                UserPreference.LIGHT_MODE -> 1
-                UserPreference.DARK_MODE -> 2
-                else -> -1
+        val options = arrayOf("Default Sistem", "Terang", "Gelap")
+
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("Pilih Tema")
+            setSingleChoiceItems(options, selectedCheckedItem) { _, which ->
+                selectedCheckedItem = which
             }
-
-            var selectedCheckedItem = checkedItem
-
-            MaterialAlertDialogBuilder(requireContext()).apply {
-                setTitle("Pilih Tema")
-                setSingleChoiceItems(options, checkedItem) { _, which ->
-                    selectedCheckedItem = which
-                }
-                setPositiveButton("Simpan") { _, _ ->
-                    if (selectedCheckedItem != -1) {
-                        val selectedThemeMode = when (selectedCheckedItem) {
-                            0 -> UserPreference.SYSTEM_DEFAULT
-                            1 -> UserPreference.LIGHT_MODE
-                            2 -> UserPreference.DARK_MODE
-                            else -> UserPreference.SYSTEM_DEFAULT
-                        }
-                        profileViewModel.saveThemeMode(selectedThemeMode)
+            setPositiveButton("Simpan") { _, _ ->
+                if (selectedCheckedItem != -1) {
+                    val selectedThemeMode = when (selectedCheckedItem) {
+                        0 -> UserPreference.SYSTEM_DEFAULT
+                        1 -> UserPreference.LIGHT_MODE
+                        2 -> UserPreference.DARK_MODE
+                        else -> UserPreference.SYSTEM_DEFAULT
                     }
+                    profileViewModel.saveThemeMode(selectedThemeMode)
                 }
-                setNegativeButton("Batal") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                show()
             }
+            setNegativeButton("Batal") { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
         }
     }
 
