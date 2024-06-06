@@ -32,13 +32,16 @@ class RecipeFragment : Fragment() {
         binding.rvRecipeList.isNestedScrollingEnabled = false
 
 
-        // TODO: Get Data From adapter
-//        val dataCategory = arguments?.getString("category")
+        val dataCategory = if (RecipeFragmentArgs.fromBundle(arguments as Bundle).category == "null") {
+            null
+        } else {
+            RecipeFragmentArgs.fromBundle(arguments as Bundle).category
+        }
 
-//        setupRecipeListRecyclerView(dataCategory)
+        setupRecipeListRecyclerView(dataCategory)
     }
 
-    private fun setupRecipeListRecyclerView(dataCategory: String?) {
+    private fun setupRecipeListRecyclerView(dataCategory: String? = null) {
         val adapter = RecipeListAdapter()
         binding.rvRecipeList.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
@@ -46,16 +49,9 @@ class RecipeFragment : Fragment() {
             }
         )
 
-        if (dataCategory != null) {
-            recipeViewModel.getRecipesByCategory(dataCategory).observe(viewLifecycleOwner) {
-                adapter.submitData(lifecycle, it)
-            }
-        } else {
-            recipeViewModel.getRecipes().observe(viewLifecycleOwner) {
-                adapter.submitData(lifecycle, it)
-            }
+        recipeViewModel.getRecipes(dataCategory).observe(viewLifecycleOwner) {
+            adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
-
     }
 
     override fun onDestroyView() {

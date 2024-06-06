@@ -46,11 +46,7 @@ class RecipeRemoteMediator(
 
 
         try {
-            val responseData = if (category != null) {
-                apiService.getRecipesWithPaging(page, category).results
-            } else {
-                apiService.getRecipesWithPaging(page).results
-            }
+            val responseData = apiService.getRecipesWithPaging(page, category).results
             val endOfPaginationReached = responseData.isEmpty()
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {

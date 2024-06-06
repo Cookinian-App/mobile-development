@@ -29,6 +29,9 @@ class RecipeListAdapter : PagingDataAdapter<RecipeItem, RecipeListAdapter.Recipe
         fun bind(recipe: RecipeItem) {
             binding.tvItemRecipeListName.text = recipe.title
             binding.tvItemRecipeListTime.text = recipe.times
+                .replace("jam", " Jam")
+                .replace("mnt", " Mnt")
+                .replace("j", " J")
             binding.tvItemRecipeListLevel.text = recipe.difficulty
             Glide.with(binding.root.context).load(recipe.thumb).into(binding.ivItemRecipeListImage)
 
