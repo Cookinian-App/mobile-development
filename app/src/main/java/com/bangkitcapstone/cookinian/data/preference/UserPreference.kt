@@ -36,7 +36,10 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
 
     suspend fun clearSession() {
         dataStore.edit { preferences ->
-            preferences.clear()
+            preferences.remove(NAME)
+            preferences.remove(EMAIL)
+            preferences.remove(TOKEN)
+            preferences.remove(IS_LOGIN)
         }
     }
 

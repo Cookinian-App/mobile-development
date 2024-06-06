@@ -11,6 +11,7 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @FormUrlEncoded
@@ -37,9 +38,10 @@ interface ApiService {
     @GET("recipes")
     suspend fun getRecipes(): RecipeResponse
 
-    @GET("recipes/{page}")
+    @GET("recipes/page/{page}")
     suspend fun getRecipesWithPaging(
-        @Path("page") page: Int
+        @Path("page") page: Int,
+        @Query("category") category: String? = null
     ): RecipeResponse
 
     @GET("recipe/{key}")

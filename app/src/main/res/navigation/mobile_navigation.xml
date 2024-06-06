@@ -9,12 +9,22 @@
         android:id="@+id/nav_home"
         android:name="com.bangkitcapstone.cookinian.ui.main.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_nav_recipe"
+            app:destination="@id/nav_recipe" />
+    </fragment>
     <fragment
         android:id="@+id/nav_recipe"
         android:name="com.bangkitcapstone.cookinian.ui.recipe.RecipeFragment"
         android:label="RecipeFragment"
-        tools:layout="@layout/fragment_recipe"/>
+        tools:layout="@layout/fragment_recipe">
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+    </fragment>
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.bangkitcapstone.cookinian.ui.profile.ProfileFragment"

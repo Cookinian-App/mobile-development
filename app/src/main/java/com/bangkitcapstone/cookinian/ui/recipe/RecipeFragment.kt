@@ -31,10 +31,14 @@ class RecipeFragment : Fragment() {
         binding.rvRecipeList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvRecipeList.isNestedScrollingEnabled = false
 
-        setupRecipeListRecyclerView()
+
+        // TODO: Get Data From adapter
+//        val dataCategory = arguments?.getString("category")
+
+//        setupRecipeListRecyclerView(dataCategory)
     }
 
-    private fun setupRecipeListRecyclerView() {
+    private fun setupRecipeListRecyclerView(dataCategory: String?) {
         val adapter = RecipeListAdapter()
         binding.rvRecipeList.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
@@ -42,9 +46,16 @@ class RecipeFragment : Fragment() {
             }
         )
 
-        recipeViewModel.recipe.observe(viewLifecycleOwner) { recipe ->
-            adapter.submitData(viewLifecycleOwner.lifecycle, recipe)
+        if (dataCategory != null) {
+            recipeViewModel.getRecipesByCategory(dataCategory).observe(viewLifecycleOwner) {
+                adapter.submitData(lifecycle, it)
+            }
+        } else {
+            recipeViewModel.getRecipes().observe(viewLifecycleOwner) {
+                adapter.submitData(lifecycle, it)
+            }
         }
+
     }
 
     override fun onDestroyView() {

@@ -32,12 +32,16 @@ class Repository private constructor(
     suspend fun getDetailRecipe(key: String) = recipeApiService.getDetailRecipe(key)
 
     @OptIn(ExperimentalPagingApi::class)
-    fun getRecipesWithPaging(): LiveData<PagingData<RecipeItem>> {
+    fun getRecipesWithPaging(category: String? = null): LiveData<PagingData<RecipeItem>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 5
+                pageSize = 3
             ),
-            remoteMediator = RecipeRemoteMediator(database, recipeApiService),
+            remoteMediator =  RecipeRemoteMediator(
+                database,
+                recipeApiService,
+                category
+            ),
             pagingSourceFactory = {
                 database.recipeDao().getRecipes()
             }
