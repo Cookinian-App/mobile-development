@@ -84,12 +84,12 @@ class ProfileFragment : Fragment() {
     private fun showThemeModeDialog() {
         val options = arrayOf("Default Sistem", "Terang", "Gelap")
 
-        MaterialAlertDialogBuilder(requireContext()).apply {
-            setTitle("Pilih Tema")
-            setSingleChoiceItems(options, selectedCheckedItem) { _, which ->
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Pilih Tema")
+            .setSingleChoiceItems(options, selectedCheckedItem) { _, which ->
                 selectedCheckedItem = which
             }
-            setPositiveButton("Simpan") { _, _ ->
+            .setPositiveButton("Simpan") { _, _ ->
                 if (selectedCheckedItem != -1) {
                     val selectedThemeMode = when (selectedCheckedItem) {
                         0 -> UserPreference.SYSTEM_DEFAULT
@@ -100,18 +100,22 @@ class ProfileFragment : Fragment() {
                     profileViewModel.saveThemeMode(selectedThemeMode)
                 }
             }
-            setNegativeButton("Batal") { dialog, _ ->
-                dialog.dismiss()
-            }
-            show()
-        }
+            .setNegativeButton("Batal") { _, _ -> }
+            .show()
     }
 
     private fun logout() {
-        profileViewModel.logout()
-        val intent = Intent(requireActivity(), LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        startActivity(intent)
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Logout")
+            .setMessage("Apakah Anda yakin ingin keluar?")
+            .setPositiveButton(R.string.dialog_positive_button) { _, _ ->
+                profileViewModel.logout()
+                val intent = Intent(requireActivity(), LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+            }
+            .setNegativeButton("Batal") { _, _ -> }
+            .show()
     }
 
     override fun onDestroyView() {

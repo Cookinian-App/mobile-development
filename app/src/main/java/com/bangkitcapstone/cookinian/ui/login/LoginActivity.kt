@@ -89,11 +89,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showAlert(message: String) {
-        MaterialAlertDialogBuilder(this).apply {
-            setTitle(R.string.login)
-            setMessage(message)
-            setPositiveButton(R.string.dialog_positive_button) { _, _ -> }
-                .show()
-        }
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.login)
+            .setMessage(message)
+            .setPositiveButton(R.string.dialog_positive_button) { _, _ -> }
+            .show()
     }
 }

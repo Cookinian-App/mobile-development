@@ -40,7 +40,6 @@
         <item name="cornerSize">20dp</item>
     </style>
 
-
     <style name="ActiveBottomNavigationCustom" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@android:color/transparent</item>
     </style>
@@ -79,7 +78,7 @@
 
     <style name="AlertDialogShape">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">16dp</item>
+        <item name="cornerSize">20dp</item>
     </style>
 
     <style name="RoundedImageView">

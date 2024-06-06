@@ -9,8 +9,7 @@
         android:id="@+id/nav_home"
         android:name="com.bangkitcapstone.cookinian.ui.main.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home">
-    </fragment>
+        tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/nav_recipe"
         android:name="com.bangkitcapstone.cookinian.ui.recipe.RecipeFragment"
@@ -21,5 +20,10 @@
         android:name="com.bangkitcapstone.cookinian.ui.profile.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/nav_bookmark"
+        android:name="com.bangkitcapstone.cookinian.ui.bookmark.BookmarkFragment"
+        android:label="fragment_bookmark"
+        tools:layout="@layout/fragment_bookmark" />
 
 </navigation>
