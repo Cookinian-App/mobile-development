@@ -1,15 +1,14 @@
 package com.bangkitcapstone.cookinian.ui.main
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.data.api.response.CategoryItem
 import com.bangkitcapstone.cookinian.databinding.ItemCategoryBinding
 import com.bangkitcapstone.cookinian.helper.capitalizeWords
-import com.bangkitcapstone.cookinian.ui.recipe.RecipeFragment
 
 class CategoryAdapter(private val recipeList: List<CategoryItem>) :
     RecyclerView.Adapter<CategoryAdapter.RecipeViewHolder>() {
@@ -29,7 +28,13 @@ class CategoryAdapter(private val recipeList: List<CategoryItem>) :
         holder.itemView.setOnClickListener {
             val action = HomeFragmentDirections.actionNavHomeToNavRecipe()
             action.category = category.key
-            it.findNavController().navigate(action)
+
+            val navOptions = NavOptions.Builder()
+                .setLaunchSingleTop(true)
+                .setPopUpTo(R.id.nav_home, false)
+                .build()
+
+            it.findNavController().navigate(action, navOptions)
         }
     }
 
