@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/green</item>
         <item name="colorOnPrimary">@color/white</item>
 
-        <item name="colorSurfaceContainerHigh">@color/white_bg</item>
+        <!--        <item name="colorSurfaceContainerHigh">@color/white_bg</item>-->
         <item name="colorSurfaceContainer">@color/white</item>
 
         <item name="android:fontFamily">@font/poppins</item>
@@ -25,6 +25,13 @@
         <item name="materialAlertDialogTheme">@style/AlertDialogCustom</item>
         <item name="materialCardViewStyle">@style/CardViewCustom</item>
         <item name="materialDividerStyle">@style/DividerCustom</item>
+    </style>
+
+    <style name="SearchViewCustom">
+        <item name="android:background">@drawable/background_search</item>
+        <item name="colorControlActivated">@color/green</item>
+        <item name="android:textColorHint">@color/dark_gray</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="DividerCustom" parent="Widget.MaterialComponents.MaterialDivider">

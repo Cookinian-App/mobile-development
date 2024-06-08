@@ -7,7 +7,7 @@
     android:paddingVertical="12dp">
 
     <TextView
-        android:id="@+id/tv_ingredient"
+        android:id="@+id/tv_item_ingredient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"

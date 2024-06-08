@@ -41,9 +41,9 @@ class ProfileFragment : Fragment() {
         setProfileData()
         observeThemeMode()
 
-        binding.llProfileMode.setOnClickListener{ showThemeModeDialog() }
-        binding.llProfileLogout.setOnClickListener{ logout() }
-        binding.llProfileContact.setOnClickListener{ contactUs() }
+        binding.llProfileMode.setOnClickListener { showThemeModeDialog() }
+        binding.llProfileLogout.setOnClickListener { logout() }
+        binding.llProfileContact.setOnClickListener { contactUs() }
     }
 
     private fun observeThemeMode() {

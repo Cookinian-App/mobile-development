@@ -18,7 +18,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tv_home_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/greeting"
@@ -27,7 +27,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tv_home_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -35,25 +35,34 @@
                 android:text="Mau masak apa hari ini?"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/profile_picture"
-                app:layout_constraintStart_toStartOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintEnd_toStartOf="@+id/iv_home_profile"
+                app:layout_constraintStart_toStartOf="@+id/tv_home_username"
+                app:layout_constraintTop_toBottomOf="@+id/tv_home_username" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_picture"
+                android:id="@+id/iv_home_profile"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:src="@drawable/profile_picture"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView2" />
+                app:layout_constraintTop_toTopOf="@+id/tv_home_username" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.search.SearchBar
-            android:id="@+id/search_bar"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Resep..." />
+            android:layout_height="52dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:textCursorDrawable="@null"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@null"
+            app:queryHint="Resep..."
+            app:showDividers="end"
+            app:theme="@style/SearchViewCustom" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -67,24 +76,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_categories"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:paddingHorizontal="16dp"
-                android:text="Kategori"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/tv_home_categories"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Kategori"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_category"
+                    android:id="@+id/rv_home_category"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="12dp"
                     android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
                     android:paddingStart="16dp"
@@ -92,10 +104,10 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_home_categories" />
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:id="@+id/pb_category"
+                    android:id="@+id/pb_home_category"
                     style="@style/CircularProgressIndicatorCustom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -108,25 +120,39 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tv_recipe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
-                android:paddingHorizontal="16dp"
-                android:text="Resep"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/tv_home_recipe"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Resep"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_home_see_all_recipe"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="Lihat Semua"
+                    android:textColor="@color/green"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_home_recipe"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_recipe"
+                    android:id="@+id/rv_home_recipe"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="12dp"
                     android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
                     android:paddingStart="16dp"
@@ -134,10 +160,10 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_home_recipe" />
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:id="@+id/pb_recipes"
+                    android:id="@+id/pb_home_recipe"
                     style="@style/CircularProgressIndicatorCustom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -150,25 +176,38 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tv_article"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
-                android:paddingHorizontal="16dp"
-                android:text="Artikel"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <TextView
+                    android:id="@+id/tv_home_article"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Artikel"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_home_see_all_article"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="Lihat Semua"
+                    android:textColor="@color/green"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_home_article"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_article"
+                    android:id="@+id/rv_home_article"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="12dp"
                     android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
                     android:paddingStart="16dp"
@@ -176,10 +215,10 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_home_article" />
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:id="@+id/pb_article"
+                    android:id="@+id/pb_home_article"
                     style="@style/CircularProgressIndicatorCustom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -195,12 +234,5 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.search.SearchView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:hint="Resep..."
-        app:layout_anchor="@id/search_bar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

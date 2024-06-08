@@ -7,7 +7,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/tv_recipe_error"
+        android:id="@+id/tv_paging_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -15,14 +15,14 @@
         tools:text="Timeout" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/pb_recipe_list"
+        android:id="@+id/pb_paging"
         style="@style/CircularProgressIndicatorCustom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
     <Button
-        android:id="@+id/retry_button"
+        android:id="@+id/btn_paging_retry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

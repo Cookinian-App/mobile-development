@@ -1,19 +1,19 @@
 package com.bangkitcapstone.cookinian.ui.main
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.NavOptions
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.data.api.response.CategoryItem
 import com.bangkitcapstone.cookinian.databinding.ItemCategoryBinding
 import com.bangkitcapstone.cookinian.helper.capitalizeWords
+import com.bangkitcapstone.cookinian.ui.search_category.SearchCategoryActivity
 
 class CategoryAdapter(private val recipeList: List<CategoryItem>) :
     RecyclerView.Adapter<CategoryAdapter.RecipeViewHolder>() {
 
-    inner class RecipeViewHolder(val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class RecipeViewHolder(val binding: ItemCategoryBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -26,15 +26,10 @@ class CategoryAdapter(private val recipeList: List<CategoryItem>) :
         holder.binding.tvItemCategoryName.text = capitalizeWords(category.category)
 
         holder.itemView.setOnClickListener {
-            val action = HomeFragmentDirections.actionNavHomeToNavRecipe()
-            action.category = category.key
-
-            val navOptions = NavOptions.Builder()
-                .setLaunchSingleTop(true)
-                .setPopUpTo(R.id.nav_home, false)
-                .build()
-
-            it.findNavController().navigate(action, navOptions)
+            val intent = Intent(it.context, SearchCategoryActivity::class.java).apply {
+                putExtra("category", category.key)
+            }
+            it.context.startActivity(intent)
         }
     }
 

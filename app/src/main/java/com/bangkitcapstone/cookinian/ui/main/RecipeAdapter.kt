@@ -30,14 +30,13 @@ class RecipeAdapter(private val recipeList: List<RecipeItem>) :
         holder.binding.tvItemRecipeTime.text = recipe.times.replace("jam", " Jam").replace("mnt", " Mnt")
 
         holder.itemView.setOnClickListener {
-            val context = holder.itemView.context
-            val intent = Intent(context, RecipeDetailActivity::class.java).apply {
+            val intent = Intent(it.context, RecipeDetailActivity::class.java).apply {
                 putExtra("key", recipe.key)
                 putExtra("thumb", recipe.thumb)
                 putExtra("serving", recipe.serving)
                 putExtra("calories", recipe.calories)
             }
-            context.startActivity(intent)
+            it.context.startActivity(intent)
         }
     }
 

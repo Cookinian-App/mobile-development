@@ -16,7 +16,7 @@ class StepAdapter(private val stepsList: List<String>) : RecyclerView.Adapter<St
 
     override fun onBindViewHolder(holder: StepsViewHolder, position: Int) {
         val step = stepsList[position]
-        holder.binding.tvStep.text = step
+        holder.binding.tvItemStep.text = step
     }
 
     override fun getItemCount(): Int = stepsList.size

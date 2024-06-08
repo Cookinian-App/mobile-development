@@ -12,21 +12,16 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_nav_home_to_nav_recipe"
-            app:destination="@id/nav_recipe"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/nav_recipe"
-            app:popUpToInclusive="true" />
+            app:destination="@id/nav_recipe" />
     </fragment>
     <fragment
         android:id="@+id/nav_recipe"
         android:name="com.bangkitcapstone.cookinian.ui.recipe.RecipeFragment"
         android:label="RecipeFragment"
         tools:layout="@layout/fragment_recipe">
-        <argument
-            android:name="category"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="null" />
+        <action
+            android:id="@+id/action_nav_recipe_to_nav_home"
+            app:destination="@id/nav_home" />
     </fragment>
     <fragment
         android:id="@+id/nav_profile"

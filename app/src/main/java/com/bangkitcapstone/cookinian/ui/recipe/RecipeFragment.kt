@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.databinding.FragmentRecipeBinding
@@ -31,14 +33,23 @@ class RecipeFragment : Fragment() {
         binding.rvRecipeList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvRecipeList.isNestedScrollingEnabled = false
 
-
-        val dataCategory = if (RecipeFragmentArgs.fromBundle(arguments as Bundle).category == "null") {
-            null
-        } else {
-            RecipeFragmentArgs.fromBundle(arguments as Bundle).category
-        }
+        val dataCategory = arguments?.getString("category")
 
         setupRecipeListRecyclerView(dataCategory)
+
+        binding.searchView.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrBlank()) {
+                    Toast.makeText(requireContext(), "Ambil data: $query", Toast.LENGTH_SHORT).show()
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
     }
 
     private fun setupRecipeListRecyclerView(dataCategory: String? = null) {

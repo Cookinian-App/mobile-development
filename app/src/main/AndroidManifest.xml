@@ -16,6 +16,12 @@
         android:theme="@style/Theme.Cookinian"
         tools:targetApi="31">
         <activity
+            android:name=".ui.search_category.SearchCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.search_recipe.SearchRecipeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.article_detail.ArticleDetailActivity"
             android:exported="false" />
         <activity

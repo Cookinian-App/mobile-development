@@ -16,7 +16,7 @@ class IngredientAdapter(private val ingredientsList: List<String>) : RecyclerVie
 
     override fun onBindViewHolder(holder: IngredientsViewHolder, position: Int) {
         val ingredient = ingredientsList[position]
-        holder.binding.tvIngredient.text = "• $ingredient"
+        holder.binding.tvItemIngredient.text = "• $ingredient"
     }
 
     override fun getItemCount(): Int = ingredientsList.size
