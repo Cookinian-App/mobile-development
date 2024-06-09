@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="8dp"
+    android:layout_marginEnd="12dp"
     android:layout_marginBottom="12dp"
     app:cardBackgroundColor="@android:color/transparent"
     app:strokeColor="@android:color/transparent">
@@ -14,10 +14,10 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_item_article_image"
+            android:id="@+id/iv_item_recipe_category_image"
             android:layout_width="0dp"
-            android:layout_height="210dp"
-            android:foreground="@drawable/foreground_1"
+            android:layout_height="120dp"
+            android:foreground="@drawable/foreground_2"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,14 +25,12 @@
             app:srcCompat="@drawable/recipe1" />
 
         <TextView
-            android:id="@+id/tv_item_recipe_name"
+            android:id="@+id/tv_item_recipe_category_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:ellipsize="end"
-            android:maxLines="2"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"

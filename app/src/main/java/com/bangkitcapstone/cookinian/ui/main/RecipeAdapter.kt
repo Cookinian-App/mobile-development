@@ -27,7 +27,10 @@ class RecipeAdapter(private val recipeList: List<RecipeItem>) :
             .load(recipe.thumb)
             .into(holder.binding.ivItemRecipeImage)
         holder.binding.tvItemRecipeName.text = recipe.title
-        holder.binding.tvItemRecipeTime.text = recipe.times.replace("jam", " Jam").replace("mnt", " Mnt")
+        holder.binding.tvItemRecipeTime.text = recipe.times
+            .replace("jam", " Jam")
+            .replace("mnt", " Mnt")
+            .replace("j", " J")
 
         holder.itemView.setOnClickListener {
             val intent = Intent(it.context, RecipeDetailActivity::class.java).apply {

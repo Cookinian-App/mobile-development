@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.FragmentHomeBinding
@@ -23,8 +24,7 @@ class HomeFragment : Fragment() {
     }
 
     private lateinit var recipeAdapter: RecipeAdapter
-    private lateinit var categoryAdapter: CategoryAdapter
-    private lateinit var articleAdapter: ArticleAdapter
+    private lateinit var recipeCategoryAdapter: RecipeCategoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +40,6 @@ class HomeFragment : Fragment() {
         setName()
         setupCategoryRecyclerView()
         setupRecipeRecyclerView()
-        setupArticleRecyclerView()
 
         binding.searchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
@@ -76,21 +75,11 @@ class HomeFragment : Fragment() {
 
     private fun setupCategoryRecyclerView() {
         mainViewModel.categories.observe(viewLifecycleOwner) { category ->
-            categoryAdapter = CategoryAdapter(category)
-            binding.rvHomeCategory.adapter = categoryAdapter
+            recipeCategoryAdapter = RecipeCategoryAdapter(category)
+            binding.rvHomeCategory.adapter = recipeCategoryAdapter
         }
 
-        binding.rvHomeCategory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-    }
-
-    private fun setupArticleRecyclerView() {
-        mainViewModel.articles.observe(viewLifecycleOwner) { article ->
-            articleAdapter = ArticleAdapter(article)
-            binding.rvHomeArticle.adapter = articleAdapter
-
-        }
-
-        binding.rvHomeArticle.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvHomeCategory.layoutManager = GridLayoutManager(requireContext(), 2)
     }
 
     private fun setName() {

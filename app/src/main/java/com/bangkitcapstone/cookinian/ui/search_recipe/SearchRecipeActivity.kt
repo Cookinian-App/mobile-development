@@ -1,18 +1,14 @@
 package com.bangkitcapstone.cookinian.ui.search_recipe
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.ActivitySearchRecipeBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
-import com.bangkitcapstone.cookinian.ui.recipe.LoadingStateAdapter
-import com.bangkitcapstone.cookinian.ui.recipe.RecipeListAdapter
 
 class SearchRecipeActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchRecipeBinding

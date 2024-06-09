@@ -1,4 +1,4 @@
-package com.bangkitcapstone.cookinian.ui.recipe
+package com.bangkitcapstone.cookinian.ui.article
 
 import android.content.Intent
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.bangkitcapstone.cookinian.ui.main
+package com.bangkitcapstone.cookinian.ui.article
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

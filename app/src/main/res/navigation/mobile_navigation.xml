@@ -9,29 +9,38 @@
         android:id="@+id/nav_home"
         android:name="com.bangkitcapstone.cookinian.ui.main.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_nav_home_to_nav_recipe"
-            app:destination="@id/nav_recipe" />
+        tools:layout="@layout/fragment_home"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out">
     </fragment>
     <fragment
-        android:id="@+id/nav_recipe"
-        android:name="com.bangkitcapstone.cookinian.ui.recipe.RecipeFragment"
+        android:id="@+id/nav_article"
+        android:name="com.bangkitcapstone.cookinian.ui.article.ArticleFragment"
         android:label="RecipeFragment"
-        tools:layout="@layout/fragment_recipe">
-        <action
-            android:id="@+id/action_nav_recipe_to_nav_home"
-            app:destination="@id/nav_home" />
+        tools:layout="@layout/fragment_article"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out">
     </fragment>
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.bangkitcapstone.cookinian.ui.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out"/>
     <fragment
         android:id="@+id/nav_bookmark"
         android:name="com.bangkitcapstone.cookinian.ui.bookmark.BookmarkFragment"
         android:label="fragment_bookmark"
-        tools:layout="@layout/fragment_bookmark" />
-
+        tools:layout="@layout/fragment_bookmark"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out"/>
 </navigation>

@@ -8,7 +8,7 @@ import com.bangkitcapstone.cookinian.di.Injection
 import com.bangkitcapstone.cookinian.ui.login.LoginViewModel
 import com.bangkitcapstone.cookinian.ui.main.MainViewModel
 import com.bangkitcapstone.cookinian.ui.profile.ProfileViewModel
-import com.bangkitcapstone.cookinian.ui.recipe.RecipeViewModel
+import com.bangkitcapstone.cookinian.ui.article.ArticleViewModel
 import com.bangkitcapstone.cookinian.ui.recipe_detail.RecipeDetailViewModel
 import com.bangkitcapstone.cookinian.ui.register.RegisterViewModel
 import com.bangkitcapstone.cookinian.ui.search_category.SearchCategoryViewModel
@@ -25,8 +25,8 @@ class ViewModelFactory private constructor(private val repository: Repository) :
             return LoginViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             return MainViewModel(repository) as T
-        } else if (modelClass.isAssignableFrom(RecipeViewModel::class.java)) {
-            return RecipeViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(ArticleViewModel::class.java)) {
+            return ArticleViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(RecipeDetailViewModel::class.java)) {
             return RecipeDetailViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(ProfileViewModel::class.java)) {

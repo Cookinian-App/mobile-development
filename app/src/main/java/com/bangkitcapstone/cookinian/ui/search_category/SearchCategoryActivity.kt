@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.ActivitySearchCategoryBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
-import com.bangkitcapstone.cookinian.ui.recipe.LoadingStateAdapter
-import com.bangkitcapstone.cookinian.ui.recipe.RecipeListAdapter
+import com.bangkitcapstone.cookinian.helper.capitalizeWords
+import com.bangkitcapstone.cookinian.ui.article.LoadingStateAdapter
+import com.bangkitcapstone.cookinian.ui.article.RecipeListAdapter
 
 class SearchCategoryActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySearchCategoryBinding
@@ -23,14 +24,10 @@ class SearchCategoryActivity : AppCompatActivity() {
         binding = ActivitySearchCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.rvSearchCategory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvSearchCategory.isNestedScrollingEnabled = false
-
         val dataCategory = intent.getStringExtra("category")!!
 
         setupRecipeListRecyclerView(dataCategory)
-        setupToolbar(dataCategory)
-
+        setupToolbar(capitalizeWords(dataCategory))
     }
 
     private fun setupToolbar(dataCategory: String?) {
@@ -44,6 +41,8 @@ class SearchCategoryActivity : AppCompatActivity() {
 
     private fun setupRecipeListRecyclerView(dataCategory: String? = null) {
         val adapter = RecipeListAdapter()
+        binding.rvSearchCategory.layoutManager = LinearLayoutManager(this)
+        binding.rvSearchCategory.isNestedScrollingEnabled = false
         binding.rvSearchCategory.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 adapter.retry()
