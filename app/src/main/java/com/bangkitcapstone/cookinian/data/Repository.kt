@@ -7,6 +7,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.bangkitcapstone.cookinian.data.api.retrofit.ApiService
+import com.bangkitcapstone.cookinian.data.local.entity.ArticleItem
 import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
 import com.bangkitcapstone.cookinian.data.local.room.CookinianDatabase
 import com.bangkitcapstone.cookinian.data.preference.UserModel
@@ -26,13 +27,13 @@ class Repository private constructor(
     suspend fun register(name: String, email: String, password: String) = authApiService.register(name, email, password)
     suspend fun login(email: String, password: String) = authApiService.login(email, password)
 
+    // Recipe API
     suspend fun getCategory() = recipeApiService.getCategory()
-    suspend fun getArticles() = recipeApiService.getArticles()
     suspend fun getRecipes() = recipeApiService.getRecipes()
     suspend fun getDetailRecipe(key: String) = recipeApiService.getDetailRecipe(key)
 
     @OptIn(ExperimentalPagingApi::class)
-    fun getRecipesWithPaging(category: String? = null): LiveData<PagingData<RecipeItem>> {
+    fun getRecipesWithPaging(searchQuery: String? = null, category: String? = null): LiveData<PagingData<RecipeItem>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 3
@@ -40,6 +41,7 @@ class Repository private constructor(
             remoteMediator =  RecipeRemoteMediator(
                 database,
                 recipeApiService,
+                searchQuery,
                 category
             ),
             pagingSourceFactory = {
@@ -47,6 +49,27 @@ class Repository private constructor(
             }
         ).liveData
     }
+
+    // Article API
+    suspend fun getArticleCategory() = recipeApiService.getArticleCategory()
+
+    @OptIn(ExperimentalPagingApi::class)
+    fun getArticlesWithPaging(category: String? = null): LiveData<PagingData<ArticleItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 3
+            ),
+            remoteMediator =  ArticleRemoteMediator(
+                database,
+                recipeApiService,
+                category
+            ),
+            pagingSourceFactory = {
+                database.articleDao().getArticles()
+            }
+        ).liveData
+    }
+
 
     suspend fun saveThemeMode(themeMode: String) {
         userPreference.saveThemeMode(themeMode)

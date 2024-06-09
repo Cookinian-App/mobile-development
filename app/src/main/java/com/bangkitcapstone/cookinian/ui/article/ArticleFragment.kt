@@ -18,7 +18,7 @@ class ArticleFragment : Fragment() {
     }
 
     private lateinit var articleCategoryAdapter: ArticleCategoryAdapter
-    private lateinit var articleAdapter: ArticleAdapter
+    private lateinit var articleAdapter: ArticleListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,14 +48,20 @@ class ArticleFragment : Fragment() {
         binding.rvArticleCategory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
-    private fun setupArticleListRecyclerView() {
-        articleViewModel.articles.observe(viewLifecycleOwner) { article ->
-            articleAdapter = ArticleAdapter(article)
-            binding.rvArticle.adapter = articleAdapter
-
-        }
-
+    private fun setupArticleListRecyclerView(dataCategory: String? = null) {
+        articleAdapter = ArticleListAdapter()
         binding.rvArticle.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvArticle.isNestedScrollingEnabled = false
+        binding.rvArticle.adapter = articleAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                articleAdapter.retry()
+            }
+        )
+
+
+        articleViewModel.getArticlesWithPaging(dataCategory).observe(viewLifecycleOwner) {
+            articleAdapter.submitData(lifecycle, it)
+        }
     }
 
     override fun onDestroyView() {

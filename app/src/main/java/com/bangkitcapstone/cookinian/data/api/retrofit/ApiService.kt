@@ -41,6 +41,7 @@ interface ApiService {
     @GET("recipes/page/{page}")
     suspend fun getRecipesWithPaging(
         @Path("page") page: Int,
+        @Query("s") searchQuery: String? = null,
         @Query("category") category: String? = null
     ): RecipeResponse
 
@@ -48,4 +49,13 @@ interface ApiService {
     suspend fun getDetailRecipe(
         @Path("key") key: String
     ): RecipeDetailResponse
+
+    @GET("category/article")
+    suspend fun getArticleCategory(): CategoryResponse
+
+    @GET("articles/page/{page}")
+    suspend fun getArticlesWithPaging(
+        @Path("page") page: Int,
+        @Query("category") category: String? = null
+    ): ArticleResponse
 }

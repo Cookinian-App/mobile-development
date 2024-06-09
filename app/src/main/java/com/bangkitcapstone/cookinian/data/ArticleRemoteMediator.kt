@@ -6,16 +6,16 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.bangkitcapstone.cookinian.data.api.retrofit.ApiService
-import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
+import com.bangkitcapstone.cookinian.data.local.entity.ArticleItem
 import com.bangkitcapstone.cookinian.data.local.entity.RemoteKeys
 import com.bangkitcapstone.cookinian.data.local.room.CookinianDatabase
 
 @OptIn(ExperimentalPagingApi::class)
-class RecipeRemoteMediator(
+class ArticleRemoteMediator(
     private val database: CookinianDatabase,
     private val apiService: ApiService,
     private val category: String? = null
-): RemoteMediator<Int, RecipeItem>() {
+): RemoteMediator<Int, ArticleItem>() {
 
     override suspend fun initialize(): InitializeAction {
         return InitializeAction.LAUNCH_INITIAL_REFRESH
@@ -23,7 +23,7 @@ class RecipeRemoteMediator(
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, RecipeItem>
+        state: PagingState<Int, ArticleItem>
     ): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH ->{
@@ -44,14 +44,13 @@ class RecipeRemoteMediator(
             }
         }
 
-
         try {
-            val responseData = apiService.getRecipesWithPaging(page, category).results
+            val responseData = apiService.getArticlesWithPaging(page, category).results
             val endOfPaginationReached = responseData.isEmpty()
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
                     database.remoteKeysDao().deleteRemoteKeys()
-                    database.recipeDao().deleteAllRecipe()
+                    database.articleDao().deleteAllArticle()
                 }
                 val prevKey = if (page == 1) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
@@ -59,7 +58,7 @@ class RecipeRemoteMediator(
                     RemoteKeys(id = it.key, prevKey = prevKey, nextKey = nextKey)
                 }
                 database.remoteKeysDao().insertAll(keys)
-                database.recipeDao().insertRecipes(responseData as List<RecipeItem>)
+                database.articleDao().insertArticles(responseData)
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (exception: Exception) {
@@ -67,19 +66,19 @@ class RecipeRemoteMediator(
         }
     }
 
-    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, RecipeItem>): RemoteKeys? {
+    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, ArticleItem>): RemoteKeys? {
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()?.let { data ->
             database.remoteKeysDao().getRemoteKeysId(data.key)
         }
     }
 
-    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, RecipeItem>): RemoteKeys? {
+    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, ArticleItem>): RemoteKeys? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()?.let { data ->
             database.remoteKeysDao().getRemoteKeysId(data.key)
         }
     }
 
-    private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, RecipeItem>): RemoteKeys? {
+    private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, ArticleItem>): RemoteKeys? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.key?.let { id ->
                 database.remoteKeysDao().getRemoteKeysId(id)

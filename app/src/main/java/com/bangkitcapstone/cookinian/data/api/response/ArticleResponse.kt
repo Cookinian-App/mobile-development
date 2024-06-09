@@ -1,5 +1,6 @@
 package com.bangkitcapstone.cookinian.data.api.response
 
+import com.bangkitcapstone.cookinian.data.local.entity.ArticleItem
 import com.google.gson.annotations.SerializedName
 
 data class ArticleResponse(
@@ -12,16 +13,4 @@ data class ArticleResponse(
 
 	@field:SerializedName("status")
 	val status: Boolean
-)
-
-data class ArticleItem(
-
-	@field:SerializedName("thumb")
-	val thumb: String,
-
-	@field:SerializedName("title")
-	val title: String,
-
-	@field:SerializedName("key")
-	val key: String
 )

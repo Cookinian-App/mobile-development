@@ -14,7 +14,8 @@ import com.bangkitcapstone.cookinian.data.local.room.CookinianDatabase
 class RecipeRemoteMediator(
     private val database: CookinianDatabase,
     private val apiService: ApiService,
-    private val category: String? = null
+    private val searchQuery: String? = null,
+    private val category: String? = null,
 ): RemoteMediator<Int, RecipeItem>() {
 
     override suspend fun initialize(): InitializeAction {
@@ -46,7 +47,7 @@ class RecipeRemoteMediator(
 
 
         try {
-            val responseData = apiService.getRecipesWithPaging(page, category).results
+            val responseData = apiService.getRecipesWithPaging(page, searchQuery, category).results
             val endOfPaginationReached = responseData.isEmpty()
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
@@ -59,7 +60,7 @@ class RecipeRemoteMediator(
                     RemoteKeys(id = it.key, prevKey = prevKey, nextKey = nextKey)
                 }
                 database.remoteKeysDao().insertAll(keys)
-                database.recipeDao().insertRecipes(responseData as List<RecipeItem>)
+                database.recipeDao().insertRecipes(responseData)
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (exception: Exception) {

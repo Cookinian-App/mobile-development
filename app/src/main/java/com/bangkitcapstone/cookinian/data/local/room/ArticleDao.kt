@@ -5,16 +5,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
+import com.bangkitcapstone.cookinian.data.local.entity.ArticleItem
 
 @Dao
-interface RecipeDao {
-    @Query("SELECT * FROM recipe")
-    fun getRecipes(): PagingSource<Int, RecipeItem>
+interface ArticleDao {
+    @Query("SELECT * FROM article")
+    fun getArticles(): PagingSource<Int, ArticleItem>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRecipes(story: List<RecipeItem>)
+    suspend fun insertArticles(articles: List<ArticleItem>)
 
-    @Query("DELETE FROM recipe")
-    suspend fun deleteAllRecipe()
+    @Query("DELETE FROM article")
+    suspend fun deleteAllArticle()
 }

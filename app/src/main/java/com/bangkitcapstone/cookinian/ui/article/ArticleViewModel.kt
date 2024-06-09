@@ -7,33 +7,25 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.bangkitcapstone.cookinian.data.Repository
-import com.bangkitcapstone.cookinian.data.api.response.ArticleItem
 import com.bangkitcapstone.cookinian.data.api.response.CategoryItem
-import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
+import com.bangkitcapstone.cookinian.data.local.entity.ArticleItem
 import kotlinx.coroutines.launch
 
 class ArticleViewModel(private val repository: Repository) : ViewModel() {
     private val _categories = MutableLiveData<List<CategoryItem>>()
     val categories : LiveData<List<CategoryItem>> = _categories
 
-    private val _articles = MutableLiveData<List<ArticleItem>>()
-    val articles : LiveData<List<ArticleItem>> = _articles
-
     init {
-        getCategories()
-        getArticles()
+        getArticleCategories()
     }
 
-    private fun getArticles() {
-        viewModelScope.launch {
-            val result = repository.getArticles().results
-            _articles.value = result
-        }
+    fun getArticlesWithPaging(category: String? = null): LiveData<PagingData<ArticleItem>> {
+        return repository.getArticlesWithPaging(category).cachedIn(viewModelScope)
     }
 
-    private fun getCategories() {
+    private fun getArticleCategories() {
         viewModelScope.launch {
-            val result = repository.getCategory().results
+            val result = repository.getArticleCategory().results
             _categories.value = result
         }
     }

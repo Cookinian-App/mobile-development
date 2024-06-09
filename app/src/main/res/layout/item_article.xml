@@ -25,7 +25,7 @@
             app:srcCompat="@drawable/recipe1" />
 
         <TextView
-            android:id="@+id/tv_item_recipe_name"
+            android:id="@+id/tv_item_article_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

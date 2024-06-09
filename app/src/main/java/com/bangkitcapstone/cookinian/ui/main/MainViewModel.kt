@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.bangkitcapstone.cookinian.data.Repository
-import com.bangkitcapstone.cookinian.data.api.response.ArticleItem
 import com.bangkitcapstone.cookinian.data.api.response.CategoryItem
 import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
 import kotlinx.coroutines.launch

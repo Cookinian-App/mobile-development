@@ -9,6 +9,7 @@ import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.ActivitySearchCategoryBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 import com.bangkitcapstone.cookinian.helper.capitalizeWords
+import com.bangkitcapstone.cookinian.ui.article.ArticleListAdapter
 import com.bangkitcapstone.cookinian.ui.article.LoadingStateAdapter
 import com.bangkitcapstone.cookinian.ui.article.RecipeListAdapter
 
@@ -24,10 +25,19 @@ class SearchCategoryActivity : AppCompatActivity() {
         binding = ActivitySearchCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val dataCategory = intent.getStringExtra("category")!!
+        val dataCategory = if(intent.hasExtra("category")) {
+            intent.getStringExtra("category")
+        } else {
+            null
+        }
 
-        setupRecipeListRecyclerView(dataCategory)
-        setupToolbar(capitalizeWords(dataCategory))
+        if(dataCategory == "inspirasi-dapur" || dataCategory == "makanan-gaya-hidup" || dataCategory == "tips-masak") {
+            setupArticleListRecyclerView(dataCategory)
+        } else {
+            setupRecipeListRecyclerView(dataCategory)
+        }
+
+        setupToolbar(dataCategory?.let { capitalizeWords(it) })
     }
 
     private fun setupToolbar(dataCategory: String?) {
@@ -50,6 +60,21 @@ class SearchCategoryActivity : AppCompatActivity() {
         )
 
         searchCategoryViewModel.getRecipes(dataCategory).observe(this) {
+            adapter.submitData(lifecycle, it)
+        }
+    }
+
+    private fun setupArticleListRecyclerView(dataCategory: String? = null) {
+        val adapter = ArticleListAdapter()
+        binding.rvSearchCategory.layoutManager = LinearLayoutManager(this)
+        binding.rvSearchCategory.isNestedScrollingEnabled = false
+        binding.rvSearchCategory.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
+
+        searchCategoryViewModel.getArticles(dataCategory).observe(this) {
             adapter.submitData(lifecycle, it)
         }
     }

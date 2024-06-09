@@ -6,9 +6,12 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.ActivitySearchRecipeBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
+import com.bangkitcapstone.cookinian.ui.article.LoadingStateAdapter
+import com.bangkitcapstone.cookinian.ui.article.RecipeListAdapter
 
 class SearchRecipeActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchRecipeBinding
@@ -22,22 +25,23 @@ class SearchRecipeActivity : AppCompatActivity() {
         binding = ActivitySearchRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val query = intent.getStringExtra("searchQuery") ?: ""
+        val query = if(intent.hasExtra("searchQuery")) {
+            intent.getStringExtra("searchQuery")
+        } else {
+            null
+        }
 
         setupToolbar()
+        setupRecipeListRecyclerView(query)
 
         val searchView = binding.searchView
         searchView.setQuery(query, false)
-        Toast.makeText(this, "Ambil data: $query", Toast.LENGTH_SHORT).show()
-
-        //Kalau ada intent query, tampilkan recyclerview getrecipe dengan parameter (user melakukan search dari home)
-        //Kalau tidak ada intent query, tampilkan recyclerview getrecipe keseluruhan
 
         binding.searchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrBlank()) {
-                    Toast.makeText(this@SearchRecipeActivity, "Ambil data: $query", Toast.LENGTH_SHORT).show()
+                    setupRecipeListRecyclerView(query)
                 }
                 return true
             }
@@ -46,6 +50,21 @@ class SearchRecipeActivity : AppCompatActivity() {
                 return false
             }
         })
+    }
+
+    private fun setupRecipeListRecyclerView(searchQuery: String? = null) {
+        val adapter = RecipeListAdapter()
+        binding.rvSearchRecipe.layoutManager = LinearLayoutManager(this)
+        binding.rvSearchRecipe.isNestedScrollingEnabled = false
+        binding.rvSearchRecipe.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
+
+        searchRecipeViewModel.getRecipesWithPaging(searchQuery).observe(this) {
+            adapter.submitData(lifecycle, it)
+        }
     }
 
     private fun setupToolbar() {
