@@ -52,7 +52,6 @@ class Repository private constructor(
 
     // Article API
     suspend fun getArticleCategory() = recipeApiService.getArticleCategory()
-
     @OptIn(ExperimentalPagingApi::class)
     fun getArticlesWithPaging(category: String? = null): LiveData<PagingData<ArticleItem>> {
         return Pager(
@@ -69,6 +68,8 @@ class Repository private constructor(
             }
         ).liveData
     }
+
+    suspend fun getArticleDetail(tag: String, key: String) = recipeApiService.getArticleDetail(tag, key)
 
 
     suspend fun saveThemeMode(themeMode: String) {

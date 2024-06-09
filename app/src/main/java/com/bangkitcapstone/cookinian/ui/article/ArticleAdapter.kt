@@ -1,5 +1,6 @@
 package com.bangkitcapstone.cookinian.ui.article
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkitcapstone.cookinian.data.local.entity.ArticleItem
 import com.bangkitcapstone.cookinian.databinding.ItemArticleBinding
+import com.bangkitcapstone.cookinian.ui.article_detail.ArticleDetailActivity
 import com.bumptech.glide.Glide
 
 class ArticleListAdapter : PagingDataAdapter<ArticleItem, ArticleListAdapter.ArticleListViewHolder>(DIFF_CALLBACK) {
@@ -28,6 +30,14 @@ class ArticleListAdapter : PagingDataAdapter<ArticleItem, ArticleListAdapter.Art
         fun bind(article: ArticleItem) {
             binding.tvItemArticleName.text = article.title
             Glide.with(binding.root.context).load(article.thumb).into(binding.ivItemArticleImage)
+
+            binding.root.setOnClickListener {
+                val context = binding.root.context
+                val intent = Intent(context, ArticleDetailActivity::class.java).apply {
+                    putExtra("tagKey", article.key)
+                }
+                context.startActivity(intent)
+            }
         }
     }
 

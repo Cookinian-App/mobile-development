@@ -1,5 +1,6 @@
 package com.bangkitcapstone.cookinian.data.api.retrofit
 
+import com.bangkitcapstone.cookinian.data.api.response.ArticleDetailResponse
 import com.bangkitcapstone.cookinian.data.api.response.ArticleResponse
 import com.bangkitcapstone.cookinian.data.api.response.CategoryResponse
 import com.bangkitcapstone.cookinian.data.api.response.LoginResponse
@@ -32,9 +33,6 @@ interface ApiService {
     @GET("category/recipes")
     suspend fun getCategory(): CategoryResponse
 
-    @GET("articles/new")
-    suspend fun getArticles(): ArticleResponse
-
     @GET("recipes")
     suspend fun getRecipes(): RecipeResponse
 
@@ -58,4 +56,10 @@ interface ApiService {
         @Path("page") page: Int,
         @Query("category") category: String? = null
     ): ArticleResponse
+
+    @GET("article/{tag}/{key}")
+    suspend fun getArticleDetail(
+        @Path("tag") tag: String,
+        @Path("key") key: String
+    ): ArticleDetailResponse
 }
