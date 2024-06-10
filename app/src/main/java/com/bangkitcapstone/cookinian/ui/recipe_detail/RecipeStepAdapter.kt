@@ -3,14 +3,14 @@ package com.bangkitcapstone.cookinian.ui.recipe_detail
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bangkitcapstone.cookinian.databinding.ItemStepBinding
+import com.bangkitcapstone.cookinian.databinding.ItemRecipeStepBinding
 
-class StepAdapter(private val stepsList: List<String>) : RecyclerView.Adapter<StepAdapter.StepsViewHolder>(){
-    inner class StepsViewHolder(val binding: ItemStepBinding) : RecyclerView.ViewHolder(binding.root)
+class RecipeStepAdapter(private val stepsList: List<String>) : RecyclerView.Adapter<RecipeStepAdapter.StepsViewHolder>(){
+    inner class StepsViewHolder(val binding: ItemRecipeStepBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StepsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemStepBinding.inflate(inflater, parent, false)
+        val binding = ItemRecipeStepBinding.inflate(inflater, parent, false)
         return StepsViewHolder(binding)
     }
 

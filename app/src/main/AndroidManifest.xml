@@ -16,10 +16,16 @@
         android:theme="@style/Theme.Cookinian"
         tools:targetApi="31">
         <activity
-            android:name=".ui.search_category.SearchCategoryActivity"
+            android:name=".ui.profile_edit_pass.ProfileEditPassActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.search_recipe.SearchRecipeActivity"
+            android:name=".ui.profile_edit.ProfileEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.category_search.CategorySearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.recipe_search.RecipeSearchActivity"
             android:exported="false" />
         <activity
             android:name=".ui.article_detail.ArticleDetailActivity"

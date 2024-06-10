@@ -13,6 +13,7 @@
         android:id="@+id/tv_login_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:alpha="0"
         android:text="Login"
         android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_login_message"
@@ -20,28 +21,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        android:alpha="0"
-        tools:alpha="100"/>
+        tools:alpha="100" />
 
     <TextView
         android:id="@+id/tv_login_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:alpha="0"
         android:text="Log in to continue discovering recipes that match your ingredients. Your culinary adventure awaits!"
         app:layout_constraintBottom_toTopOf="@+id/l_login_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_login_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_login_title"
-        android:alpha="0"
-        tools:alpha="100"/>
+        tools:alpha="100" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/l_login_email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:alpha="0"
         android:hint="Email"
         app:boxCornerRadiusBottomEnd="12dp"
         app:boxCornerRadiusBottomStart="12dp"
@@ -51,7 +52,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_login_message"
-        android:alpha="0"
         tools:alpha="100">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -59,16 +59,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textEmailAddress"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/l_login_password"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:alpha="0"
         android:hint="Password"
         app:boxCornerRadiusBottomEnd="12dp"
         app:boxCornerRadiusBottomStart="12dp"
@@ -79,7 +79,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/l_login_email"
-        android:alpha="0"
         tools:alpha="100">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -87,23 +86,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginTop="32dp"
+        android:alpha="0"
         android:text="Login"
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/l_login_password"
-        android:alpha="0"
-        tools:alpha="100"/>
+        tools:alpha="100" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/pb_login"

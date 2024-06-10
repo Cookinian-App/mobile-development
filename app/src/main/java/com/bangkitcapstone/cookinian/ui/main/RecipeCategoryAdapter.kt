@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bangkitcapstone.cookinian.data.api.response.CategoryItem
 import com.bangkitcapstone.cookinian.databinding.ItemRecipeCategoryBinding
 import com.bangkitcapstone.cookinian.helper.capitalizeWords
-import com.bangkitcapstone.cookinian.ui.search_category.SearchCategoryActivity
+import com.bangkitcapstone.cookinian.ui.category_search.CategorySearchActivity
 
 class RecipeCategoryAdapter(private val recipeList: List<CategoryItem>) :
     RecyclerView.Adapter<RecipeCategoryAdapter.RecipeViewHolder>() {
@@ -26,7 +26,7 @@ class RecipeCategoryAdapter(private val recipeList: List<CategoryItem>) :
         holder.binding.tvItemRecipeCategoryName.text = capitalizeWords(category.category)
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(it.context, SearchCategoryActivity::class.java).apply {
+            val intent = Intent(it.context, CategorySearchActivity::class.java).apply {
                 putExtra("category", category.key)
             }
             it.context.startActivity(intent)

@@ -1,4 +1,4 @@
-package com.bangkitcapstone.cookinian.ui.search_category
+package com.bangkitcapstone.cookinian.ui.category_search
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -6,23 +6,23 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
-import com.bangkitcapstone.cookinian.databinding.ActivitySearchCategoryBinding
+import com.bangkitcapstone.cookinian.databinding.ActivityCategorySearchBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 import com.bangkitcapstone.cookinian.helper.capitalizeWords
 import com.bangkitcapstone.cookinian.ui.article.ArticleListAdapter
 import com.bangkitcapstone.cookinian.ui.article.LoadingStateAdapter
-import com.bangkitcapstone.cookinian.ui.article.RecipeListAdapter
+import com.bangkitcapstone.cookinian.ui.recipe_search.RecipeListAdapter
 
-class SearchCategoryActivity : AppCompatActivity() {
-    private lateinit var binding : ActivitySearchCategoryBinding
+class CategorySearchActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityCategorySearchBinding
 
-    private val searchCategoryViewModel by viewModels<SearchCategoryViewModel> {
+    private val categorySearchViewModel by viewModels<CategorySearchViewModel> {
         ViewModelFactory.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySearchCategoryBinding.inflate(layoutInflater)
+        binding = ActivityCategorySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val dataCategory = if(intent.hasExtra("category")) {
@@ -40,15 +40,6 @@ class SearchCategoryActivity : AppCompatActivity() {
         setupToolbar(dataCategory?.let { capitalizeWords(it) })
     }
 
-    private fun setupToolbar(dataCategory: String?) {
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_back)
-            title = dataCategory
-        }
-    }
-
     private fun setupRecipeListRecyclerView(dataCategory: String? = null) {
         val adapter = RecipeListAdapter()
         binding.rvSearchCategory.layoutManager = LinearLayoutManager(this)
@@ -59,7 +50,7 @@ class SearchCategoryActivity : AppCompatActivity() {
             }
         )
 
-        searchCategoryViewModel.getRecipes(dataCategory).observe(this) {
+        categorySearchViewModel.getRecipes(dataCategory).observe(this) {
             adapter.submitData(lifecycle, it)
         }
     }
@@ -74,8 +65,17 @@ class SearchCategoryActivity : AppCompatActivity() {
             }
         )
 
-        searchCategoryViewModel.getArticles(dataCategory).observe(this) {
+        categorySearchViewModel.getArticles(dataCategory).observe(this) {
             adapter.submitData(lifecycle, it)
+        }
+    }
+
+    private fun setupToolbar(dataCategory: String?) {
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_back)
+            title = dataCategory
         }
     }
 

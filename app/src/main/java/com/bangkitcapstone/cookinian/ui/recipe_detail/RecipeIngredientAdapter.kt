@@ -3,14 +3,14 @@ package com.bangkitcapstone.cookinian.ui.recipe_detail
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bangkitcapstone.cookinian.databinding.ItemIngredientBinding
+import com.bangkitcapstone.cookinian.databinding.ItemRecipeIngredientBinding
 
-class IngredientAdapter(private val ingredientsList: List<String>) : RecyclerView.Adapter<IngredientAdapter.IngredientsViewHolder>(){
-    inner class IngredientsViewHolder(val binding: ItemIngredientBinding) : RecyclerView.ViewHolder(binding.root)
+class RecipeIngredientAdapter(private val ingredientsList: List<String>) : RecyclerView.Adapter<RecipeIngredientAdapter.IngredientsViewHolder>(){
+    inner class IngredientsViewHolder(val binding: ItemRecipeIngredientBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemIngredientBinding.inflate(inflater, parent, false)
+        val binding = ItemRecipeIngredientBinding.inflate(inflater, parent, false)
         return IngredientsViewHolder(binding)
     }
 

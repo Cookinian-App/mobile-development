@@ -12,8 +12,8 @@ import com.bangkitcapstone.cookinian.ui.article.ArticleViewModel
 import com.bangkitcapstone.cookinian.ui.article_detail.ArticleDetailViewModel
 import com.bangkitcapstone.cookinian.ui.recipe_detail.RecipeDetailViewModel
 import com.bangkitcapstone.cookinian.ui.register.RegisterViewModel
-import com.bangkitcapstone.cookinian.ui.search_category.SearchCategoryViewModel
-import com.bangkitcapstone.cookinian.ui.search_recipe.SearchRecipeViewModel
+import com.bangkitcapstone.cookinian.ui.category_search.CategorySearchViewModel
+import com.bangkitcapstone.cookinian.ui.recipe_search.RecipeSearchViewModel
 import com.bangkitcapstone.cookinian.ui.splash.SplashViewModel
 
 class ViewModelFactory private constructor(private val repository: Repository) :
@@ -34,10 +34,10 @@ class ViewModelFactory private constructor(private val repository: Repository) :
             return ProfileViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(SplashViewModel::class.java)) {
             return SplashViewModel(repository) as T
-        } else if (modelClass.isAssignableFrom(SearchRecipeViewModel::class.java)) {
-            return SearchRecipeViewModel(repository) as T
-        } else if (modelClass.isAssignableFrom(SearchCategoryViewModel::class.java)) {
-            return SearchCategoryViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(RecipeSearchViewModel::class.java)) {
+            return RecipeSearchViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(CategorySearchViewModel::class.java)) {
+            return CategorySearchViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(ArticleDetailViewModel::class.java)) {
             return ArticleDetailViewModel(repository) as T
         }

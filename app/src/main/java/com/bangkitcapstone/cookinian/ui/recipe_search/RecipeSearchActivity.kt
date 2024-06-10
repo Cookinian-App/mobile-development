@@ -1,28 +1,28 @@
-package com.bangkitcapstone.cookinian.ui.search_recipe
+package com.bangkitcapstone.cookinian.ui.recipe_search
 
+import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
-import com.bangkitcapstone.cookinian.databinding.ActivitySearchRecipeBinding
+import com.bangkitcapstone.cookinian.databinding.ActivityRecipeSearchBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 import com.bangkitcapstone.cookinian.ui.article.LoadingStateAdapter
-import com.bangkitcapstone.cookinian.ui.article.RecipeListAdapter
 
-class SearchRecipeActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySearchRecipeBinding
+class RecipeSearchActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityRecipeSearchBinding
 
-    private val searchRecipeViewModel by viewModels<SearchRecipeViewModel> {
+    private val recipeSearchViewModel by viewModels<RecipeSearchViewModel> {
         ViewModelFactory.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySearchRecipeBinding.inflate(layoutInflater)
+        binding = ActivityRecipeSearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val query = if(intent.hasExtra("searchQuery")) {
@@ -43,6 +43,8 @@ class SearchRecipeActivity : AppCompatActivity() {
                 if (!query.isNullOrBlank()) {
                     setupRecipeListRecyclerView(query)
                 }
+                closeKeyboard()
+
                 return true
             }
 
@@ -62,19 +64,16 @@ class SearchRecipeActivity : AppCompatActivity() {
             }
         )
 
-        searchRecipeViewModel.getRecipesWithPaging(searchQuery).observe(this) {
+        recipeSearchViewModel.getRecipesWithPaging(searchQuery).observe(this) {
             adapter.submitData(lifecycle, it)
         }
     }
 
-    private fun setupToolbar() {
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_back)
-        }
+    private fun closeKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.searchView.windowToken, 0)
+        binding.searchView.clearFocus()
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -87,4 +86,11 @@ class SearchRecipeActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupToolbar() {
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_back)
+        }
+    }
 }

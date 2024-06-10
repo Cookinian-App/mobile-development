@@ -14,7 +14,6 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:elevation="4dp"
             app:layout_scrollFlags="scroll|enterAlways"
             app:menu="@menu/detail_recipe_menu" />
 
@@ -31,7 +30,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_detail_recipe_image"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="250dp"
                 android:layout_marginHorizontal="16dp"
                 android:scaleType="centerCrop"

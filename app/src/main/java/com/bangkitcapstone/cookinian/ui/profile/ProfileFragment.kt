@@ -15,6 +15,8 @@ import com.bangkitcapstone.cookinian.data.preference.UserPreference
 import com.bangkitcapstone.cookinian.databinding.FragmentProfileBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 import com.bangkitcapstone.cookinian.ui.login.LoginActivity
+import com.bangkitcapstone.cookinian.ui.profile_edit.ProfileEditActivity
+import com.bangkitcapstone.cookinian.ui.profile_edit_pass.ProfileEditPassActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ProfileFragment : Fragment() {
@@ -41,9 +43,20 @@ class ProfileFragment : Fragment() {
         setProfileData()
         observeThemeMode()
 
+        binding.llProflieEdit.setOnClickListener { goToProfileEdit() }
+        binding.llProfileEditPass.setOnClickListener { goToProfileEditPass() }
+        binding.llProfileContact.setOnClickListener { contactUs() }
         binding.llProfileMode.setOnClickListener { showThemeModeDialog() }
         binding.llProfileLogout.setOnClickListener { logout() }
-        binding.llProfileContact.setOnClickListener { contactUs() }
+
+    }
+
+    private fun goToProfileEdit() {
+        startActivity(Intent(requireContext(), ProfileEditActivity::class.java))
+    }
+
+    private fun goToProfileEditPass() {
+        startActivity(Intent(requireContext(), ProfileEditPassActivity::class.java))
     }
 
     private fun observeThemeMode() {

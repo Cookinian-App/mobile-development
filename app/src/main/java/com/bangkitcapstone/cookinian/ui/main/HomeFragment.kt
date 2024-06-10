@@ -1,10 +1,12 @@
 package com.bangkitcapstone.cookinian.ui.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.FragmentHomeBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
-import com.bangkitcapstone.cookinian.ui.search_recipe.SearchRecipeActivity
+import com.bangkitcapstone.cookinian.ui.recipe_search.RecipeSearchActivity
 
 class HomeFragment : Fragment() {
 
@@ -45,10 +47,12 @@ class HomeFragment : Fragment() {
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrBlank()) {
-                    val intent = Intent(requireContext(), SearchRecipeActivity::class.java)
+                    val intent = Intent(requireContext(), RecipeSearchActivity::class.java)
                     intent.putExtra("searchQuery", query)
                     startActivity(intent)
                 }
+                closeKeyboard()
+
                 return true
             }
 
@@ -61,7 +65,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun seeAllRecipe() {
-        startActivity(Intent(requireContext(), SearchRecipeActivity::class.java))
+        startActivity(Intent(requireContext(), RecipeSearchActivity::class.java))
     }
 
     private fun setupRecipeRecyclerView() {
@@ -86,6 +90,12 @@ class HomeFragment : Fragment() {
         mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
             binding.tvHomeUsername.text = getString(R.string.greeting, user.name)
         }
+    }
+
+    private fun closeKeyboard() {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.searchView.windowToken, 0)
+        binding.searchView.clearFocus()
     }
 
     override fun onDestroyView() {

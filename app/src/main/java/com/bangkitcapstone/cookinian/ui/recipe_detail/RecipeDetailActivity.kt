@@ -38,15 +38,6 @@ class RecipeDetailActivity : AppCompatActivity() {
         setupToolbar()
     }
 
-    private fun setupToolbar() {
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowTitleEnabled(false)
-            setHomeAsUpIndicator(R.drawable.ic_back)
-        }
-    }
-
     private fun setRecipeDetailData(recipe: RecipeDetailResults, thumb: String) {
         val serving = intent.getStringExtra("serving")!!
         val calories = intent.getStringExtra("calories")!!
@@ -72,15 +63,24 @@ class RecipeDetailActivity : AppCompatActivity() {
 
             rvDetailRecipeIngredient.apply {
                 layoutManager = LinearLayoutManager(this@RecipeDetailActivity)
-                adapter = IngredientAdapter(recipe.ingredient)
+                adapter = RecipeIngredientAdapter(recipe.ingredient)
                 addItemDecoration(divider)
             }
 
             rvDetailRecipeStep.apply {
                 layoutManager = LinearLayoutManager(this@RecipeDetailActivity)
-                adapter = StepAdapter(recipe.step)
+                adapter = RecipeStepAdapter(recipe.step)
                 addItemDecoration(divider)
             }
+        }
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.apply {
+            setDisplayShowTitleEnabled(false)
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_back)
         }
     }
 

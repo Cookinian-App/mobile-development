@@ -1,4 +1,4 @@
-package com.bangkitcapstone.cookinian.ui.article
+package com.bangkitcapstone.cookinian.ui.recipe_search
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -11,7 +11,9 @@ import com.bangkitcapstone.cookinian.databinding.ItemRecipeListBinding
 import com.bangkitcapstone.cookinian.ui.recipe_detail.RecipeDetailActivity
 import com.bumptech.glide.Glide
 
-class RecipeListAdapter : PagingDataAdapter<RecipeItem, RecipeListAdapter.RecipeListViewHolder>(DIFF_CALLBACK) {
+class RecipeListAdapter : PagingDataAdapter<RecipeItem, RecipeListAdapter.RecipeListViewHolder>(
+    DIFF_CALLBACK
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeListViewHolder {
         val binding = ItemRecipeListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
