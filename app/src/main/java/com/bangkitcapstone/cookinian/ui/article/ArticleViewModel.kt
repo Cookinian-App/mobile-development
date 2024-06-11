@@ -16,9 +16,6 @@ class ArticleViewModel(private val repository: Repository) : ViewModel() {
     private val _categories = MutableLiveData<List<CategoryItem>>()
     val categories: LiveData<List<CategoryItem>> = _categories
 
-    var currentCategory: String? = null
-    var selectedItem: Int = -1
-
     init {
         getArticleCategories()
     }
@@ -26,17 +23,7 @@ class ArticleViewModel(private val repository: Repository) : ViewModel() {
     private fun getArticleCategories() {
         viewModelScope.launch {
             val result = repository.getArticleCategory().results
-            if (result.isNotEmpty()) {
-                _categories.value = result
-                if (selectedItem == -1) {
-                    currentCategory = result[0].key
-                    selectedItem = 0
-                }
-            }
+            _categories.value = result
         }
-    }
-
-    fun getArticleWithPaging(category: String? = null): LiveData<PagingData<ArticleItem>> {
-        return repository.getArticlesWithPaging(category).cachedIn(viewModelScope)
     }
 }

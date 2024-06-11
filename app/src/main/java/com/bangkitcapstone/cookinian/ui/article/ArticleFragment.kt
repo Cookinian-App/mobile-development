@@ -22,7 +22,6 @@ class ArticleFragment : Fragment() {
     }
 
     private lateinit var articleCategoryAdapter: ArticleCategoryAdapter
-    private lateinit var articleAdapter: ArticleListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,46 +39,11 @@ class ArticleFragment : Fragment() {
 
     private fun setupCategoryRecyclerView() {
         articleViewModel.categories.observe(viewLifecycleOwner) { category ->
-            articleCategoryAdapter = ArticleCategoryAdapter(category, articleViewModel.selectedItem) { selectedCategoryKey, selectedPosition ->
-                articleViewModel.currentCategory = selectedCategoryKey
-                articleViewModel.selectedItem = selectedPosition
-                setupArticleListRecyclerView(selectedCategoryKey)
-            }
+            articleCategoryAdapter = ArticleCategoryAdapter(category)
             binding.rvArticleCategory.adapter = articleCategoryAdapter
-            setupArticleListRecyclerView(articleViewModel.currentCategory)
         }
 
-        binding.rvArticleCategory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-    }
-
-    private fun setupArticleListRecyclerView(dataCategory: String? = null) {
-        articleAdapter = ArticleListAdapter()
-        binding.rvArticle.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvArticle.isNestedScrollingEnabled = false
-        binding.rvArticle.adapter = articleAdapter.withLoadStateFooter(
-            footer = LoadingStateAdapter {
-                articleAdapter.retry()
-            }
-        )
-
-        lifecycleScope.launch {
-            articleAdapter.loadStateFlow
-                .distinctUntilChanged { old, new ->
-                    old.mediator?.prepend?.endOfPaginationReached == new.mediator?.prepend?.endOfPaginationReached
-                }
-                .filter {
-                    it.refresh is androidx.paging.LoadState.NotLoading
-                            && it.prepend.endOfPaginationReached
-                            && !it.append.endOfPaginationReached
-                }
-                .collect {
-                    binding.rvArticle.scrollToPosition(0)
-                }
-        }
-
-        articleViewModel.getArticleWithPaging(dataCategory).observe(viewLifecycleOwner) { pagingData ->
-            articleAdapter.submitData(lifecycle, pagingData)
-        }
+        binding.rvArticleCategory.layoutManager = LinearLayoutManager(requireContext())
     }
 
     override fun onDestroyView() {
