@@ -12,7 +12,7 @@ import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
 class CategorySearchViewModel(private val repository: Repository) : ViewModel() {
 
     fun getRecipes(category: String? = null): LiveData<PagingData<RecipeItem>> {
-        return repository.getRecipesWithPaging(category = category).cachedIn(viewModelScope)
+        return repository.getRecipesWithPaging(category).cachedIn(viewModelScope)
     }
 
     fun getArticles(category: String? = null): LiveData<PagingData<ArticleItem>> {

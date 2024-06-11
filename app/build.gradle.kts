@@ -99,4 +99,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation (libs.github.expandabletextview)
+
+    implementation ("com.tbuonomo:dotsindicator:4.2")
 }

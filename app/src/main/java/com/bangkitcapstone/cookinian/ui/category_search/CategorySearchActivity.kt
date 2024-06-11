@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.ActivityCategorySearchBinding
@@ -12,6 +13,9 @@ import com.bangkitcapstone.cookinian.helper.capitalizeWords
 import com.bangkitcapstone.cookinian.ui.article.ArticleListAdapter
 import com.bangkitcapstone.cookinian.ui.article.LoadingStateAdapter
 import com.bangkitcapstone.cookinian.ui.recipe_search.RecipeListAdapter
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 
 class CategorySearchActivity : AppCompatActivity() {
     private lateinit var binding : ActivityCategorySearchBinding
@@ -25,11 +29,7 @@ class CategorySearchActivity : AppCompatActivity() {
         binding = ActivityCategorySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val dataCategory = if(intent.hasExtra("category")) {
-            intent.getStringExtra("category")
-        } else {
-            null
-        }
+        val dataCategory = intent.getStringExtra("category")
 
         if(dataCategory == "inspirasi-dapur" || dataCategory == "makanan-gaya-hidup" || dataCategory == "tips-masak") {
             setupArticleListRecyclerView(dataCategory)
@@ -50,6 +50,21 @@ class CategorySearchActivity : AppCompatActivity() {
             }
         )
 
+        lifecycleScope.launch {
+            adapter.loadStateFlow
+                .distinctUntilChanged { old, new ->
+                    old.mediator?.prepend?.endOfPaginationReached == new.mediator?.prepend?.endOfPaginationReached
+                }
+                .filter {
+                    it.refresh is androidx.paging.LoadState.NotLoading
+                            && it.prepend.endOfPaginationReached
+                            && !it.append.endOfPaginationReached
+                }
+                .collect {
+                    binding.rvSearchCategory.scrollToPosition(0)
+                }
+        }
+
         categorySearchViewModel.getRecipes(dataCategory).observe(this) {
             adapter.submitData(lifecycle, it)
         }
@@ -64,6 +79,21 @@ class CategorySearchActivity : AppCompatActivity() {
                 adapter.retry()
             }
         )
+
+        lifecycleScope.launch {
+            adapter.loadStateFlow
+                .distinctUntilChanged { old, new ->
+                    old.mediator?.prepend?.endOfPaginationReached == new.mediator?.prepend?.endOfPaginationReached
+                }
+                .filter {
+                    it.refresh is androidx.paging.LoadState.NotLoading
+                            && it.prepend.endOfPaginationReached
+                            && !it.append.endOfPaginationReached
+                }
+                .collect {
+                    binding.rvSearchCategory.scrollToPosition(0)
+                }
+        }
 
         categorySearchViewModel.getArticles(dataCategory).observe(this) {
             adapter.submitData(lifecycle, it)

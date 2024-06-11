@@ -5,6 +5,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="8dp"
-    android:background="@drawable/background_category"
-    android:textColor="@color/green"
+    android:background="@drawable/selector_article_category"
+    android:textColor="@drawable/selector_text"
     tools:text="Ayam" />

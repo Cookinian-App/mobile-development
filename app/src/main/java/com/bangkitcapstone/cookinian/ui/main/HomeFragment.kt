@@ -16,6 +16,8 @@ import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.FragmentHomeBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 import com.bangkitcapstone.cookinian.ui.recipe_search.RecipeSearchActivity
+import com.google.android.material.tabs.TabLayoutMediator
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
 class HomeFragment : Fragment() {
 
@@ -40,8 +42,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setName()
-        setupCategoryRecyclerView()
         setupRecipeRecyclerView()
+        setupCategoryRecyclerView()
+        setupBanner()
 
         binding.searchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
@@ -62,6 +65,20 @@ class HomeFragment : Fragment() {
         })
 
         binding.tvHomeSeeAllRecipe.setOnClickListener { seeAllRecipe() }
+    }
+
+    private fun setupBanner() {
+        val imageUrls = listOf(
+            "https://www.masakapahariini.com/wp-content/uploads/2021/04/shutterstock_1890524233-510x306.jpg",
+            "https://www.masakapahariini.com/wp-content/uploads/2021/04/shutterstock_1890524233-510x306.jpg",
+            "https://www.masakapahariini.com/wp-content/uploads/2021/04/shutterstock_1890524233-510x306.jpg"
+        )
+
+        val adapter = HomeBannerAdapter(imageUrls)
+        binding.vpHomeBanner.adapter = adapter
+
+        val dotsIndicator: DotsIndicator = binding.dotsHomeBanner
+        dotsIndicator.setViewPager2(binding.vpHomeBanner)
     }
 
     private fun seeAllRecipe() {

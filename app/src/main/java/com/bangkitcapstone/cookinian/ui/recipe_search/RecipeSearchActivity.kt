@@ -7,11 +7,15 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.ActivityRecipeSearchBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 import com.bangkitcapstone.cookinian.ui.article.LoadingStateAdapter
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 
 class RecipeSearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRecipeSearchBinding
@@ -25,11 +29,7 @@ class RecipeSearchActivity : AppCompatActivity() {
         binding = ActivityRecipeSearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val query = if(intent.hasExtra("searchQuery")) {
-            intent.getStringExtra("searchQuery")
-        } else {
-            null
-        }
+        val query = intent.getStringExtra("searchQuery")
 
         setupToolbar()
         setupRecipeListRecyclerView(query)
@@ -63,6 +63,21 @@ class RecipeSearchActivity : AppCompatActivity() {
                 adapter.retry()
             }
         )
+
+        lifecycleScope.launch {
+            adapter.loadStateFlow
+                .distinctUntilChanged { old, new ->
+                    old.mediator?.prepend?.endOfPaginationReached == new.mediator?.prepend?.endOfPaginationReached
+                }
+                .filter {
+                    it.refresh is androidx.paging.LoadState.NotLoading
+                            && it.prepend.endOfPaginationReached
+                            && !it.append.endOfPaginationReached
+                }
+                .collect {
+                    binding.rvSearchRecipe.scrollToPosition(0)
+                }
+        }
 
         recipeSearchViewModel.getRecipesWithPaging(searchQuery).observe(this) {
             adapter.submitData(lifecycle, it)

@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.databinding.FragmentArticleBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 
 class ArticleFragment : Fragment() {
     private var _binding: FragmentArticleBinding? = null
@@ -35,14 +39,17 @@ class ArticleFragment : Fragment() {
         binding.rvArticle.isNestedScrollingEnabled = false
 
         setupCategoryRecyclerView()
-        setupArticleListRecyclerView()
-
     }
 
     private fun setupCategoryRecyclerView() {
         articleViewModel.categories.observe(viewLifecycleOwner) { category ->
-            articleCategoryAdapter = ArticleCategoryAdapter(category)
+            articleCategoryAdapter = ArticleCategoryAdapter(category, articleViewModel.selectedItem) { selectedCategoryKey, selectedPosition ->
+                articleViewModel.currentCategory = selectedCategoryKey
+                articleViewModel.selectedItem = selectedPosition
+                setupArticleListRecyclerView(selectedCategoryKey)
+            }
             binding.rvArticleCategory.adapter = articleCategoryAdapter
+            setupArticleListRecyclerView(articleViewModel.currentCategory)
         }
 
         binding.rvArticleCategory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -58,9 +65,23 @@ class ArticleFragment : Fragment() {
             }
         )
 
+        lifecycleScope.launch {
+            articleAdapter.loadStateFlow
+                .distinctUntilChanged { old, new ->
+                    old.mediator?.prepend?.endOfPaginationReached == new.mediator?.prepend?.endOfPaginationReached
+                }
+                .filter {
+                    it.refresh is androidx.paging.LoadState.NotLoading
+                            && it.prepend.endOfPaginationReached
+                            && !it.append.endOfPaginationReached
+                }
+                .collect {
+                    binding.rvArticle.scrollToPosition(0)
+                }
+        }
 
-        articleViewModel.getArticlesWithPaging(dataCategory).observe(viewLifecycleOwner) {
-            articleAdapter.submitData(lifecycle, it)
+        articleViewModel.getArticleWithPaging(dataCategory).observe(viewLifecycleOwner) { pagingData ->
+            articleAdapter.submitData(lifecycle, pagingData)
         }
     }
 
@@ -68,5 +89,4 @@ class ArticleFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

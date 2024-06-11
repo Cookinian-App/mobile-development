@@ -50,6 +50,9 @@ class RecipeDetailActivity : AppCompatActivity() {
             tvDetailRecipeUser.text = recipe.author.user
             tvDetailRecipeDate.text = recipe.author.datePublished
             tvDetailRecipeTimes.text = recipe.times
+                .replace("jam", " Jam")
+                .replace("mnt", " Mnt")
+                .replace("j", " J")
             tvDetailRecipeDifficulty.text = recipe.difficulty
             tvDetailRecipeDescription.text = recipe.desc
             tvDetailRecipeDescription.post { tvDetailRecipeDescription.toggle() }
