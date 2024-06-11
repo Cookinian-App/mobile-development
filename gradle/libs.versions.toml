@@ -1,5 +1,6 @@
 [versions]
 agp = "8.3.0"
+dotsindicator = "5.0"
 expandabletextviewVersion = "1.0.4"
 fragmentKtx = "1.7.1"
 kotlin = "1.9.0"
@@ -39,6 +40,7 @@ androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:na
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomPaging" }
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomPaging" }
+dotsindicator = { module = "com.tbuonomo:dotsindicator", version.ref = "dotsindicator" }
 github-expandabletextview = { module = "io.github.glailton.expandabletextview:expandabletextview", version.ref = "expandabletextviewVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
