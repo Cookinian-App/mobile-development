@@ -30,6 +30,22 @@ interface ApiService {
         @Field("password") password: String
     ): LoginResponse
 
+    @FormUrlEncoded
+    @POST("change-name")
+    suspend fun editProfile(
+        @Field("email") email: String,
+        @Field("newName") newName: String
+    ): RegisterResponse
+
+    @FormUrlEncoded
+    @POST("change-password")
+    suspend fun changePassword(
+        @Field("email") email: String,
+        @Field("currentPassword") currentPassword: String,
+        @Field("newPassword") newPassword: String,
+        @Field("confirmNewPassword") confirmNewPassword: String
+    ): RegisterResponse
+
     @GET("category/recipes")
     suspend fun getCategory(): CategoryResponse
 

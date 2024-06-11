@@ -17,6 +17,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     suspend fun saveSession(user: UserModel) {
         dataStore.edit { preferences ->
             preferences[NAME] = user.name
+            preferences[AVATAR_URL] = user.avatarUrl
             preferences[EMAIL] = user.email
             preferences[TOKEN] = user.token
             preferences[IS_LOGIN] = true
@@ -27,6 +28,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         return dataStore.data.map { preferences ->
             UserModel(
                preferences[NAME] ?: "",
+                preferences[AVATAR_URL] ?: "",
                 preferences[EMAIL] ?: "",
                 preferences[TOKEN] ?: "",
                 preferences[IS_LOGIN] ?: false
@@ -34,9 +36,16 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
+    suspend fun editSession(newName: String) {
+        dataStore.edit { preferences ->
+            preferences[NAME] = newName
+        }
+    }
+
     suspend fun clearSession() {
         dataStore.edit { preferences ->
             preferences.remove(NAME)
+            preferences.remove(AVATAR_URL)
             preferences.remove(EMAIL)
             preferences.remove(TOKEN)
             preferences.remove(IS_LOGIN)
@@ -60,6 +69,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         private var INSTANCE: UserPreference? = null
 
         private val NAME = stringPreferencesKey("name")
+        private val AVATAR_URL = stringPreferencesKey("avatar_url")
         private val EMAIL = stringPreferencesKey("email")
         private val TOKEN = stringPreferencesKey("token")
         private val IS_LOGIN = booleanPreferencesKey("isLogin")

@@ -20,6 +20,9 @@ data class LoginResult(
     @field:SerializedName("name")
     val name: String,
 
+    @field:SerializedName("avatarUrl")
+    val avatarUrl: String,
+
     @field:SerializedName("token")
     val token: String
 )

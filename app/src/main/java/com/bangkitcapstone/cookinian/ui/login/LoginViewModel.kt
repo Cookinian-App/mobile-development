@@ -26,6 +26,7 @@ class LoginViewModel(private val repository: Repository) : ViewModel() {
                     repository.saveSession(
                         UserModel(
                             name = response.loginResult.name,
+                            avatarUrl = response.loginResult.avatarUrl,
                             email = email,
                             token = response.loginResult.token
                         )

@@ -17,6 +17,7 @@ import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 import com.bangkitcapstone.cookinian.ui.login.LoginActivity
 import com.bangkitcapstone.cookinian.ui.profile_edit.ProfileEditActivity
 import com.bangkitcapstone.cookinian.ui.profile_edit_pass.ProfileEditPassActivity
+import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ProfileFragment : Fragment() {
@@ -80,6 +81,9 @@ class ProfileFragment : Fragment() {
         profileViewModel.getSession().observe(viewLifecycleOwner) { user ->
             binding.tvProfileName.text = user.name
             binding.tvProfileEmail.text = user.email
+            Glide.with(requireContext())
+                .load(user.avatarUrl)
+                .into(binding.ivProfilePicture)
         }
     }
 

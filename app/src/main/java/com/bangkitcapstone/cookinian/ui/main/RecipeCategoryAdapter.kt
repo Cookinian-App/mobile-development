@@ -8,8 +8,9 @@ import com.bangkitcapstone.cookinian.data.api.response.CategoryItem
 import com.bangkitcapstone.cookinian.databinding.ItemRecipeCategoryBinding
 import com.bangkitcapstone.cookinian.helper.capitalizeWords
 import com.bangkitcapstone.cookinian.ui.category_search.CategorySearchActivity
+import com.bumptech.glide.Glide
 
-class RecipeCategoryAdapter(private val recipeList: List<CategoryItem>) :
+class RecipeCategoryAdapter(private val recipeCategory: List<CategoryItem>) :
     RecyclerView.Adapter<RecipeCategoryAdapter.RecipeViewHolder>() {
 
     inner class RecipeViewHolder(val binding: ItemRecipeCategoryBinding) :
@@ -22,8 +23,9 @@ class RecipeCategoryAdapter(private val recipeList: List<CategoryItem>) :
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        val category = recipeList[position]
+        val category = recipeCategory[position]
         holder.binding.tvItemRecipeCategoryName.text = capitalizeWords(category.category)
+        Glide.with(holder.itemView.context).load(category.thumb).into(holder.binding.ivItemRecipeCategoryImage)
 
         holder.itemView.setOnClickListener {
             val intent = Intent(it.context, CategorySearchActivity::class.java).apply {
@@ -33,5 +35,5 @@ class RecipeCategoryAdapter(private val recipeList: List<CategoryItem>) :
         }
     }
 
-    override fun getItemCount(): Int = recipeList.size
+    override fun getItemCount(): Int = recipeCategory.size
 }

@@ -23,9 +23,12 @@ class Repository private constructor(
 
     fun getSession(): Flow<UserModel> = userPreference.getSession()
     suspend fun saveSession(user: UserModel) = userPreference.saveSession(user)
+    suspend fun editSession(newName: String) = userPreference.editSession(newName)
     suspend fun clearSession() = userPreference.clearSession()
     suspend fun register(name: String, email: String, password: String) = authApiService.register(name, email, password)
     suspend fun login(email: String, password: String) = authApiService.login(email, password)
+    suspend fun editProfile(email: String, newName: String) = authApiService.editProfile(email, newName)
+    suspend fun changePassword(email: String, currentPassword: String, newPassword: String, confirmNewPassword: String) = authApiService.changePassword(email, currentPassword, newPassword, confirmNewPassword)
 
     // Recipe API
     suspend fun getCategory() = recipeApiService.getCategory()

@@ -23,5 +23,8 @@ data class CategoryItem(
 	val url: String,
 
 	@field:SerializedName("key")
-	val key: String
+	val key: String,
+
+	@field:SerializedName("thumb")
+	val thumb: String
 )
