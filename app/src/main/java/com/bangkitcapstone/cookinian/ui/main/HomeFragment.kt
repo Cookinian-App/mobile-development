@@ -3,6 +3,8 @@ package com.bangkitcapstone.cookinian.ui.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +32,9 @@ class HomeFragment : Fragment() {
     private lateinit var recipeAdapter: RecipeAdapter
     private lateinit var recipeCategoryAdapter: RecipeCategoryAdapter
 
+    private lateinit var autoSlideHandler: Handler
+    private lateinit var autoSlideRunnable: Runnable
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +50,7 @@ class HomeFragment : Fragment() {
         setupRecipeRecyclerView()
         setupCategoryRecyclerView()
         setupBanner()
+        setupAutoSlide()
 
         binding.searchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
@@ -76,9 +82,22 @@ class HomeFragment : Fragment() {
 
         val adapter = HomeBannerAdapter(imageUrls)
         binding.vpHomeBanner.adapter = adapter
+        binding.dotsHomeBanner.attachTo(binding.vpHomeBanner)
+    }
 
-        val dotsIndicator: DotsIndicator = binding.dotsHomeBanner
-        dotsIndicator.setViewPager2(binding.vpHomeBanner)
+    private fun setupAutoSlide() {
+        autoSlideHandler = Handler(Looper.getMainLooper())
+        autoSlideRunnable = object : Runnable {
+            override fun run() {
+                val itemCount = binding.vpHomeBanner.adapter?.itemCount ?: 0
+                if (itemCount > 1) {
+                    val nextItem = (binding.vpHomeBanner.currentItem + 1) % itemCount
+                    binding.vpHomeBanner.setCurrentItem(nextItem, true)
+                    autoSlideHandler.postDelayed(this, 5000)
+                }
+            }
+        }
+        autoSlideHandler.postDelayed(autoSlideRunnable, 5000)
     }
 
     private fun seeAllRecipe() {
@@ -117,7 +136,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        autoSlideHandler.removeCallbacks(autoSlideRunnable)
         _binding = null
     }
-
 }

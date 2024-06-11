@@ -11,23 +11,21 @@ import com.bangkitcapstone.cookinian.databinding.ItemRecipeListBinding
 import com.bangkitcapstone.cookinian.ui.recipe_detail.RecipeDetailActivity
 import com.bumptech.glide.Glide
 
-class RecipeListAdapter : PagingDataAdapter<RecipeItem, RecipeListAdapter.RecipeListViewHolder>(
-    DIFF_CALLBACK
-) {
+class RecipeListAdapter : PagingDataAdapter<RecipeItem, RecipeListAdapter.ViewHolder>(DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemRecipeListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RecipeListViewHolder(binding)
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: RecipeListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val recipe = getItem(position)
         if (recipe != null) {
             holder.bind(recipe)
         }
     }
 
-    class RecipeListViewHolder(private val binding: ItemRecipeListBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemRecipeListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(recipe: RecipeItem) {
             binding.tvItemRecipeListName.text = recipe.title
             binding.tvItemRecipeListTime.text = recipe.times

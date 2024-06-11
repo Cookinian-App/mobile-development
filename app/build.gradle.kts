@@ -100,5 +100,5 @@ dependencies {
 
     implementation (libs.github.expandabletextview)
 
-    implementation ("com.tbuonomo:dotsindicator:4.2")
+    implementation(libs.dotsindicator)
 }

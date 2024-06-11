@@ -11,22 +11,22 @@ import com.bangkitcapstone.cookinian.databinding.ItemArticleBinding
 import com.bangkitcapstone.cookinian.ui.article_detail.ArticleDetailActivity
 import com.bumptech.glide.Glide
 
-class ArticleListAdapter : PagingDataAdapter<ArticleItem, ArticleListAdapter.ArticleListViewHolder>(DIFF_CALLBACK) {
+class ArticleListAdapter : PagingDataAdapter<ArticleItem, ArticleListAdapter.ViewHolder>(DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemArticleBinding.inflate(inflater, parent, false)
-        return ArticleListViewHolder(binding)
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ArticleListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = getItem(position)
         if (article != null) {
             holder.bind(article)
         }
     }
 
-    class ArticleListViewHolder(private val binding: ItemArticleBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemArticleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(article: ArticleItem) {
             binding.tvItemArticleName.text = article.title
             Glide.with(binding.root.context).load(article.thumb).into(binding.ivItemArticleImage)

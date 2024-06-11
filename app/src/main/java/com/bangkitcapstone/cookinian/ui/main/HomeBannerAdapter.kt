@@ -7,23 +7,26 @@ import com.bangkitcapstone.cookinian.databinding.ItemHomeBannerBinding
 import com.bumptech.glide.Glide
 
 class HomeBannerAdapter(private val imageUrls: List<String>) :
-    RecyclerView.Adapter<HomeBannerAdapter.ImageViewHolder>() {
+    RecyclerView.Adapter<HomeBannerAdapter.ViewHolder>() {
 
-    inner class ImageViewHolder(val binding: ItemHomeBannerBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(private val binding: ItemHomeBannerBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(imageUrl: String) {
+            Glide.with(binding.ivItemHomeBanner.context)
+                .load(imageUrl)
+                .into(binding.ivItemHomeBanner)
+        }
+    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemHomeBannerBinding.inflate(inflater, parent, false)
-        return ImageViewHolder(binding)
+        return ViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(imageUrls[position])
     }
 
     override fun getItemCount(): Int = imageUrls.size
-
-    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        val imageUrl = imageUrls[position]
-        Glide.with(holder.binding.ivItemHomeBanner.context)
-            .load(imageUrl)
-            .into(holder.binding.ivItemHomeBanner)
-    }
 }
