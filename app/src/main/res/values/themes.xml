@@ -1,11 +1,13 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Cookinian" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/green</item>
         <item name="colorOnPrimary">@color/white</item>
 
-        <!--        <item name="colorSurfaceContainerHigh">@color/white_bg</item>-->
+        <item name="colorPrimaryContainer">@color/green</item>
+        <item name="colorOnPrimaryContainer">@color/white_bg</item>
+
+        <item name="colorSurfaceContainerHigh">@color/green_sec</item>
         <item name="colorSurfaceContainer">@color/white</item>
 
         <item name="android:fontFamily">@font/satoshi_regular</item>
@@ -25,6 +27,33 @@
         <item name="materialAlertDialogTheme">@style/AlertDialogCustom</item>
         <item name="materialCardViewStyle">@style/CardViewCustom</item>
         <item name="materialDividerStyle">@style/DividerCustom</item>
+        <item name="toolbarStyle">@style/ToolbarCustom</item>
+        <item name="floatingActionButtonStyle">@style/FabCustom</item>
+    </style>
+
+    <style name="FabCustom" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="shapeAppearanceOverlay">@style/FabShapeCustom</item>
+        <item name="fabCustomSize">50dp</item>
+    </style>
+
+    <style name="FabShapeCustom">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">100%</item>
+    </style>
+
+    <style name="ToolbarCustom" parent="Widget.Material3.Toolbar">
+        <item name="titleTextAppearance">@style/TitleLargeCustom</item>
+        <item name="subtitleTextAppearance">@style/TitleMediumCustom</item>
+    </style>
+
+    <style name="TitleLargeCustom" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">@font/satoshi_bold</item>
+        <item name="android:fontFamily">@font/satoshi_bold</item>
+    </style>
+
+    <style name="TitleMediumCustom" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">@font/satoshi_bold</item>
+        <item name="android:fontFamily">@font/satoshi_bold</item>
     </style>
 
     <style name="SearchViewCustom">
@@ -96,6 +125,26 @@
     <style name="RoundedImageViewSmall">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">14dp</item>
+    </style>
+
+    <style name="FontLight">
+        <item name="android:fontFamily">@font/satoshi_light</item>
+    </style>
+
+    <style name="FontRegular">
+        <item name="android:fontFamily">@font/satoshi_regular</item>
+    </style>
+
+    <style name="FontMedium">
+        <item name="android:fontFamily">@font/satoshi_medium</item>
+    </style>
+
+    <style name="FontBold">
+        <item name="android:fontFamily">@font/satoshi_bold</item>
+    </style>
+
+    <style name="FontBlack">
+        <item name="android:fontFamily">@font/satoshi_black</item>
     </style>
 
     <style name="Theme.Cookinian" parent="Base.Theme.Cookinian" />

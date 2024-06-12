@@ -7,4 +7,12 @@
     <color name="green_sec">#DCEDE2</color>
     <color name="gray">#E3E5E5</color>
     <color name="dark_gray">#9A98A1</color>
+
+    <color name="black_dm">#141924</color>
+    <color name="black_sec_dm">#1F242F</color>
+
+    <color name="white_dm">#F2F4F3</color>
+
+    <color name="gray_dm">#EEEFEF</color>
+    <color name="gray_sec_dm">#75777A</color>
 </resources>

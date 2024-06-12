@@ -1,7 +1,150 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.Cookinian" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorOnPrimary">@color/white_dm</item>
+
+        <item name="colorPrimaryContainer">@color/green</item>
+        <item name="colorOnPrimaryContainer">@color/black_sec_dm</item>
+
+        <item name="colorSurfaceContainerHigh">@color/black_sec_dm</item>
+        <item name="colorSurfaceContainer">@color/black_dm</item>
+
+        <item name="android:textColorPrimary">@color/white_dm</item>
+
+        <item name="android:fontFamily">@font/satoshi_regular</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0dp</item>
+
+        <item name="android:statusBarColor">@color/black_dm</item>
+<!--        <item name="android:windowLightStatusBar">true</item>-->
+        <item name="android:windowBackground">@color/black_dm</item>
+        <item name="android:navigationBarColor">@color/black_dm</item>
+
+        <item name="android:textColor">@color/white_dm</item>
+
+        <!--Custom Component Style-->
+        <item name="bottomNavigationStyle">@style/BottomNavigationCustom</item>
+        <item name="circularProgressIndicatorStyle">@style/CircularProgressIndicatorCustom</item>
+        <item name="materialAlertDialogTheme">@style/AlertDialogCustom</item>
+        <item name="materialCardViewStyle">@style/CardViewCustom</item>
+        <item name="materialDividerStyle">@style/DividerCustom</item>
+        <item name="toolbarStyle">@style/ToolbarCustom</item>
+        <item name="floatingActionButtonStyle">@style/FabCustom</item>
+    </style>
+
+    <style name="FabCustom" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="shapeAppearanceOverlay">@style/FabShapeCustom</item>
+        <item name="fabCustomSize">50dp</item>
+    </style>
+
+    <style name="FabShapeCustom">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">100%</item>
+    </style>
+
+    <style name="ToolbarCustom" parent="Widget.Material3.Toolbar">
+        <item name="titleTextAppearance">@style/TitleLargeCustom</item>
+        <item name="subtitleTextAppearance">@style/TitleMediumCustom</item>
+    </style>
+
+    <style name="TitleLargeCustom" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">@font/satoshi_bold</item>
+        <item name="android:fontFamily">@font/satoshi_bold</item>
+    </style>
+
+    <style name="TitleMediumCustom" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">@font/satoshi_bold</item>
+        <item name="android:fontFamily">@font/satoshi_bold</item>
+    </style>
+
+    <style name="SearchViewCustom">
+        <item name="android:background">@drawable/background_search</item>
+        <item name="colorControlActivated">@color/green</item>
+        <item name="android:textColorHint">@color/dark_gray</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="DividerCustom" parent="Widget.MaterialComponents.MaterialDivider">
+        <item name="dividerColor">@color/gray</item>
+    </style>
+
+    <style name="CardViewCustom" parent="">
+        <item name="shapeAppearance">@style/CardViewCornerCustom</item>
+    </style>
+
+    <style name="CardViewCornerCustom" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="ActiveBottomNavigationCustom" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@android:color/transparent</item>
+    </style>
+
+    <style name="BottomNavigationCustom" parent="Widget.Material3.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/BottomNavigationColor</item>
+    </style>
+
+    <style name="BottomNavigationColor" parent="">
+        <item name="colorSurfaceContainer">@color/black_dm</item>
+        <item name="colorOnSurfaceVariant">@color/white_dm</item>
+        <item name="colorOnSurface">@color/green</item>
+        <item name="colorOnSecondaryContainer">@color/green</item>
+    </style>
+
+    <style name="CircularProgressIndicatorCustom" parent="Widget.Material3.CircularProgressIndicator">
+        <item name="trackCornerRadius">8dp</item>
+        <item name="android:indeterminate">true</item>
+    </style>
+
+    <style name="AlertDialogCustom" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="android:backgroundTint">@color/black_sec_dm</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/AlertDialogTextCustom</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/AlertDialogTitleCustom</item>
+        <item name="shapeAppearanceOverlay">@style/AlertDialogShape</item>
+    </style>
+
+    <style name="AlertDialogTextCustom" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textColor">@color/gray_sec_dm</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="AlertDialogTitleCustom" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:fontFamily">@font/satoshi_medium</item>
+    </style>
+
+    <style name="AlertDialogShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="RoundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="RoundedImageViewSmall">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">14dp</item>
+    </style>
+
+    <style name="FontLight">
+        <item name="android:fontFamily">@font/satoshi_light</item>
+    </style>
+
+    <style name="FontRegular">
+        <item name="android:fontFamily">@font/satoshi_regular</item>
+    </style>
+
+    <style name="FontMedium">
+        <item name="android:fontFamily">@font/satoshi_medium</item>
+    </style>
+
+    <style name="FontBold">
+        <item name="android:fontFamily">@font/satoshi_bold</item>
+    </style>
+
+    <style name="FontBlack">
+        <item name="android:fontFamily">@font/satoshi_black</item>
     </style>
 </resources>

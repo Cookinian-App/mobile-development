@@ -28,13 +28,13 @@
 
             <TextView
                 android:id="@+id/tv_home_message"
+                style="@style/FontBold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="64dp"
                 android:text="Mau masak apa hari ini?"
                 android:textSize="24sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/iv_home_profile"
                 app:layout_constraintStart_toStartOf="@+id/tv_home_username"
                 app:layout_constraintTop_toBottomOf="@+id/tv_home_username" />
@@ -109,24 +109,24 @@
 
                 <TextView
                     android:id="@+id/tv_home_recipe"
+                    style="@style/FontBold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Resep"
                     android:textSize="20sp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_home_see_all_recipe"
+                    style="@style/FontMedium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:text="Lihat Semua"
                     android:textColor="@color/green"
                     android:textSize="14sp"
-                    android:textStyle="bold"
                     app:layout_constraintBaseline_toBaselineOf="@id/tv_home_recipe"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -164,12 +164,12 @@
 
                 <TextView
                     android:id="@+id/tv_home_article"
+                    style="@style/FontBold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Kategori"
                     android:textSize="20sp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

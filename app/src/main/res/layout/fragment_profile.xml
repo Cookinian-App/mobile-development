@@ -9,12 +9,12 @@
         android:paddingHorizontal="16dp">
 
         <TextView
+            style="@style/FontBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Profil"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="24sp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id='@+id/iv_profile_picture'
@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:text="User"
-            android:textStyle="bold" />
+            style="@style/FontMedium"
+            android:text="User" />
 
         <TextView
             android:id="@+id/tv_profile_email"

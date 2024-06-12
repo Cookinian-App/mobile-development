@@ -43,13 +43,13 @@
 
             <TextView
                 android:id="@+id/tv_detail_recipe_title"
+                style="@style/FontBold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:textSize="20sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_detail_recipe_image"
@@ -78,142 +78,143 @@
                 app:layout_constraintStart_toEndOf="@+id/tv_detail_recipe_user"
                 tools:text="Mei 27, 2024" />
 
-            <LinearLayout
-                android:id="@+id/ll_detail_info_times"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_detail_info"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toStartOf="@+id/ll_detail_info_difficulty"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="spread"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/background_section"
+                android:paddingVertical="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_detail_recipe_user">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/ll_detail_info_times"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Waktu"
-                    android:textSize="12sp" />
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/ll_detail_info_difficulty"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_clock"
+                        app:tint="@color/green" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_recipe_times"
+                        style="@style/FontMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/green"
+                        android:textSize="12sp"
+                        tools:text="1 jam" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_detail_info_difficulty"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginVertical="4dp"
-                    android:background="@drawable/background_icon"
-                    android:src="@drawable/ic_clock"
-                    app:tint="@color/green" />
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@+id/ll_detail_info_times"
+                    app:layout_constraintEnd_toStartOf="@+id/ll_detail_info_serving"
+                    app:layout_constraintStart_toEndOf="@+id/ll_detail_info_times"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/tv_detail_recipe_times"
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_flame"
+                        app:tint="@color/green" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_recipe_difficulty"
+                        style="@style/FontMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/green"
+                        android:textSize="12sp"
+                        tools:text="Mudah" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_detail_info_serving"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    tools:text="1 jam" />
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@+id/ll_detail_info_difficulty"
+                    app:layout_constraintEnd_toStartOf="@+id/ll_detail_info_calories"
+                    app:layout_constraintStart_toEndOf="@+id/ll_detail_info_difficulty"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_bowl"
+                        app:tint="@color/green" />
 
-            <LinearLayout
-                android:id="@+id/ll_detail_info_calories"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@+id/ll_detail_info_serving"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ll_detail_info_serving"
-                app:layout_constraintTop_toTopOf="@+id/ll_detail_info_serving">
+                    <TextView
+                        android:id="@+id/tv_detail_recipe_serving"
+                        style="@style/FontMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/green"
+                        android:textSize="12sp"
+                        tools:text="1 orang" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_detail_info_calories"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Kalori"
-                    android:textSize="12sp" />
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@+id/ll_detail_info_serving"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ll_detail_info_serving"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginVertical="4dp"
-                    android:background="@drawable/background_icon"
-                    android:src="@drawable/ic_calories"
-                    app:tint="@color/green" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_calories"
+                        app:tint="@color/green" />
 
-                <TextView
-                    android:id="@+id/tv_detail_recipe_calories"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="1200 kkal" />
+                    <TextView
+                        android:id="@+id/tv_detail_recipe_calories"
+                        style="@style/FontMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/green"
+                        android:textSize="12sp"
+                        tools:text="1200 kkal" />
 
-            </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_detail_info_serving"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@+id/ll_detail_info_difficulty"
-                app:layout_constraintEnd_toStartOf="@+id/ll_detail_info_calories"
-                app:layout_constraintStart_toEndOf="@+id/ll_detail_info_difficulty"
-                app:layout_constraintTop_toTopOf="@+id/ll_detail_info_difficulty">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Porsi"
-                    android:textSize="12sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginVertical="4dp"
-                    android:background="@drawable/background_icon"
-                    android:src="@drawable/ic_bowl"
-                    app:tint="@color/green" />
-
-                <TextView
-                    android:id="@+id/tv_detail_recipe_serving"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="1 orang" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_detail_info_difficulty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toStartOf="@+id/ll_detail_info_serving"
-                app:layout_constraintStart_toEndOf="@+id/ll_detail_info_times"
-                app:layout_constraintTop_toTopOf="@+id/ll_detail_info_times">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Level"
-                    android:textSize="12sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginVertical="4dp"
-                    android:background="@drawable/background_icon"
-                    android:src="@drawable/ic_flame"
-                    app:tint="@color/green" />
-
-                <TextView
-                    android:id="@+id/tv_detail_recipe_difficulty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Mudah" />
-
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <io.github.glailton.expandabletextview.ExpandableTextView
                 android:id="@+id/tv_detail_recipe_description"
@@ -222,6 +223,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
+                android:textSize="16sp"
                 app:animDuration="500"
                 app:collapsedLines="4"
                 app:ellipsizeTextColor="@color/green"
@@ -230,7 +232,7 @@
                 app:isUnderlined="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_detail_info_times"
+                app:layout_constraintTop_toBottomOf="@+id/cl_detail_info"
                 app:readLessText="Sembunyikan"
                 app:readMoreText="Selengkapnya"
                 app:textMode="line"
@@ -238,14 +240,14 @@
 
             <TextView
                 android:id="@+id/tv_detail_info_ingredient"
+                style="@style/FontMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:text="Bahan"
                 android:textSize="20sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_detail_recipe_description" />
@@ -262,14 +264,14 @@
 
             <TextView
                 android:id="@+id/tv_detail_info_step"
+                style="@style/FontMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:text="Langkah"
                 android:textSize="20sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_detail_recipe_ingredient" />

@@ -25,6 +25,7 @@
 
         <TextView
             android:id="@+id/tv_item_article_category_name"
+            style="@style/FontBold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -34,7 +35,6 @@
             android:maxLines="2"
             android:textColor="@color/green"
             android:textSize="16sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
