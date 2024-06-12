@@ -74,13 +74,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupBanner() {
-        val imageUrls = listOf(
-            "https://www.masakapahariini.com/wp-content/uploads/2021/04/shutterstock_1890524233-510x306.jpg",
-            "https://www.masakapahariini.com/wp-content/uploads/2021/04/shutterstock_1890524233-510x306.jpg",
-            "https://www.masakapahariini.com/wp-content/uploads/2021/04/shutterstock_1890524233-510x306.jpg"
+        val imageResIds = listOf(
+            R.drawable.banner1,
+            R.drawable.banner2,
+            R.drawable.banner3
         )
-
-        val adapter = HomeBannerAdapter(imageUrls)
+        val adapter = HomeBannerAdapter(imageResIds)
         binding.vpHomeBanner.adapter = adapter
         binding.dotsHomeBanner.attachTo(binding.vpHomeBanner)
     }
@@ -110,6 +109,7 @@ class HomeFragment : Fragment() {
             binding.rvHomeRecipe.adapter = recipeAdapter
         }
 
+        binding.rvHomeRecipe.setHasFixedSize(true)
         binding.rvHomeRecipe.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
@@ -119,6 +119,7 @@ class HomeFragment : Fragment() {
             binding.rvHomeCategory.adapter = recipeCategoryAdapter
         }
 
+        binding.rvHomeCategory.setHasFixedSize(true)
         binding.rvHomeCategory.layoutManager = GridLayoutManager(requireContext(), 2)
     }
 

@@ -6,15 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bangkitcapstone.cookinian.databinding.ItemHomeBannerBinding
 import com.bumptech.glide.Glide
 
-class HomeBannerAdapter(private val imageUrls: List<String>) :
+class HomeBannerAdapter(private val imageResId: List<Int>) :
     RecyclerView.Adapter<HomeBannerAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemHomeBannerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(imageUrl: String) {
-            Glide.with(binding.ivItemHomeBanner.context)
-                .load(imageUrl)
-                .into(binding.ivItemHomeBanner)
+        fun bind(imageResId: Int) {
+            binding.ivItemHomeBanner.setImageResource(imageResId)
         }
     }
 
@@ -25,8 +23,8 @@ class HomeBannerAdapter(private val imageUrls: List<String>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(imageUrls[position])
+        holder.bind(imageResId[position])
     }
 
-    override fun getItemCount(): Int = imageUrls.size
+    override fun getItemCount(): Int = imageResId.size
 }

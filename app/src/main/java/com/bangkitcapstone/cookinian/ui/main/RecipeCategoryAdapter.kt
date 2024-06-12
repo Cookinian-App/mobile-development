@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkitcapstone.cookinian.data.api.response.CategoryItem
 import com.bangkitcapstone.cookinian.databinding.ItemRecipeCategoryBinding
+import com.bangkitcapstone.cookinian.helper.capitalizeWords
 import com.bangkitcapstone.cookinian.ui.category_search.CategorySearchActivity
 import com.bumptech.glide.Glide
 
@@ -15,7 +16,7 @@ class RecipeCategoryAdapter(private val recipeCategory: List<CategoryItem>) :
     inner class ViewHolder(private val binding: ItemRecipeCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(category: CategoryItem) {
-            binding.tvItemRecipeCategoryName.text = category.category
+            binding.tvItemRecipeCategoryName.text = capitalizeWords(category.category)
             Glide.with(binding.root.context)
                 .load(category.thumb)
                 .into(binding.ivItemRecipeCategoryImage)
