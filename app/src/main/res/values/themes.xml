@@ -1,14 +1,13 @@
 <resources>
-    <!-- Base application theme. -->
     <style name="Base.Theme.Cookinian" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/green</item>
         <item name="colorOnPrimary">@color/white</item>
 
-        <item name="colorPrimaryContainer">@color/green</item>
-        <item name="colorOnPrimaryContainer">@color/white_bg</item>
+        <item name="colorPrimaryContainer">@color/black</item>
+        <item name="colorOnPrimaryContainer">@color/white_sec</item> //search view
 
-        <item name="colorSurfaceContainerHigh">@color/green_sec</item>
-        <item name="colorSurfaceContainer">@color/white</item>
+        <item name="colorSurfaceContainerHigh">@color/green_sec</item> //menu bg
+        <item name="colorSurfaceContainer">@color/white</item> //latar collapsing toolbar
 
         <item name="android:fontFamily">@font/satoshi_regular</item>
         <item name="android:includeFontPadding">false</item>
@@ -64,7 +63,7 @@
     </style>
 
     <style name="DividerCustom" parent="Widget.MaterialComponents.MaterialDivider">
-        <item name="dividerColor">@color/gray</item>
+        <item name="dividerColor">@color/white_sec</item>
     </style>
 
     <style name="CardViewCustom" parent="">

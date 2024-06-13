@@ -1,9 +1,9 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <style name="Base.Theme.Cookinian" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/green</item>
         <item name="colorOnPrimary">@color/white_dm</item>
 
-        <item name="colorPrimaryContainer">@color/green</item>
+        <item name="colorPrimaryContainer">@color/white_dm</item>
         <item name="colorOnPrimaryContainer">@color/black_sec_dm</item>
 
         <item name="colorSurfaceContainerHigh">@color/black_sec_dm</item>
@@ -16,7 +16,6 @@
         <item name="android:lineSpacingExtra">0dp</item>
 
         <item name="android:statusBarColor">@color/black_dm</item>
-<!--        <item name="android:windowLightStatusBar">true</item>-->
         <item name="android:windowBackground">@color/black_dm</item>
         <item name="android:navigationBarColor">@color/black_dm</item>
 
@@ -65,7 +64,7 @@
     </style>
 
     <style name="DividerCustom" parent="Widget.MaterialComponents.MaterialDivider">
-        <item name="dividerColor">@color/gray</item>
+        <item name="dividerColor">@color/black_sec_dm</item>
     </style>
 
     <style name="CardViewCustom" parent="">
@@ -105,7 +104,7 @@
     </style>
 
     <style name="AlertDialogTextCustom" parent="MaterialAlertDialog.Material3.Body.Text">
-        <item name="android:textColor">@color/gray_sec_dm</item>
+        <item name="android:textColor">@color/gray_dm</item>
         <item name="android:textSize">16sp</item>
     </style>
 

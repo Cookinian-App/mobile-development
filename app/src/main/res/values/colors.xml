@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="white_bg">#ECEEF1</color>
+    <color name="white_sec">#ECEEF1</color>
     <color name="green">#0C9A61</color>
     <color name="green_sec">#DCEDE2</color>
     <color name="gray">#E3E5E5</color>
@@ -13,6 +13,6 @@
 
     <color name="white_dm">#F2F4F3</color>
 
-    <color name="gray_dm">#EEEFEF</color>
-    <color name="gray_sec_dm">#75777A</color>
+    <color name="gray_dm">#75777A</color>
+    <color name="gray_dm_sec">#EEEFEF</color>
 </resources>
