@@ -20,7 +20,7 @@ class Repository private constructor(
     private val userPreference: UserPreference,
     private val database: CookinianDatabase,
 ){
-
+    // API Auth
     fun getSession(): Flow<UserModel> = userPreference.getSession()
     suspend fun saveSession(user: UserModel) = userPreference.saveSession(user)
     suspend fun editSession(newName: String) = userPreference.editSession(newName)
@@ -34,7 +34,6 @@ class Repository private constructor(
     suspend fun getCategory() = recipeApiService.getCategory()
     suspend fun getRecipes() = recipeApiService.getRecipes()
     suspend fun getDetailRecipe(key: String) = recipeApiService.getDetailRecipe(key)
-
     @OptIn(ExperimentalPagingApi::class)
     fun getRecipesWithPaging(searchQuery: String? = null, category: String? = null): LiveData<PagingData<RecipeItem>> {
         return Pager(
@@ -52,6 +51,8 @@ class Repository private constructor(
             }
         ).liveData
     }
+    suspend fun getSavedRecipe(userId: String) = authApiService.getSavedRecipe(userId)
+    suspend fun saveRecipe(userId: String, key: String, title: String, thumb: String, times: String, difficulty: String) = authApiService.saveRecipe(userId, key, title, thumb, times, difficulty)
 
     // Article API
     suspend fun getArticleCategory() = recipeApiService.getArticleCategory()
@@ -71,9 +72,7 @@ class Repository private constructor(
             }
         ).liveData
     }
-
     suspend fun getArticleDetail(tag: String, key: String) = recipeApiService.getArticleDetail(tag, key)
-
 
     suspend fun saveThemeMode(themeMode: String) {
         userPreference.saveThemeMode(themeMode)

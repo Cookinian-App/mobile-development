@@ -7,6 +7,7 @@ import com.bangkitcapstone.cookinian.data.api.response.LoginResponse
 import com.bangkitcapstone.cookinian.data.api.response.RecipeDetailResponse
 import com.bangkitcapstone.cookinian.data.api.response.RecipeResponse
 import com.bangkitcapstone.cookinian.data.api.response.RegisterResponse
+import com.bangkitcapstone.cookinian.data.api.response.SavedRecipeResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -63,6 +64,22 @@ interface ApiService {
     suspend fun getDetailRecipe(
         @Path("key") key: String
     ): RecipeDetailResponse
+
+    @GET("api/save/get/{uid}")
+    suspend fun getSavedRecipe(
+        @Path("uid") userId: String
+    ): SavedRecipeResponse
+
+    @FormUrlEncoded
+    @POST("api/save/post")
+    suspend fun saveRecipe(
+        @Field("uid") userId: String,
+        @Field("key") key: String,
+        @Field("title") title: String,
+        @Field("thumb") thumb: String,
+        @Field("times") times: String,
+        @Field("difficulty") difficulty: String
+    ): RegisterResponse
 
     @GET("category/article")
     suspend fun getArticleCategory(): CategoryResponse

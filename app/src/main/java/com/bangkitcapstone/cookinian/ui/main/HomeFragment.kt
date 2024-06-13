@@ -9,17 +9,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
+import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.databinding.FragmentHomeBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 import com.bangkitcapstone.cookinian.ui.recipe_search.RecipeSearchActivity
-import com.google.android.material.tabs.TabLayoutMediator
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+import com.bumptech.glide.Glide
 
 class HomeFragment : Fragment() {
 
@@ -46,7 +47,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setName()
+        setProfile()
         setupRecipeRecyclerView()
         setupCategoryRecyclerView()
         setupBanner()
@@ -123,9 +124,12 @@ class HomeFragment : Fragment() {
         binding.rvHomeCategory.layoutManager = GridLayoutManager(requireContext(), 2)
     }
 
-    private fun setName() {
+    private fun setProfile() {
         mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
             binding.tvHomeUsername.text = getString(R.string.greeting, user.name)
+            Glide.with(requireContext())
+                .load(user.avatarUrl)
+                .into(binding.ivHomeProfile)
         }
     }
 
