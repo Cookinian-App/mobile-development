@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide
 
 class RecipeListAdapter : PagingDataAdapter<RecipeItem, RecipeListAdapter.ViewHolder>(DIFF_CALLBACK) {
 
+    var onItemClick: ((RecipeItem) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemRecipeListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
@@ -25,7 +27,7 @@ class RecipeListAdapter : PagingDataAdapter<RecipeItem, RecipeListAdapter.ViewHo
         }
     }
 
-    class ViewHolder(private val binding: ItemRecipeListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemRecipeListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(recipe: RecipeItem) {
             binding.tvItemRecipeListName.text = recipe.title
             binding.tvItemRecipeListTime.text = recipe.times
@@ -44,6 +46,10 @@ class RecipeListAdapter : PagingDataAdapter<RecipeItem, RecipeListAdapter.ViewHo
                     putExtra("calories", recipe.calories)
                 }
                 context.startActivity(intent)
+            }
+
+            binding.ivIconBookmark.setOnClickListener {
+                onItemClick?.invoke(recipe)
             }
         }
 

@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide
 
 class RecipeAdapter(private val recipeList: List<RecipeItem>) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
 
+    var onItemClick: ((RecipeItem) -> Unit)? = null
+
     inner class ViewHolder(private val binding: ItemRecipeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(recipe: RecipeItem) {
@@ -35,7 +37,10 @@ class RecipeAdapter(private val recipeList: List<RecipeItem>) : RecyclerView.Ada
                 it.context.startActivity(intent)
             }
 
-
+            binding.ivIconBookmark.setOnClickListener {
+                onItemClick?.invoke(recipe)
+                binding.ivIconBookmark.setImageResource(R.drawable.ic_bookmark_filled)
+            }
         }
     }
 

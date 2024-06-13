@@ -23,8 +23,8 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     private val _recipes = MutableLiveData<List<RecipeItem>>()
     val recipes : LiveData<List<RecipeItem>> = _recipes
 
-    private val _savedRecipe = MutableLiveData<Result<RegisterResponse>>()
-    val savedRecipe : LiveData<Result<RegisterResponse>> = _savedRecipe
+    private val _savedRecipe = MutableLiveData<Event<Result<RegisterResponse>>>()
+    val savedRecipe : LiveData<Event<Result<RegisterResponse>>> = _savedRecipe
 
     init {
         getCategories()
@@ -50,7 +50,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun savedRecipe(userId: String, key: String, title: String, thumb: String, times: String, difficulty: String) {
         viewModelScope.launch {
             try {
-                _savedRecipe.value = Result.Loading
+                _savedRecipe.value = Event(Result.Loading)
                 val response = repository.saveRecipe(
                     userId,
                     key,
@@ -60,14 +60,14 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                     difficulty
                 )
                 if (!response.error) {
-                    _savedRecipe.value = Result.Success(response)
+                    _savedRecipe.value = Event(Result.Success(response))
                 } else {
-                    _savedRecipe.value = Result.Error(response.message)
+                    _savedRecipe.value = Event(Result.Error(response.message))
                 }
             } catch (e: HttpException) {
                 val error = e.response()?.errorBody()?.string()
                 val message = Gson().fromJson(error, RegisterResponse::class.java)
-                _savedRecipe.value = Result.Error(message.message)
+                _savedRecipe.value = Event(Result.Error(message.message))
             }
         }
     }
