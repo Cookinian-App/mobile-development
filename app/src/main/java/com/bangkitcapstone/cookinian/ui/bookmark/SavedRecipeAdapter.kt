@@ -5,16 +5,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
+import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
 import com.bangkitcapstone.cookinian.databinding.ItemRecipeListBinding
 import com.bangkitcapstone.cookinian.ui.recipe_detail.RecipeDetailActivity
 import com.bumptech.glide.Glide
 
-class SavedRecipeAdapter(private val recipeList: List<RecipeItem>) :
+class SavedRecipeAdapter(private val recipeList: List<SavedRecipeEntity>) :
     RecyclerView.Adapter<SavedRecipeAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemRecipeListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(recipe: RecipeItem) {
+        fun bind(recipe: SavedRecipeEntity) {
             Glide.with(binding.root.context)
                 .load(recipe.thumb)
                 .into(binding.ivItemRecipeListImage)

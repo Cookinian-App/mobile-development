@@ -1,5 +1,6 @@
 package com.bangkitcapstone.cookinian.ui.recipe_detail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import com.bangkitcapstone.cookinian.data.Repository
 import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.data.api.response.RecipeDetailResults
 import com.bangkitcapstone.cookinian.data.api.response.RegisterResponse
+import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
@@ -17,9 +19,6 @@ import retrofit2.HttpException
 class RecipeDetailViewModel(private val repository: Repository): ViewModel() {
     private val _recipeDetail = MutableLiveData<RecipeDetailResults>()
     val recipeDetail: LiveData<RecipeDetailResults> = _recipeDetail
-
-    private val _savedRecipe = MutableLiveData<Result<RegisterResponse>>()
-    val savedRecipe: LiveData<Result<RegisterResponse>> = _savedRecipe
 
     fun getSession() = repository.getSession().asLiveData()
 
@@ -30,28 +29,26 @@ class RecipeDetailViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
-    fun savedRecipe(userId: String, key: String, title: String, thumb: String, times: String, difficulty: String) {
+    fun saveRecipe(recipe: SavedRecipeEntity) {
         viewModelScope.launch {
-            try {
-                _savedRecipe.value = Result.Loading
-                val response = repository.saveRecipe(
-                    userId,
-                    key,
-                    title,
-                    thumb,
-                    times,
-                    difficulty
-                )
-                if (!response.error) {
-                    _savedRecipe.value = Result.Success(response)
-                } else {
-                    _savedRecipe.value = Result.Error(response.message)
-                }
-            } catch (e: HttpException) {
-                val error = e.response()?.errorBody()?.string()
-                val message = Gson().fromJson(error, RegisterResponse::class.java)
-                _savedRecipe.value = Result.Error(message.message)
+            repository.setSavedRecipe(recipe)
+            repository.getSession().collect {
+                repository.saveRecipeToApi(it.userId, recipe)
             }
         }
     }
+
+    fun deleteRecipe(recipe: SavedRecipeEntity) {
+        viewModelScope.launch {
+            repository.deleteSavedRecipeFromLocal(recipe)
+            repository.getSession().collect {
+                repository.deleteSavedRecipeFromApi(it.userId, recipe.key)
+            }
+        }
+    }
+
+    fun checkIsSavedRecipe(key: String): LiveData<Boolean> {
+        return repository.isSavedRecipe(key)
+    }
+
 }

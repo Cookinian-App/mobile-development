@@ -8,6 +8,7 @@ import com.bangkitcapstone.cookinian.data.api.response.RecipeDetailResponse
 import com.bangkitcapstone.cookinian.data.api.response.RecipeResponse
 import com.bangkitcapstone.cookinian.data.api.response.RegisterResponse
 import com.bangkitcapstone.cookinian.data.api.response.SavedRecipeResponse
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -79,6 +80,12 @@ interface ApiService {
         @Field("thumb") thumb: String,
         @Field("times") times: String,
         @Field("difficulty") difficulty: String
+    ): RegisterResponse
+
+    @DELETE("api/save/unsave/{uid},{key}")
+    suspend fun unSaveRecipe(
+        @Path("uid") userId: String,
+        @Path("key") key: String
     ): RegisterResponse
 
     @GET("category/article")

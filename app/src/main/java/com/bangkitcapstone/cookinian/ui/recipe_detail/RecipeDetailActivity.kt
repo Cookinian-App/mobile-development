@@ -3,15 +3,19 @@ package com.bangkitcapstone.cookinian.ui.recipe_detail
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
+import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.data.api.response.RecipeDetailResults
+import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
 import com.bangkitcapstone.cookinian.databinding.ActivityRecipeDetailBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 import com.bumptech.glide.Glide
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import okhttp3.internal.notify
 
 
 class RecipeDetailActivity : AppCompatActivity() {
@@ -33,9 +37,42 @@ class RecipeDetailActivity : AppCompatActivity() {
 
         viewModel.recipeDetail.observe(this) { recipe ->
             setRecipeDetailData(recipe, thumb)
+            checkIsRecipeSaved(
+                key,
+                SavedRecipeEntity(
+                    key,
+                    recipe.title,
+                    thumb,
+                    recipe.times,
+                    recipe.difficulty,
+                    true
+                )
+            )
         }
 
         setupToolbar()
+    }
+
+    private fun checkIsRecipeSaved(key: String, recipe: SavedRecipeEntity) {
+        viewModel.checkIsSavedRecipe(key).observe(this) {isSaved ->
+            if (isSaved) {
+                binding.toolbar.menu.findItem(R.id.menu_bookmarks).setIcon(R.drawable.ic_bookmark_filled)
+                binding.toolbar.menu.findItem(R.id.menu_bookmarks).setOnMenuItemClickListener {
+                    binding.toolbar.menu.findItem(R.id.menu_bookmarks).setIcon(R.drawable.ic_bookmark)
+                    viewModel.deleteRecipe(recipe)
+                    Toast.makeText(this, "Recipe removed from bookmarks", Toast.LENGTH_SHORT).show()
+                    true
+                }
+            } else {
+                binding.toolbar.menu.findItem(R.id.menu_bookmarks).setIcon(R.drawable.ic_bookmark)
+                binding.toolbar.menu.findItem(R.id.menu_bookmarks).setOnMenuItemClickListener {
+                    binding.toolbar.menu.findItem(R.id.menu_bookmarks).setIcon(R.drawable.ic_bookmark_filled)
+                    viewModel.saveRecipe(recipe)
+                    Toast.makeText(this, "Recipe added to bookmarks", Toast.LENGTH_SHORT).show()
+                    true
+                }
+            }
+        }
     }
 
     private fun setRecipeDetailData(recipe: RecipeDetailResults, thumb: String) {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.bangkitcapstone.cookinian.data.Result
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.databinding.FragmentBookmarkBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
@@ -34,9 +35,13 @@ class BookmarkFragment : Fragment() {
     }
 
     private fun setupBookmarkRecyclerView() {
-        bookmarkViewModel.savedRecipe.observe(viewLifecycleOwner) { recipe ->
-            recipeAdapter = SavedRecipeAdapter(recipe)
-            binding.rvBookmark.adapter = recipeAdapter
+        bookmarkViewModel.getSession().observe(viewLifecycleOwner) { user ->
+            if (user != null) {
+                bookmarkViewModel.getSavedRecipe().observe(viewLifecycleOwner) { result ->
+                    recipeAdapter = SavedRecipeAdapter(result)
+                    binding.rvBookmark.adapter = recipeAdapter
+                }
+            }
         }
 
         binding.rvBookmark.isNestedScrollingEnabled = false

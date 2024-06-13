@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.data.Result
+import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
 import com.bangkitcapstone.cookinian.databinding.FragmentHomeBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 import com.bangkitcapstone.cookinian.ui.login.LoginActivity
@@ -73,7 +74,6 @@ class HomeFragment : Fragment() {
         })
 
         binding.tvHomeSeeAllRecipe.setOnClickListener { seeAllRecipe() }
-        observeSavedRecipeResult()
     }
 
     private fun setupBanner() {
@@ -110,43 +110,10 @@ class HomeFragment : Fragment() {
         mainViewModel.recipes.observe(viewLifecycleOwner) { recipe ->
             recipeAdapter = RecipeAdapter(recipe)
             binding.rvHomeRecipe.adapter = recipeAdapter
-
-            recipeAdapter.onItemClick = { recipeSaved ->
-                mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
-                    mainViewModel.savedRecipe(
-                        user.userId,
-                        recipeSaved.key,
-                        recipeSaved.title,
-                        recipeSaved.thumb,
-                        recipeSaved.times,
-                        recipeSaved.difficulty
-                    )
-                }
-            }
         }
 
         binding.rvHomeRecipe.setHasFixedSize(true)
         binding.rvHomeRecipe.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-    }
-
-    private fun observeSavedRecipeResult() {
-        mainViewModel.savedRecipe.observe(viewLifecycleOwner) { event ->
-            event.getContentIfNotHandled()?.let { result ->
-                when (result) {
-                    is Result.Loading -> {
-                        // Loading
-                    }
-                    is Result.Success -> {
-                        Toast.makeText(requireContext(),"Berhasil ditambahkan ke Favorit", Toast.LENGTH_SHORT).show()
-                        binding.ivHomeProfile.setImageResource(R.drawable.ic_bookmark_filled)
-                        recipeAdapter.notifyDataSetChanged()
-                    }
-                    is Result.Error -> {
-                        Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
     }
 
     private fun setupCategoryRecyclerView() {

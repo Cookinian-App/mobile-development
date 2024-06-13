@@ -1,14 +1,19 @@
 package com.bangkitcapstone.cookinian.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.map
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
+import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.data.api.retrofit.ApiService
 import com.bangkitcapstone.cookinian.data.local.entity.ArticleItem
 import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
+import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
 import com.bangkitcapstone.cookinian.data.local.room.CookinianDatabase
 import com.bangkitcapstone.cookinian.data.preference.UserModel
 import com.bangkitcapstone.cookinian.data.preference.UserPreference
@@ -51,8 +56,72 @@ class Repository private constructor(
             }
         ).liveData
     }
-    suspend fun getSavedRecipe(userId: String) = authApiService.getSavedRecipe(userId)
-    suspend fun saveRecipe(userId: String, key: String, title: String, thumb: String, times: String, difficulty: String) = authApiService.saveRecipe(userId, key, title, thumb, times, difficulty)
+
+    fun getSavedRecipe(userId: String): LiveData<Result<List<SavedRecipeEntity>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = authApiService.getSavedRecipe(userId)
+            val recipes = response.recipes
+            val newList = recipes.map { recipe ->
+                SavedRecipeEntity(
+                    recipe.key,
+                    recipe.title,
+                    recipe.thumb,
+                    recipe.times,
+                    recipe.difficulty,
+                    true
+                )
+            }
+            database.savedRecipeDao().deleteAll()
+            database.savedRecipeDao().insertFromApi(newList)
+        } catch (e: Exception) {
+            Log.d("NewsRepository", "getHeadlineNews: ${e.message.toString()} ")
+            emit(Result.Error(e.message.toString()))
+        }
+        val localData: LiveData<Result<List<SavedRecipeEntity>>> = database.savedRecipeDao().getSavedRecipe().map { Result.Success(it) }
+        emitSource(localData)
+    }
+
+    suspend fun saveRecipeFromSavedRecipeApi(userId: String) {
+        val response = authApiService.getSavedRecipe(userId)
+        val recipes = response.recipes
+        val newList = recipes.map { recipe ->
+            SavedRecipeEntity(
+                recipe.key,
+                recipe.title,
+                recipe.thumb,
+                recipe.times,
+                recipe.difficulty,
+                true
+            )
+        }
+        database.savedRecipeDao().deleteAll()
+        database.savedRecipeDao().insertFromApi(newList)
+    }
+
+    fun getBookmarkedRecipe(): LiveData<List<SavedRecipeEntity>> {
+        return database.savedRecipeDao().getBookmarkedNews()
+    }
+    suspend fun saveRecipeToApi(userId: String, recipe: SavedRecipeEntity) =
+        authApiService.saveRecipe(
+            userId,
+            recipe.key,
+            recipe.title,
+            recipe.thumb,
+            recipe.times,
+            recipe.difficulty
+        )
+    suspend fun setSavedRecipe(recipe: SavedRecipeEntity) {
+        database.savedRecipeDao().insertToLocal(recipe)
+    }
+    suspend fun deleteSavedRecipeFromApi(userId: String, key: String) = authApiService.unSaveRecipe(userId, key)
+    suspend fun deleteSavedRecipeFromLocal(recipe: SavedRecipeEntity) {
+        database.savedRecipeDao().deleteFromLocal(recipe)
+    }
+
+    fun isSavedRecipe(key: String): LiveData<Boolean> {
+        return database.savedRecipeDao().isSavedRecipe(key)
+    }
 
     // Article API
     suspend fun getArticleCategory() = recipeApiService.getArticleCategory()

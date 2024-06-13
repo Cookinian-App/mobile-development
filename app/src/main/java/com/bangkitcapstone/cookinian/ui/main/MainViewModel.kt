@@ -1,5 +1,6 @@
 package com.bangkitcapstone.cookinian.ui.main
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.data.api.response.CategoryItem
 import com.bangkitcapstone.cookinian.data.api.response.RegisterResponse
 import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
+import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
 import com.bangkitcapstone.cookinian.helper.Event
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.firstOrNull
@@ -23,10 +25,8 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     private val _recipes = MutableLiveData<List<RecipeItem>>()
     val recipes : LiveData<List<RecipeItem>> = _recipes
 
-    private val _savedRecipe = MutableLiveData<Event<Result<RegisterResponse>>>()
-    val savedRecipe : LiveData<Event<Result<RegisterResponse>>> = _savedRecipe
-
     init {
+        getSavedRecipe()
         getCategories()
         getRecipes()
     }
@@ -47,27 +47,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun savedRecipe(userId: String, key: String, title: String, thumb: String, times: String, difficulty: String) {
+    private fun getSavedRecipe() {
         viewModelScope.launch {
-            try {
-                _savedRecipe.value = Event(Result.Loading)
-                val response = repository.saveRecipe(
-                    userId,
-                    key,
-                    title,
-                    thumb,
-                    times,
-                    difficulty
-                )
-                if (!response.error) {
-                    _savedRecipe.value = Event(Result.Success(response))
-                } else {
-                    _savedRecipe.value = Event(Result.Error(response.message))
-                }
-            } catch (e: HttpException) {
-                val error = e.response()?.errorBody()?.string()
-                val message = Gson().fromJson(error, RegisterResponse::class.java)
-                _savedRecipe.value = Event(Result.Error(message.message))
+            repository.getSession().collect {
+                repository.saveRecipeFromSavedRecipeApi(it.userId)
             }
         }
     }
