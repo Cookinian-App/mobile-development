@@ -43,5 +43,10 @@
         app:exitAnim="@anim/fade_out"
         app:popEnterAnim="@anim/fade_in"
         app:popExitAnim="@anim/fade_out"/>
+    <fragment
+        android:id="@+id/nav_camera"
+        android:name="com.bangkitcapstone.cookinian.ui.camera.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" />
 
 </navigation>

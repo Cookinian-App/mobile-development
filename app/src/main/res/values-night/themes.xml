@@ -9,8 +9,6 @@
         <item name="colorSurfaceContainerHigh">@color/black_sec_dm</item>
         <item name="colorSurfaceContainer">@color/black_dm</item>
 
-        <item name="android:textColorPrimary">@color/white_dm</item>
-
         <item name="android:fontFamily">@font/satoshi_regular</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:lineSpacingExtra">0dp</item>
@@ -22,6 +20,7 @@
         <item name="android:textColor">@color/white_dm</item>
 
         <!--Custom Component Style-->
+        <item name="radioButtonStyle">@style/RadioButtonCustom</item>
         <item name="bottomNavigationStyle">@style/BottomNavigationCustom</item>
         <item name="circularProgressIndicatorStyle">@style/CircularProgressIndicatorCustom</item>
         <item name="materialAlertDialogTheme">@style/AlertDialogCustom</item>
@@ -31,14 +30,23 @@
         <item name="floatingActionButtonStyle">@style/FabCustom</item>
     </style>
 
+    <style name="RadioButtonCustom" parent="Widget.Material3.CompoundButton.RadioButton">
+        <item name="buttonTint">@color/green</item>
+    </style>
+
     <style name="FabCustom" parent="Widget.Material3.FloatingActionButton.Primary">
         <item name="shapeAppearanceOverlay">@style/FabShapeCustom</item>
-        <item name="fabCustomSize">50dp</item>
+        <item name="materialThemeOverlay">@style/FabColorCustom</item>
     </style>
 
     <style name="FabShapeCustom">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">100%</item>
+    </style>
+
+    <style name="FabColorCustom">
+        <item name="colorContainer">@color/black_sec_dm</item>
+        <item name="colorOnContainer">@color/green</item>
     </style>
 
     <style name="ToolbarCustom" parent="Widget.Material3.Toolbar">

@@ -6,13 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bangkitcapstone.cookinian.databinding.FragmentArticleBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.launch
 
 class ArticleFragment : Fragment() {
     private var _binding: FragmentArticleBinding? = null
@@ -43,7 +39,7 @@ class ArticleFragment : Fragment() {
             binding.rvArticleCategory.adapter = articleCategoryAdapter
         }
 
-        binding.rvArticleCategory.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvArticleCategory.layoutManager = GridLayoutManager(requireContext(), 2)
     }
 
     override fun onDestroyView() {

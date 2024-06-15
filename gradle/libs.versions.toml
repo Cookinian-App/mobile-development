@@ -30,6 +30,10 @@ pagingRuntimeKtx = "3.2.1"
 runtimeSavedInstanceState = "1.0.0-alpha11"
 navigationFragmentKtx = "2.7.7"
 navigationUiKtx = "2.7.7"
+tensorflowLiteTaskVision = "0.4.4"
+tensorflowLiteMetadata = "0.4.4"
+ucrop = "2.2.8"
+tensorflowLiteSupport = "0.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -64,6 +68,10 @@ androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", v
 androidx-runtime-saved-instance-state = { group = "androidx.compose.runtime", name = "runtime-saved-instance-state", version.ref = "runtimeSavedInstanceState" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+tensorflow-lite-metadata = { module = "org.tensorflow:tensorflow-lite-metadata", version.ref = "tensorflowLiteMetadata" }
+tensorflow-lite-task-vision = { module = "org.tensorflow:tensorflow-lite-task-vision", version.ref = "tensorflowLiteTaskVision" }
+ucrop = { module = "com.github.yalantis:ucrop", version.ref = "ucrop" }
+tensorflow-lite-support = { group = "org.tensorflow", name = "tensorflow-lite-support", version.ref = "tensorflowLiteSupport" }
 
 
 [plugins]

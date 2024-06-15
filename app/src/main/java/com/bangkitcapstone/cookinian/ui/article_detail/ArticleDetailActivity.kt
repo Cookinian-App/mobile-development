@@ -42,7 +42,7 @@ class ArticleDetailActivity : AppCompatActivity() {
             tvDetailArticleTitle.text = article.title
             tvDetailArticleAuthor.text = article.author
             tvDetailArticleDate.text = article.datePublished
-            tvDetailRecipeDescription.text = article.description
+            tvDetailArticleDescription.text = article.description
         }
     }
 

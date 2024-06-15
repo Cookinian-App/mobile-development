@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_sec">#ECEEF1</color>
@@ -12,7 +12,9 @@
     <color name="black_sec_dm">#1F242F</color>
 
     <color name="white_dm">#F2F4F3</color>
-
     <color name="gray_dm">#75777A</color>
     <color name="gray_dm_sec">#EEEFEF</color>
+
+    <color name="ucrop_color_blaze_orange" tools:ignore="PrivateResource">#0C9A61</color>
+    <color name="ucrop_color_statusbar" tools:ignore="PrivateResource">#FFFFFFFF</color>
 </resources>

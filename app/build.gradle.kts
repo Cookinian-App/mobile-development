@@ -48,6 +48,7 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        mlModelBinding = true
     }
 }
 
@@ -101,4 +102,8 @@ dependencies {
     implementation (libs.github.expandabletextview)
 
     implementation(libs.dotsindicator)
+    implementation(libs.ucrop)
+
+    implementation(libs.tensorflow.lite.metadata)
+    implementation(libs.tensorflow.lite.task.vision)
 }

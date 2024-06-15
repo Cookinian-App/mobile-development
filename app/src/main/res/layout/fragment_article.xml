@@ -24,23 +24,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:clipToPadding="false"
+        android:nestedScrollingEnabled="false"
         android:paddingStart="16dp"
-        android:paddingEnd="8dp"
+        android:paddingEnd="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_article_title" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_article"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:clipToPadding="false"
-        android:paddingStart="16dp"
-        android:paddingEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_article_category" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

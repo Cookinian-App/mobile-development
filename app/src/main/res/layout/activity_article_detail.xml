@@ -50,7 +50,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:textSize="20sp"
-                android:textStyle="bold"
+                style="@style/FontBold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_detail_article_image"
@@ -80,7 +80,7 @@
                 tools:text="Mei 27, 2024" />
 
             <TextView
-                android:id="@+id/tv_detail_recipe_description"
+                android:id="@+id/tv_detail_article_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
