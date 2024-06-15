@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bangkitcapstone.cookinian.databinding.FragmentArticleBinding
+import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 
 class ArticleFragment : Fragment() {
@@ -34,9 +35,20 @@ class ArticleFragment : Fragment() {
     }
 
     private fun setupCategoryRecyclerView() {
-        articleViewModel.categories.observe(viewLifecycleOwner) { category ->
-            articleCategoryAdapter = ArticleCategoryAdapter(category)
-            binding.rvArticleCategory.adapter = articleCategoryAdapter
+        articleViewModel.categories.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    binding.pbArticle.visibility = View.VISIBLE
+                }
+                is Result.Success -> {
+                    binding.pbArticle.visibility = View.GONE
+                    articleCategoryAdapter = ArticleCategoryAdapter(result.data)
+                    binding.rvArticleCategory.adapter = articleCategoryAdapter
+                }
+                is Result.Error -> {
+                    binding.pbArticle.visibility = View.GONE
+                }
+            }
         }
 
         binding.rvArticleCategory.layoutManager = GridLayoutManager(requireContext(), 2)

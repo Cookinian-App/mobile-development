@@ -1,29 +1,24 @@
 package com.bangkitcapstone.cookinian.ui.main
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.bangkitcapstone.cookinian.data.Repository
 import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.data.api.response.CategoryItem
-import com.bangkitcapstone.cookinian.data.api.response.RegisterResponse
 import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
-import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
-import com.bangkitcapstone.cookinian.helper.Event
-import com.google.gson.Gson
-import kotlinx.coroutines.flow.firstOrNull
+import com.bangkitcapstone.cookinian.helper.handleHttpException
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.net.UnknownHostException
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
-    private val _categories = MutableLiveData<List<CategoryItem>>()
-    val categories : LiveData<List<CategoryItem>> = _categories
+    private val _categories = MutableLiveData<Result<List<CategoryItem>>>()
+    val categories : LiveData<Result<List<CategoryItem>>> = _categories
 
-    private val _recipes = MutableLiveData<List<RecipeItem>>()
-    val recipes : LiveData<List<RecipeItem>> = _recipes
+    private val _recipes = MutableLiveData<Result<List<RecipeItem>>>()
+    val recipes : LiveData<Result<List<RecipeItem>>> = _recipes
+
+    private val _savedRecipe = MutableLiveData<Result<Boolean>>()
+    val savedRecipe : LiveData<Result<Boolean>> = _savedRecipe
 
     init {
         getSavedRecipe()
@@ -35,24 +30,51 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     private fun getCategories() {
         viewModelScope.launch {
-            val result = repository.getCategory().results
-            _categories.value = result
+            try {
+                _categories.value = Result.Loading
+                val result = repository.getCategory().results
+                _categories.value = Result.Success(result)
+            } catch (e: HttpException) {
+                handleHttpException(e, _categories)
+            } catch (e: UnknownHostException) {
+                _categories.value = Result.Error("Kesalahan jaringan: Tidak dapat menghubungkan ke server")
+            } catch (e: Exception) {
+                _categories.value = e.message?.let { Result.Error(it) }
+            }
         }
     }
 
     private fun getRecipes() {
         viewModelScope.launch {
-            val result = repository.getRecipes().results
-            _recipes.value = result
+            try {
+                _recipes.value = Result.Loading
+                val result = repository.getRecipes().results
+                _recipes.value = Result.Success(result)
+            } catch (e: HttpException) {
+                handleHttpException(e, _recipes)
+            } catch (e: UnknownHostException) {
+                _recipes.value = Result.Error( "Kesalahan jaringan: Tidak dapat menghubungkan ke server")
+            } catch (e: Exception) {
+                _recipes.value = e.message?.let { Result.Error(it) }
+            }
         }
     }
 
     private fun getSavedRecipe() {
         viewModelScope.launch {
             repository.getSession().collect {
-                repository.saveRecipeFromSavedRecipeApi(it.userId)
+                try {
+                    _savedRecipe.value = Result.Loading
+                    repository.saveRecipeFromSavedRecipeApi(it.userId)
+                    _savedRecipe.value = Result.Success(true)
+                } catch (e: HttpException) {
+                    handleHttpException(e, _savedRecipe)
+                } catch (e: UnknownHostException) {
+                    _savedRecipe.value = Result.Error("Kesalahan jaringan: Tidak dapat menghubungkan ke server")
+                } catch (e: Exception) {
+                    _recipes.value = e.message?.let {err -> Result.Error(err) }
+                }
             }
         }
     }
-
 }

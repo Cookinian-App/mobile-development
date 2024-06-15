@@ -9,8 +9,8 @@ import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.databinding.ActivityProfileEditBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
+import com.bangkitcapstone.cookinian.helper.showAlert
 import com.bumptech.glide.Glide
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ProfileEditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileEditBinding
@@ -42,7 +42,7 @@ class ProfileEditActivity : AppCompatActivity() {
                 val name = edEditName.text.toString()
                 profileEditViewModel.editProfile(email, name)
             } else {
-                showAlert("Gagal", "Nama profil tidak boleh kosong!")
+                showAlert(this@ProfileEditActivity, "Gagal", "Nama profil tidak boleh kosong!")
             }
         }
 
@@ -56,12 +56,12 @@ class ProfileEditActivity : AppCompatActivity() {
                     is Result.Success -> {
                         binding.pbEditProfile.visibility = View.GONE
                         binding.btnEditProfile.isEnabled = true
-                        showAlert("Berhasil", "Nama profil anda telah diubah!")
+                        showAlert(this, "Berhasil", "Nama profil anda telah diubah!")
                     }
                     is Result.Error -> {
                         binding.pbEditProfile.visibility = View.GONE
                         binding.btnEditProfile.isEnabled = true
-                        showAlert("Gagal", "Profil anda gagal diubah!")
+                        showAlert(this, "Terjadi kesalahan", result.error)
                     }
                 }
             }
@@ -86,13 +86,5 @@ class ProfileEditActivity : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun showAlert(title: String, message: String) {
-        MaterialAlertDialogBuilder(this)
-            .setTitle(title)
-            .setMessage(message)
-            .setPositiveButton(R.string.dialog_positive_button) { _, _ -> }
-            .show()
     }
 }

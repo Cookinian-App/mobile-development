@@ -12,6 +12,7 @@ import com.bangkitcapstone.cookinian.helper.Event
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.net.UnknownHostException
 
 class ProfileEditViewModel(private val repository: Repository): ViewModel() {
     private val _result = MutableLiveData<Event<Result<RegisterResponse>>>()
@@ -34,6 +35,10 @@ class ProfileEditViewModel(private val repository: Repository): ViewModel() {
                 val error = e.response()?.errorBody()?.string()
                 val message = Gson().fromJson(error, RegisterResponse::class.java)
                 _result.value = Event(Result.Error(message.message))
+            } catch (e: Exception) {
+                _result.value = Event(Result.Error("Tidak dapat menghubungkan ke server!"))
+            } catch (e: UnknownHostException) {
+                _result.value = Event(Result.Error("Tidak ada koneksi internet, silahkan coba lagi."))
             }
         }
     }

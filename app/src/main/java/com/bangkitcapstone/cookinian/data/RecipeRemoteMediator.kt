@@ -45,7 +45,6 @@ class RecipeRemoteMediator(
             }
         }
 
-
         try {
             val responseData = apiService.getRecipesWithPaging(page, searchQuery, category).results
             val endOfPaginationReached = responseData.isEmpty()

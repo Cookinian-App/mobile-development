@@ -88,6 +88,11 @@ interface ApiService {
         @Path("key") key: String
     ): RegisterResponse
 
+    @DELETE("api/save/delete-all/{uid}")
+    suspend fun deleteAllSavedRecipe(
+        @Path("uid") userId: String,
+    ): RegisterResponse
+
     @GET("category/article")
     suspend fun getArticleCategory(): CategoryResponse
 

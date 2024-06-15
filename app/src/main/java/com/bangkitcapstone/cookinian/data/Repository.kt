@@ -57,31 +57,6 @@ class Repository private constructor(
         ).liveData
     }
 
-    fun getSavedRecipe(userId: String): LiveData<Result<List<SavedRecipeEntity>>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = authApiService.getSavedRecipe(userId)
-            val recipes = response.recipes
-            val newList = recipes.map { recipe ->
-                SavedRecipeEntity(
-                    recipe.key,
-                    recipe.title,
-                    recipe.thumb,
-                    recipe.times,
-                    recipe.difficulty,
-                    true
-                )
-            }
-            database.savedRecipeDao().deleteAll()
-            database.savedRecipeDao().insertFromApi(newList)
-        } catch (e: Exception) {
-            Log.d("NewsRepository", "getHeadlineNews: ${e.message.toString()} ")
-            emit(Result.Error(e.message.toString()))
-        }
-        val localData: LiveData<Result<List<SavedRecipeEntity>>> = database.savedRecipeDao().getSavedRecipe().map { Result.Success(it) }
-        emitSource(localData)
-    }
-
     suspend fun saveRecipeFromSavedRecipeApi(userId: String) {
         val response = authApiService.getSavedRecipe(userId)
         val recipes = response.recipes
@@ -118,6 +93,9 @@ class Repository private constructor(
     suspend fun deleteSavedRecipeFromLocal(recipe: SavedRecipeEntity) {
         database.savedRecipeDao().deleteFromLocal(recipe)
     }
+
+    suspend fun deleteAllSavedRecipeFromApi(userId: String) = authApiService.deleteAllSavedRecipe(userId)
+    suspend fun deleteAllSavedRecipeFromLocal() = database.savedRecipeDao().deleteAll()
 
     fun isSavedRecipe(key: String): LiveData<Boolean> {
         return database.savedRecipeDao().isSavedRecipe(key)

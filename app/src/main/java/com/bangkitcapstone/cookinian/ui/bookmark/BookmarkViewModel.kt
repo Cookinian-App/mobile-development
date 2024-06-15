@@ -13,8 +13,15 @@ import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
 import kotlinx.coroutines.launch
 
 class BookmarkViewModel(private val repository: Repository): ViewModel() {
-
     fun getSession() = repository.getSession().asLiveData()
-
     fun getSavedRecipe() = repository.getBookmarkedRecipe()
+
+    fun deleteAllSavedRecipes() {
+        viewModelScope.launch {
+            repository.deleteAllSavedRecipeFromLocal()
+            repository.getSession().collect {
+                repository.deleteAllSavedRecipeFromApi(it.userId)
+            }
+        }
+    }
 }

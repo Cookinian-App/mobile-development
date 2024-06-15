@@ -9,7 +9,7 @@ import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.databinding.ActivityProfileEditPassBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.bangkitcapstone.cookinian.helper.showAlert
 
 class ProfileEditPassActivity : AppCompatActivity() {
     private lateinit var binding : ActivityProfileEditPassBinding
@@ -42,10 +42,10 @@ class ProfileEditPassActivity : AppCompatActivity() {
                 if (newPassword == confirmNewPassword) {
                     profileEditViewModel.changePassword(email, currentPassword, newPassword, confirmNewPassword)
                 } else {
-                    showAlert("Gagal", "Kata sandi baru tidak sama!")
+                    showAlert(this@ProfileEditPassActivity, "Gagal", "Kata sandi baru tidak sama!")
                 }
             } else {
-                showAlert("Gagal", "Kata sandi lama tidak boleh kosong!")
+                showAlert(this@ProfileEditPassActivity, "Gagal", "Kata sandi lama tidak boleh kosong!")
             }
         }
 
@@ -60,12 +60,12 @@ class ProfileEditPassActivity : AppCompatActivity() {
                         binding.pbEditPass.visibility = View.GONE
                         binding.btnEditPass.isEnabled = true
                         resetForm()
-                        showAlert("Berhasil", "Kata sandi anda telah diubah!")
+                        showAlert(this, "Berhasil", "Kata sandi anda telah diubah!")
                     }
                     is Result.Error -> {
                         binding.pbEditPass.visibility = View.GONE
                         binding.btnEditPass.isEnabled = true
-                        showAlert("Gagal", "Kata sandi lama anda salah!")
+                        showAlert(this, "Terjadi kesalahan", result.error)
                     }
                 }
             }
@@ -98,13 +98,5 @@ class ProfileEditPassActivity : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun showAlert(title: String, message: String) {
-        MaterialAlertDialogBuilder(this)
-            .setTitle(title)
-            .setMessage(message)
-            .setPositiveButton(R.string.dialog_positive_button) { _, _ -> }
-            .show()
     }
 }

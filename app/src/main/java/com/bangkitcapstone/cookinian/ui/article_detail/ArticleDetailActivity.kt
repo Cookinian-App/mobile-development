@@ -3,12 +3,16 @@ package com.bangkitcapstone.cookinian.ui.article_detail
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkitcapstone.cookinian.R
+import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.data.api.response.ArticleDetailResults
 import com.bangkitcapstone.cookinian.databinding.ActivityArticleDetailBinding
+import com.bangkitcapstone.cookinian.helper.Event
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
+import com.bangkitcapstone.cookinian.helper.showAlert
 import com.bumptech.glide.Glide
 
 class ArticleDetailActivity : AppCompatActivity() {
@@ -27,8 +31,22 @@ class ArticleDetailActivity : AppCompatActivity() {
 
         viewModel.getArticleDetail(tagKey)
 
-        viewModel.articleDetail.observe(this) { article ->
-            setupArticleDetailData(article)
+        viewModel.articleDetail.observe(this) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    binding.pbArticleDetail.visibility = View.VISIBLE
+                }
+                is Result.Success -> {
+                    binding.pbArticleDetail.visibility = View.GONE
+                    setupArticleDetailData(result.data)
+                }
+                is Result.Error -> {
+                    Event(result.error).getContentIfNotHandled()?.let {
+                        binding.pbArticleDetail.visibility = View.GONE
+                        showAlert(this, "Terjadi kesalahan", it)
+                    }
+                }
+            }
         }
 
         setupToolbar()

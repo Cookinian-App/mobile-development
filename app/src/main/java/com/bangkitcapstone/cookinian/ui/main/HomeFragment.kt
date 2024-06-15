@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,10 +16,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.data.Result
-import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
 import com.bangkitcapstone.cookinian.databinding.FragmentHomeBinding
+import com.bangkitcapstone.cookinian.helper.ConnectivityHelper
+import com.bangkitcapstone.cookinian.helper.Event
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
-import com.bangkitcapstone.cookinian.ui.login.LoginActivity
+import com.bangkitcapstone.cookinian.helper.showAlert
 import com.bangkitcapstone.cookinian.ui.recipe_search.RecipeSearchActivity
 import com.bumptech.glide.Glide
 
@@ -38,6 +38,8 @@ class HomeFragment : Fragment() {
     private lateinit var autoSlideHandler: Handler
     private lateinit var autoSlideRunnable: Runnable
 
+    private var isErrorOccurred = Event(false)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,10 +52,20 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setProfile()
-        setupRecipeRecyclerView()
-        setupCategoryRecyclerView()
         setupBanner()
         setupAutoSlide()
+
+        if (!ConnectivityHelper.isOnline(requireContext())) {
+            if (!isErrorOccurred.peekContent()) {
+                showAlert(requireContext(), "Terjadi Kesalahan", "Tidak ada koneksi internet, silahkan coba lagi.")
+                isErrorOccurred = Event(true)
+            }
+            return
+        }
+
+        setSavedRecipe()
+        setupRecipeRecyclerView()
+        setupCategoryRecyclerView()
 
         binding.searchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
@@ -64,7 +76,6 @@ class HomeFragment : Fragment() {
                     startActivity(intent)
                 }
                 closeKeyboard()
-
                 return true
             }
 
@@ -107,9 +118,24 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecipeRecyclerView() {
-        mainViewModel.recipes.observe(viewLifecycleOwner) { recipe ->
-            recipeAdapter = RecipeAdapter(recipe)
-            binding.rvHomeRecipe.adapter = recipeAdapter
+        mainViewModel.recipes.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    binding.pbHomeRecipe.visibility = View.VISIBLE
+                }
+                is Result.Success -> {
+                    binding.pbHomeRecipe.visibility = View.GONE
+                    recipeAdapter = RecipeAdapter(result.data)
+                    binding.rvHomeRecipe.adapter = recipeAdapter
+                }
+                is Result.Error -> {
+                    isErrorOccurred = Event(true)
+                    Event(result.error).getContentIfNotHandled()?.let {
+                        binding.pbHomeRecipe.visibility = View.GONE
+                        showAlert(requireContext(), "Terjadi kesalahan", it)
+                    }
+                }
+            }
         }
 
         binding.rvHomeRecipe.setHasFixedSize(true)
@@ -117,13 +143,43 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupCategoryRecyclerView() {
-        mainViewModel.categories.observe(viewLifecycleOwner) { category ->
-            recipeCategoryAdapter = RecipeCategoryAdapter(category)
-            binding.rvHomeCategory.adapter = recipeCategoryAdapter
+        mainViewModel.categories.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    binding.pbHomeArticle.visibility = View.VISIBLE
+                }
+                is Result.Success -> {
+                    binding.pbHomeArticle.visibility = View.GONE
+                    recipeCategoryAdapter = RecipeCategoryAdapter(result.data)
+                    binding.rvHomeCategory.adapter = recipeCategoryAdapter
+                }
+                is Result.Error -> {
+                    isErrorOccurred = Event(true)
+                    Event(result.error).getContentIfNotHandled()?.let {
+                        binding.pbHomeArticle.visibility = View.GONE
+                        showAlert(requireContext(), "Terjadi kesalahan", it)
+                    }
+                }
+            }
         }
 
         binding.rvHomeCategory.setHasFixedSize(true)
         binding.rvHomeCategory.layoutManager = GridLayoutManager(requireContext(), 2)
+    }
+
+    private fun setSavedRecipe() {
+        mainViewModel.savedRecipe.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Loading -> {}
+                is Result.Success -> {}
+                is Result.Error -> {
+                    isErrorOccurred = Event(true)
+                    Event(result.error).getContentIfNotHandled()?.let {
+                        showAlert(requireContext(), "Terjadi kesalahan", it)
+                    }
+                }
+            }
+        }
     }
 
     private fun setProfile() {

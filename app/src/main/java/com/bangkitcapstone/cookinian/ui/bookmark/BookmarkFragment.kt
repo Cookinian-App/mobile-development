@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.bangkitcapstone.cookinian.data.Result
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.databinding.FragmentBookmarkBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
+import com.bangkitcapstone.cookinian.helper.showAlert
 
 class BookmarkFragment : Fragment() {
     private var _binding: FragmentBookmarkBinding? = null
@@ -32,6 +32,11 @@ class BookmarkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupBookmarkRecyclerView()
+
+        binding.fabBookmarkRemoveAll.setOnClickListener {
+            bookmarkViewModel.deleteAllSavedRecipes()
+            showAlert(requireContext(), "Berhasil", "Semua resep yang disimpan berhasil dihapus")
+        }
     }
 
     private fun setupBookmarkRecyclerView() {

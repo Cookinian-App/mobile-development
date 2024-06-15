@@ -3,6 +3,7 @@ package com.bangkitcapstone.cookinian.ui.recipe_detail
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +13,11 @@ import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.data.api.response.RecipeDetailResults
 import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
 import com.bangkitcapstone.cookinian.databinding.ActivityRecipeDetailBinding
+import com.bangkitcapstone.cookinian.helper.Event
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
+import com.bangkitcapstone.cookinian.helper.showAlert
 import com.bumptech.glide.Glide
 import com.google.android.material.divider.MaterialDividerItemDecoration
-import okhttp3.internal.notify
 
 
 class RecipeDetailActivity : AppCompatActivity() {
@@ -35,19 +37,33 @@ class RecipeDetailActivity : AppCompatActivity() {
 
         viewModel.getRecipeDetail(key)
 
-        viewModel.recipeDetail.observe(this) { recipe ->
-            setRecipeDetailData(recipe, thumb)
-            checkIsRecipeSaved(
-                key,
-                SavedRecipeEntity(
-                    key,
-                    recipe.title,
-                    thumb,
-                    recipe.times,
-                    recipe.difficulty,
-                    true
-                )
-            )
+        viewModel.recipeDetail.observe(this) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    binding.pbRecipeDetail.visibility = View.VISIBLE
+                }
+                is Result.Success -> {
+                    binding.pbRecipeDetail.visibility = View.GONE
+                    setRecipeDetailData(result.data, thumb)
+                    checkIsRecipeSaved(
+                        key,
+                        SavedRecipeEntity(
+                            key,
+                            result.data.title,
+                            thumb,
+                            result.data.times,
+                            result.data.difficulty,
+                            true
+                        )
+                    )
+                }
+                is Result.Error -> {
+                    Event(result.error).getContentIfNotHandled()?.let {
+                        binding.pbRecipeDetail.visibility = View.GONE
+                        showAlert(this, "Terjadi kesalahan", it)
+                    }
+                }
+            }
         }
 
         setupToolbar()
