@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                     is Result.Error -> {
                         binding.pbLogin.visibility = View.GONE
-                        showAlert(this, getString(R.string.login), result.error)
+                        showAlert(this, "Terjadi Kesalahan", result.error)
                     }
                 }
             }

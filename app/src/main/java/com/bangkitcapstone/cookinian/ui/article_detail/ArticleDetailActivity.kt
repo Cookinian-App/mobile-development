@@ -1,7 +1,6 @@
 package com.bangkitcapstone.cookinian.ui.article_detail
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
@@ -31,7 +30,7 @@ class ArticleDetailActivity : AppCompatActivity() {
 
         viewModel.getArticleDetail(tagKey)
 
-        viewModel.articleDetail.observe(this) { result ->
+        viewModel.articleDetail.observe(this@ArticleDetailActivity) { result ->
             when (result) {
                 is Result.Loading -> {
                     binding.pbArticleDetail.visibility = View.VISIBLE

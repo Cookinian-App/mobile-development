@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
+import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.databinding.FragmentSavedRecipeBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
+import com.bangkitcapstone.cookinian.helper.showAlert
 import com.bangkitcapstone.cookinian.helper.showToast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -65,6 +67,19 @@ class SavedRecipeFragment : Fragment() {
             .setMessage(getString(R.string.saved_recipe_delete_all))
             .setPositiveButton(R.string.dialog_positive_button) { _, _ ->
                 savedRecipeViewModel.deleteAllSavedRecipes()
+                savedRecipeViewModel.result.observe(viewLifecycleOwner) {event ->
+                    event.getContentIfNotHandled()?.let { result ->
+                        when (result) {
+                            is Result.Loading -> { }
+                            is Result.Success -> {
+                                showAlert(requireContext(), "Berhasil", "Semua resep yang disimpan berhasil dihapus.")
+                            }
+                            is Result.Error -> {
+                                showAlert(requireContext(), "Terjadi Kesalahan", result.error)
+                            }
+                        }
+                    }
+                }
             }
             .setNegativeButton(getString(R.string.dialog_negative_button)) { _, _ -> }
             .show()

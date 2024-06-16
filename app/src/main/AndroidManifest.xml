@@ -18,6 +18,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cookinian"
         tools:targetApi="31">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity
             android:name=".ui.detection.DetectionActivity"
             android:exported="false" />
@@ -39,9 +50,11 @@
             android:exported="false" />
         <activity
             android:name=".ui.article_detail.ArticleDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".ui.recipe_detail.RecipeDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".ui.welcome.WelcomeActivity"
@@ -57,6 +70,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:windowSoftInputMode="adjustPan" />
         <activity

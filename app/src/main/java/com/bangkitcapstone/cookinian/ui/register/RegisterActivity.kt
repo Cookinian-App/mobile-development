@@ -62,7 +62,7 @@ class RegisterActivity : AppCompatActivity() {
                     }
                     is Result.Error -> {
                         binding.pbRegister.visibility = View.GONE
-                        showAlert(this, getString(R.string.register), result.error)
+                        showAlert(this, "Terjadi Kesalahan", result.error)
                     }
                 }
             }

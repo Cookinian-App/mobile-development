@@ -1,12 +1,16 @@
 package com.bangkitcapstone.cookinian.ui.recipe_detail
 
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.data.Result
@@ -18,7 +22,12 @@ import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 import com.bangkitcapstone.cookinian.helper.showAlert
 import com.bangkitcapstone.cookinian.helper.showToast
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 
 class RecipeDetailActivity : AppCompatActivity() {
@@ -169,15 +178,60 @@ class RecipeDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun handleShareRecipe() {
+        val title = binding.tvDetailRecipeTitle.text.toString()
+        val thumb = intent.getStringExtra("thumb")!!
+
+        Glide.with(this)
+            .asBitmap()
+            .load(thumb)
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    try {
+                        val file = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_${title}.png")
+                        val fOut = FileOutputStream(file)
+                        resource.compress(Bitmap.CompressFormat.PNG, 100, fOut)
+                        fOut.flush()
+                        fOut.close()
+
+                        val uri = FileProvider.getUriForFile(
+                            this@RecipeDetailActivity,
+                            "$packageName.fileprovider",
+                            file
+                        )
+
+                        val shareIntent = Intent().apply {
+                            action = Intent.ACTION_SEND
+                            putExtra(Intent.EXTRA_TEXT, "Lihat Resep ${title} di Aplikasi Cookinian")
+                            putExtra(Intent.EXTRA_STREAM, uri)
+                            type = "image/*"
+                            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        }
+                        startActivity(Intent.createChooser(shareIntent, "Bagikan Resep"))
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
+
+                override fun onLoadCleared(placeholder: android.graphics.drawable.Drawable?) {}
+            })
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.detail_recipe_menu, menu)
         return true
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
+                true
+            }
+
+            R.id.menu_share -> {
+                handleShareRecipe()
                 true
             }
 
