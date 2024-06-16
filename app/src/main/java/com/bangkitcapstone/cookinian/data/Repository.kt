@@ -1,15 +1,11 @@
 package com.bangkitcapstone.cookinian.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
-import androidx.lifecycle.map
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.data.api.retrofit.ApiService
 import com.bangkitcapstone.cookinian.data.local.entity.ArticleItem
 import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
@@ -75,7 +71,7 @@ class Repository private constructor(
     }
 
     fun getBookmarkedRecipe(): LiveData<List<SavedRecipeEntity>> {
-        return database.savedRecipeDao().getBookmarkedNews()
+        return database.savedRecipeDao().getBookmarkedRecipe()
     }
     suspend fun saveRecipeToApi(userId: String, recipe: SavedRecipeEntity) =
         authApiService.saveRecipe(

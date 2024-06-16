@@ -6,7 +6,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
 
 @Dao
@@ -27,7 +26,7 @@ interface SavedRecipeDao {
     fun getSavedRecipe(): LiveData<List<SavedRecipeEntity>>
 
     @Query("SELECT * FROM saved_recipe where bookmarked = 1")
-    fun getBookmarkedNews(): LiveData<List<SavedRecipeEntity>>
+    fun getBookmarkedRecipe(): LiveData<List<SavedRecipeEntity>>
 
     @Query("SELECT EXISTS(SELECT * FROM saved_recipe WHERE `key` = :key)")
     fun isSavedRecipe(key: String): LiveData<Boolean>

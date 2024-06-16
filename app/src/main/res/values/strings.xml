@@ -21,7 +21,7 @@
     <string name="detection_result">Hasil Deteksi</string>
     <string name="error_no_email">Tidak ada aplikasi email yang terpasang</string>
     <string name="select_theme">Pilih Tema</string>
-    <string name="logout">Logout</string>
+    <string name="logout">Keluar</string>
     <string name="logout_success">Berhasil keluar</string>
     <string name="logout_confirmation">Apakah Anda yakin ingin keluar?</string>
     <string name="cookinian_email">mailto:cookinian.app@gmail.com</string>

@@ -33,7 +33,7 @@ class SavedRecipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupBookmarkRecyclerView()
+        setupSavedRecipeRecyclerView()
 
         binding.fabSavedRecipeDeleteAll.setOnClickListener {
             if (recipeAdapter.itemCount > 0) {
@@ -44,7 +44,7 @@ class SavedRecipeFragment : Fragment() {
         }
     }
 
-    private fun setupBookmarkRecyclerView() {
+    private fun setupSavedRecipeRecyclerView() {
         savedRecipeViewModel.getSession().observe(viewLifecycleOwner) { user ->
             if (user != null) {
                 savedRecipeViewModel.getSavedRecipe().observe(viewLifecycleOwner) { result ->

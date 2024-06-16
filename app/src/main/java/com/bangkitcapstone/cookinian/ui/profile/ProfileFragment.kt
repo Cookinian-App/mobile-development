@@ -14,9 +14,9 @@ import com.bangkitcapstone.cookinian.data.preference.UserPreference
 import com.bangkitcapstone.cookinian.databinding.FragmentProfileBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 import com.bangkitcapstone.cookinian.helper.showAlert
-import com.bangkitcapstone.cookinian.ui.login.LoginActivity
 import com.bangkitcapstone.cookinian.ui.profile_edit.ProfileEditActivity
 import com.bangkitcapstone.cookinian.ui.profile_edit_pass.ProfileEditPassActivity
+import com.bangkitcapstone.cookinian.ui.welcome.WelcomeActivity
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -127,7 +127,7 @@ class ProfileFragment : Fragment() {
             .setMessage(getString(R.string.logout_confirmation))
             .setPositiveButton(R.string.dialog_positive_button) { _, _ ->
                 profileViewModel.logout()
-                val intent = Intent(requireContext(), LoginActivity::class.java)
+                val intent = Intent(requireContext(), WelcomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
             }
