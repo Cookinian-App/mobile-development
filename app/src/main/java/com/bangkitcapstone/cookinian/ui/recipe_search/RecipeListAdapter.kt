@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
 import com.bangkitcapstone.cookinian.databinding.ItemRecipeListBinding
+import com.bangkitcapstone.cookinian.helper.formatRecipeTimes
 import com.bangkitcapstone.cookinian.ui.recipe_detail.RecipeDetailActivity
 import com.bumptech.glide.Glide
 
@@ -27,10 +28,7 @@ class RecipeListAdapter : PagingDataAdapter<RecipeItem, RecipeListAdapter.ViewHo
     inner class ViewHolder(private val binding: ItemRecipeListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(recipe: RecipeItem) {
             binding.tvItemRecipeListName.text = recipe.title
-            binding.tvItemRecipeListTime.text = recipe.times
-                .replace("jam", " Jam")
-                .replace("mnt", " Mnt")
-                .replace("j", " J")
+            binding.tvItemRecipeListTime.text = formatRecipeTimes(recipe.times)
             binding.tvItemRecipeListLevel.text = recipe.difficulty
             Glide.with(binding.root.context).load(recipe.thumb).into(binding.ivItemRecipeListImage)
 

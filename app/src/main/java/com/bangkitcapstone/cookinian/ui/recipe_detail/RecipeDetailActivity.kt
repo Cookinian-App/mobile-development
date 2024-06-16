@@ -2,7 +2,6 @@ package com.bangkitcapstone.cookinian.ui.recipe_detail
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.Menu
@@ -19,6 +18,8 @@ import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
 import com.bangkitcapstone.cookinian.databinding.ActivityRecipeDetailBinding
 import com.bangkitcapstone.cookinian.helper.Event
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
+import com.bangkitcapstone.cookinian.helper.formatDescription
+import com.bangkitcapstone.cookinian.helper.formatRecipeTimes
 import com.bangkitcapstone.cookinian.helper.showAlert
 import com.bangkitcapstone.cookinian.helper.showToast
 import com.bumptech.glide.Glide
@@ -28,7 +29,6 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-
 
 class RecipeDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRecipeDetailBinding
@@ -120,12 +120,9 @@ class RecipeDetailActivity : AppCompatActivity() {
             tvDetailRecipeTitle.text = recipe.title
             tvDetailRecipeUser.text = recipe.author.user
             tvDetailRecipeDate.text = recipe.author.datePublished
-            tvDetailRecipeTimes.text = recipe.times
-                .replace("jam", " Jam")
-                .replace("mnt", " Mnt")
-                .replace("j", " J")
+            tvDetailRecipeTimes.text = formatRecipeTimes(recipe.times)
             tvDetailRecipeDifficulty.text = recipe.difficulty
-            tvDetailRecipeDescription.text = recipe.desc
+            tvDetailRecipeDescription.text = formatDescription(recipe.desc)
             tvDetailRecipeDescription.post { tvDetailRecipeDescription.toggle() }
             tvDetailRecipeServing.text = serving.ifEmpty { "-" }
             tvDetailRecipeCalories.text = calories.ifEmpty { "-" }
@@ -188,7 +185,7 @@ class RecipeDetailActivity : AppCompatActivity() {
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     try {
-                        val file = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_${title}.png")
+                        val file = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Cookinian-${title}.png")
                         val fOut = FileOutputStream(file)
                         resource.compress(Bitmap.CompressFormat.PNG, 100, fOut)
                         fOut.flush()
@@ -221,7 +218,6 @@ class RecipeDetailActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.detail_recipe_menu, menu)
         return true
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

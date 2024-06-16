@@ -23,7 +23,7 @@ import org.tensorflow.lite.task.vision.detector.ObjectDetector
 class ObjectDetectionHelper(
     var threshold: Float = 0.5f,
     var maxResults: Int = 10,
-    val modelName: String = "detection_model.tflite",
+    val modelName: String = "3.tflite",
     val context: Context,
     val detectionListener: DetectionListener?
 ) {

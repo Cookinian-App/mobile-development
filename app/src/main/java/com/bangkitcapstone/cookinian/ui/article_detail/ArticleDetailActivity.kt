@@ -11,6 +11,7 @@ import com.bangkitcapstone.cookinian.data.api.response.ArticleDetailResults
 import com.bangkitcapstone.cookinian.databinding.ActivityArticleDetailBinding
 import com.bangkitcapstone.cookinian.helper.Event
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
+import com.bangkitcapstone.cookinian.helper.getHtml
 import com.bangkitcapstone.cookinian.helper.showAlert
 import com.bumptech.glide.Glide
 
@@ -59,7 +60,7 @@ class ArticleDetailActivity : AppCompatActivity() {
             tvDetailArticleTitle.text = article.title
             tvDetailArticleAuthor.text = article.author
             tvDetailArticleDate.text = article.datePublished
-            tvDetailArticleDescription.text = article.description
+            tvDetailArticleDescription.text = getHtml(article.description)
         }
     }
 
