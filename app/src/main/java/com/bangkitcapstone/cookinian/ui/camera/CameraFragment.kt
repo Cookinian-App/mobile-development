@@ -10,7 +10,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.ImageCapture
@@ -22,9 +21,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.FragmentCameraBinding
+import com.bangkitcapstone.cookinian.helper.showAlert
+import com.bangkitcapstone.cookinian.helper.showToast
 import com.bangkitcapstone.cookinian.ui.detection.DetectionActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 import com.yalantis.ucrop.UCrop
 import java.io.File
@@ -56,7 +56,8 @@ class CameraFragment : Fragment() {
         bottomNavigationView.visibility = View.GONE
 
         binding.btnCapture.setOnClickListener { takePhoto() }
-        binding.btnInfo.setOnClickListener { showAlert(getString(R.string.camera_info)) }
+        binding.btnInfo.setOnClickListener { showAlert(requireContext(),
+            getString(R.string.ingredients_detection), getString(R.string.camera_info_message)) }
         binding.btnGallery.setOnClickListener { startGallery() }
         setupToolbar()
 
@@ -76,7 +77,7 @@ class CameraFragment : Fragment() {
             if (isGranted) {
                 startCamera()
             } else {
-                showToast("Izin kamera ditolak")
+                showToast(requireContext(), getString(R.string.camera_permission_denied))
             }
         }
 
@@ -91,7 +92,7 @@ class CameraFragment : Fragment() {
             currentImageUri = uri
             startCrop(currentImageUri!!)
         } else {
-            Log.d("Photo Picker", "No media selected")
+            Log.d("Photo Picker", "Tidak ada media yang dipilih")
         }
     }
 
@@ -116,7 +117,7 @@ class CameraFragment : Fragment() {
                     viewLifecycleOwner, cameraSelector, preview, imageCapture
                 )
             } catch (exc: Exception) {
-                Log.e(TAG, "Use case binding failed", exc)
+                Log.e(TAG, "Gagal memunculkan kamera.", exc)
             }
         }, ContextCompat.getMainExecutor(requireContext()))
     }
@@ -134,7 +135,7 @@ class CameraFragment : Fragment() {
         imageCapture.takePicture(
             outputOptions, ContextCompat.getMainExecutor(requireContext()), object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
-                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                    Log.e(TAG, "Gagal mengambil gambar: ${exc.message}", exc)
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
@@ -145,7 +146,7 @@ class CameraFragment : Fragment() {
     }
 
     private fun startCrop(uri: Uri) {
-        val destinationUri = Uri.fromFile(File(requireContext().cacheDir, "cropped_image_${System.currentTimeMillis()}"))
+        val destinationUri = Uri.fromFile(File(requireContext().cacheDir, "cookinian_${System.currentTimeMillis()}"))
         UCrop.of(uri, destinationUri)
             .start(requireContext(), this)
     }
@@ -162,10 +163,10 @@ class CameraFragment : Fragment() {
         } else if (resultCode == UCrop.RESULT_ERROR) {
             val cropError = UCrop.getError(data!!)
             cropError?.let {
-                showToast("Error while cropping image: ${cropError.message}")
+                showAlert(requireContext(), getString(R.string.error_title), cropError.message!!)
             }
         } else if (resultCode == RESULT_CANCELED) {
-            showToast("Image crop canceled")
+            showToast(requireContext(), getString(R.string.crop_cancelled))
         }
     }
 
@@ -178,24 +179,12 @@ class CameraFragment : Fragment() {
 
     private fun setupToolbar() {
         binding.toolbar.apply {
-            title = "Scan Bahan Makanan"
+            title = context.getString(R.string.scan_ingredients)
             setNavigationIcon(R.drawable.ic_back)
             setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
         }
-    }
-
-    private fun showAlert(message: String) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Deteksi Bahan Makanan")
-            .setMessage(message)
-            .setPositiveButton(R.string.dialog_positive_button) { _, _ -> }
-            .show()
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

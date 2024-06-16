@@ -1,10 +1,9 @@
-package com.bangkitcapstone.cookinian.ui.bookmark
+package com.bangkitcapstone.cookinian.ui.saved_recipe
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
 import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
 import com.bangkitcapstone.cookinian.databinding.ItemRecipeListBinding
 import com.bangkitcapstone.cookinian.ui.recipe_detail.RecipeDetailActivity

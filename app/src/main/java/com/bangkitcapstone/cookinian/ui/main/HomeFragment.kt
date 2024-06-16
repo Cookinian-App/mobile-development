@@ -57,7 +57,8 @@ class HomeFragment : Fragment() {
 
         if (!ConnectivityHelper.isOnline(requireContext())) {
             if (!isErrorOccurred.peekContent()) {
-                showAlert(requireContext(), "Terjadi Kesalahan", "Tidak ada koneksi internet, silahkan coba lagi.")
+                showAlert(requireContext(),
+                    getString(R.string.error_title), getString(R.string.error_no_internet))
                 isErrorOccurred = Event(true)
             }
             return
@@ -110,7 +111,7 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        autoSlideHandler.postDelayed(autoSlideRunnable, 5000)
+        autoSlideHandler.postDelayed(autoSlideRunnable, 4000)
     }
 
     private fun seeAllRecipe() {
@@ -132,7 +133,7 @@ class HomeFragment : Fragment() {
                     isErrorOccurred = Event(true)
                     Event(result.error).getContentIfNotHandled()?.let {
                         binding.pbHomeRecipe.visibility = View.GONE
-                        showAlert(requireContext(), "Terjadi kesalahan", it)
+                        showAlert(requireContext(), getString(R.string.home), it)
                     }
                 }
             }
@@ -157,7 +158,7 @@ class HomeFragment : Fragment() {
                     isErrorOccurred = Event(true)
                     Event(result.error).getContentIfNotHandled()?.let {
                         binding.pbHomeArticle.visibility = View.GONE
-                        showAlert(requireContext(), "Terjadi kesalahan", it)
+                        showAlert(requireContext(), getString(R.string.home), it)
                     }
                 }
             }
@@ -175,7 +176,7 @@ class HomeFragment : Fragment() {
                 is Result.Error -> {
                     isErrorOccurred = Event(true)
                     Event(result.error).getContentIfNotHandled()?.let {
-                        showAlert(requireContext(), "Terjadi kesalahan", it)
+                        showAlert(requireContext(), getString(R.string.home), it)
                     }
                 }
             }

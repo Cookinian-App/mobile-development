@@ -42,10 +42,14 @@ class ProfileEditPassActivity : AppCompatActivity() {
                 if (newPassword == confirmNewPassword) {
                     profileEditViewModel.changePassword(email, currentPassword, newPassword, confirmNewPassword)
                 } else {
-                    showAlert(this@ProfileEditPassActivity, "Gagal", "Kata sandi baru tidak sama!")
+                    showAlert(this@ProfileEditPassActivity,
+                        getString(R.string.change_password), getString(R.string.old_password_diff))
                 }
             } else {
-                showAlert(this@ProfileEditPassActivity, "Gagal", "Kata sandi lama tidak boleh kosong!")
+                showAlert(this@ProfileEditPassActivity, getString(R.string.change_password),
+                    getString(
+                        R.string.error_empty_input
+                    ))
             }
         }
 
@@ -60,12 +64,13 @@ class ProfileEditPassActivity : AppCompatActivity() {
                         binding.pbEditPass.visibility = View.GONE
                         binding.btnEditPass.isEnabled = true
                         resetForm()
-                        showAlert(this, "Berhasil", "Kata sandi anda telah diubah!")
+                        showAlert(this, getString(R.string.change_password),
+                            getString(R.string.change_password_success))
                     }
                     is Result.Error -> {
                         binding.pbEditPass.visibility = View.GONE
                         binding.btnEditPass.isEnabled = true
-                        showAlert(this, "Terjadi kesalahan", result.error)
+                        showAlert(this, getString(R.string.change_password), result.error)
                     }
                 }
             }
@@ -85,7 +90,7 @@ class ProfileEditPassActivity : AppCompatActivity() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_back)
-            title = "Ubah Kata Sandi"
+            title = getString(R.string.change_password)
         }
     }
 

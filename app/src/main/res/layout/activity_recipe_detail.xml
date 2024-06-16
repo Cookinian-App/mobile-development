@@ -101,12 +101,14 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/ll_detail_info_difficulty"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:contentDescription="@string/cooking_time"
                         android:src="@drawable/ic_clock"
                         app:tint="@color/green" />
 
@@ -132,12 +134,14 @@
                     app:layout_constraintBottom_toBottomOf="@+id/ll_detail_info_times"
                     app:layout_constraintEnd_toStartOf="@+id/ll_detail_info_serving"
                     app:layout_constraintStart_toEndOf="@+id/ll_detail_info_times"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:contentDescription="@string/cooking_level"
                         android:src="@drawable/ic_flame"
                         app:tint="@color/green" />
 
@@ -163,12 +167,14 @@
                     app:layout_constraintBottom_toBottomOf="@+id/ll_detail_info_difficulty"
                     app:layout_constraintEnd_toStartOf="@+id/ll_detail_info_calories"
                     app:layout_constraintStart_toEndOf="@+id/ll_detail_info_difficulty"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:contentDescription="@string/food_serving"
                         android:src="@drawable/ic_bowl"
                         app:tint="@color/green" />
 
@@ -194,12 +200,14 @@
                     app:layout_constraintBottom_toBottomOf="@+id/ll_detail_info_serving"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/ll_detail_info_serving"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:contentDescription="@string/food_calories"
                         android:src="@drawable/ic_calories"
                         app:tint="@color/green" />
 
@@ -239,19 +247,37 @@
                 app:textMode="line"
                 tools:text="Sudah pernah cobain resep ayam goreng bawang putih sederhana yang viral akhir-akhir ini? Proses memasaknya praktis dan cocok banget jadi masakan sehari-hari." />
 
-            <TextView
-                android:id="@+id/tv_detail_info_ingredient"
-                style="@style/FontMedium"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/ll_detail_info_ingredient"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:text="Bahan"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/visibility"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_detail_recipe_description" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail_recipe_description"
+                tools:ignore="UseCompoundDrawables">
+
+                <TextView
+                    android:id="@+id/tv_detail_info_ingredient"
+                    style="@style/FontMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/ingredients"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/ic_detail_info_ingredient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_up" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_detail_recipe_ingredient"
@@ -261,21 +287,39 @@
                 android:paddingHorizontal="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_detail_info_ingredient" />
+                app:layout_constraintTop_toBottomOf="@+id/ll_detail_info_ingredient" />
 
-            <TextView
-                android:id="@+id/tv_detail_info_step"
-                style="@style/FontMedium"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/ll_detail_info_step"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:text="Langkah"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/visibility"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_detail_recipe_ingredient" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_detail_recipe_ingredient"
+                tools:ignore="UseCompoundDrawables">
+
+                <TextView
+                    android:id="@+id/tv_detail_info_step"
+                    style="@style/FontMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/steps"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/ic_detail_info_step"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_up" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_detail_recipe_step"
@@ -285,7 +329,7 @@
                 android:paddingHorizontal="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_detail_info_step" />
+                app:layout_constraintTop_toBottomOf="@+id/ll_detail_info_step" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

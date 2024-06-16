@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,6 +13,7 @@ import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.data.preference.UserPreference
 import com.bangkitcapstone.cookinian.databinding.FragmentProfileBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
+import com.bangkitcapstone.cookinian.helper.showAlert
 import com.bangkitcapstone.cookinian.ui.login.LoginActivity
 import com.bangkitcapstone.cookinian.ui.profile_edit.ProfileEditActivity
 import com.bangkitcapstone.cookinian.ui.profile_edit_pass.ProfileEditPassActivity
@@ -49,7 +49,6 @@ class ProfileFragment : Fragment() {
         binding.llProfileContact.setOnClickListener { contactUs() }
         binding.llProfileMode.setOnClickListener { showThemeModeDialog() }
         binding.llProfileLogout.setOnClickListener { logout() }
-
     }
 
     private fun goToProfileEdit() {
@@ -89,12 +88,13 @@ class ProfileFragment : Fragment() {
 
     private fun contactUs() {
         val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-            data = Uri.parse("mailto:cookinian.app@gmail.com")
+            data = Uri.parse(getString(R.string.cookinian_email))
         }
         try {
             startActivity(emailIntent)
         } catch (e: Exception) {
-            Toast.makeText(requireContext(), "Tidak ada aplikasi email yang terpasang.", Toast.LENGTH_SHORT).show()
+            showAlert(requireContext(), getString(R.string.error_title),
+                getString(R.string.error_no_email))
         }
     }
 
@@ -102,11 +102,11 @@ class ProfileFragment : Fragment() {
         val options = arrayOf("Default Sistem", "Terang", "Gelap")
 
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Pilih Tema")
+            .setTitle(getString(R.string.select_theme))
             .setSingleChoiceItems(options, selectedCheckedItem) { _, which ->
                 selectedCheckedItem = which
             }
-            .setPositiveButton("Simpan") { _, _ ->
+            .setPositiveButton(getString(R.string.dialog_positive_button)) { _, _ ->
                 if (selectedCheckedItem != -1) {
                     val selectedThemeMode = when (selectedCheckedItem) {
                         0 -> UserPreference.SYSTEM_DEFAULT
@@ -117,21 +117,21 @@ class ProfileFragment : Fragment() {
                     profileViewModel.saveThemeMode(selectedThemeMode)
                 }
             }
-            .setNegativeButton("Batal") { _, _ -> }
+            .setNegativeButton(getString(R.string.dialog_negative_button)) { _, _ -> }
             .show()
     }
 
     private fun logout() {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Logout")
-            .setMessage("Apakah Anda yakin ingin keluar?")
+            .setTitle(getString(R.string.logout))
+            .setMessage(getString(R.string.logout_confirmation))
             .setPositiveButton(R.string.dialog_positive_button) { _, _ ->
                 profileViewModel.logout()
-                val intent = Intent(requireActivity(), LoginActivity::class.java)
+                val intent = Intent(requireContext(), LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
             }
-            .setNegativeButton("Batal") { _, _ -> }
+            .setNegativeButton(getString(R.string.dialog_negative_button)) { _, _ -> }
             .show()
     }
 

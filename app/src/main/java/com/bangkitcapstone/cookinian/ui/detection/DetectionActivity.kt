@@ -67,7 +67,7 @@ class DetectionActivity : AppCompatActivity() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_back)
-            title = "Hasil Deteksi"
+            title = getString(R.string.detection_result)
         }
     }
 
@@ -83,6 +83,6 @@ class DetectionActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_IMAGE_URI = "com.bangkitcapstone.cookinian.ui.detection.EXTRA_IMAGE_URI"
+        const val EXTRA_IMAGE_URI = "EXTRA_IMAGE_URI"
     }
 }

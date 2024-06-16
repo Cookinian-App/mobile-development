@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +12,9 @@ import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.ActivityLoginBinding
 import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
+import com.bangkitcapstone.cookinian.helper.showAlert
+import com.bangkitcapstone.cookinian.helper.showToast
 import com.bangkitcapstone.cookinian.ui.main.MainActivity
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
                 val password = edLoginPassword.text.toString()
                 loginViewModel.login(email, password)
             } else {
-                showAlert("Email dan password harus diisi")
+                showAlert(this@LoginActivity, getString(R.string.login), getString(R.string.error_empty_input))
             }
         }
 
@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                     is Result.Error -> {
                         binding.pbLogin.visibility = View.GONE
-                        showAlert(result.error)
+                        showAlert(this, getString(R.string.login), result.error)
                     }
                 }
             }
@@ -86,13 +86,5 @@ class LoginActivity : AppCompatActivity() {
             startDelay = 500
             start()
         }
-    }
-
-    private fun showAlert(message: String) {
-        MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.login)
-            .setMessage(message)
-            .setPositiveButton(R.string.dialog_positive_button) { _, _ -> }
-            .show()
     }
 }

@@ -1,4 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Profil"
+            android:text="@string/profile"
             android:textSize="24sp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -26,20 +27,20 @@
 
         <TextView
             android:id="@+id/tv_profile_name"
+            style="@style/FontMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            style="@style/FontMedium"
-            android:text="User" />
+            tools:text="User" />
 
         <TextView
             android:id="@+id/tv_profile_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="user123@gmail.com"
-            android:textColor="@color/dark_gray" />
+            android:textColor="@color/dark_gray"
+            tools:text="user123@gmail.com" />
 
         <LinearLayout
             android:id="@+id/ll_proflie_edit"
@@ -53,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_icon"
+                android:importantForAccessibility="no"
                 android:src="@drawable/ic_pencil" />
 
             <TextView
@@ -60,12 +62,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Edit profil"
-                android:textSize="16dp" />
+                android:text="@string/menu_profile_edit"
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:importantForAccessibility="no"
                 android:src="@drawable/ic_right" />
 
         </LinearLayout>
@@ -82,6 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_icon"
+                android:importantForAccessibility="no"
                 android:src="@drawable/ic_shield" />
 
             <TextView
@@ -89,12 +93,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Ubah kata sandi"
-                android:textSize="16dp" />
+                android:text="@string/menu_profile_change_password"
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:importantForAccessibility="no"
                 android:src="@drawable/ic_right" />
 
         </LinearLayout>
@@ -111,6 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_icon"
+                android:importantForAccessibility="no"
                 android:src="@drawable/ic_message" />
 
             <TextView
@@ -118,12 +124,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Hubungi kami"
-                android:textSize="16dp" />
+                android:text="@string/menu_profile_contact"
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:importantForAccessibility="no"
                 android:src="@drawable/ic_right" />
 
         </LinearLayout>
@@ -147,12 +154,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Mode tema"
-                android:textSize="16dp" />
+                android:text="@string/menu_profile_theme"
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:importantForAccessibility="no"
                 android:src="@drawable/ic_right" />
 
         </LinearLayout>
@@ -181,6 +189,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_icon"
+                android:importantForAccessibility="no"
                 android:src="@drawable/ic_logout" />
 
             <TextView
@@ -188,12 +197,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Keluar"
-                android:textSize="16dp" />
+                android:text="@string/logout"
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:importantForAccessibility="no"
                 android:src="@drawable/ic_right" />
 
         </LinearLayout>

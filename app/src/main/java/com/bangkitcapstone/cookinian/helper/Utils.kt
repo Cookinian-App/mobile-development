@@ -1,6 +1,7 @@
 package com.bangkitcapstone.cookinian.helper
 
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.data.Result
@@ -19,6 +20,10 @@ fun showAlert(context: Context, title: String, message: String) {
         .setMessage(message)
         .setPositiveButton(R.string.dialog_positive_button) { _, _ -> }
         .show()
+}
+
+fun showToast(context: Context, message: String) {
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
 
 fun <T> handleHttpException(e: HttpException, liveData: MutableLiveData<Result<T>>) {

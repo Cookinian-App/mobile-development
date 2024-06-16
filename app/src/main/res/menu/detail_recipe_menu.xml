@@ -4,11 +4,11 @@
     <item
         android:id="@+id/menu_share"
         android:icon="@drawable/ic_share"
-        android:title="Share"
+        android:title="@string/share"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_bookmarks"
         android:icon="@drawable/ic_bookmark"
-        android:title="Bookmarks"
+        android:title="@string/save_recipe"
         app:showAsAction="ifRoom" />
 </menu>

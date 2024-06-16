@@ -42,7 +42,7 @@ class ProfileEditActivity : AppCompatActivity() {
                 val name = edEditName.text.toString()
                 profileEditViewModel.editProfile(email, name)
             } else {
-                showAlert(this@ProfileEditActivity, "Gagal", "Nama profil tidak boleh kosong!")
+                showAlert(this@ProfileEditActivity, getString(R.string.profile_edit), getString(R.string.error_empty_input))
             }
         }
 
@@ -56,12 +56,13 @@ class ProfileEditActivity : AppCompatActivity() {
                     is Result.Success -> {
                         binding.pbEditProfile.visibility = View.GONE
                         binding.btnEditProfile.isEnabled = true
-                        showAlert(this, "Berhasil", "Nama profil anda telah diubah!")
+                        showAlert(this, getString(R.string.profile_edit),
+                            getString(R.string.edit_profile_success))
                     }
                     is Result.Error -> {
                         binding.pbEditProfile.visibility = View.GONE
                         binding.btnEditProfile.isEnabled = true
-                        showAlert(this, "Terjadi kesalahan", result.error)
+                        showAlert(this, getString(R.string.profile_edit), result.error)
                     }
                 }
             }
@@ -73,7 +74,7 @@ class ProfileEditActivity : AppCompatActivity() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_back)
-            title = "Edit Profil"
+            title = getString(R.string.profile_edit)
         }
     }
 

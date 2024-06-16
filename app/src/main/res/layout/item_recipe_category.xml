@@ -7,8 +7,8 @@
     android:layout_marginEnd="12dp"
     android:layout_marginBottom="12dp"
     app:cardBackgroundColor="@android:color/transparent"
-    app:strokeColor="@android:color/transparent"
-    app:shapeAppearanceOverlay="@style/RoundedImageViewSmall">
+    app:shapeAppearanceOverlay="@style/RoundedImageViewSmall"
+    app:strokeColor="@android:color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:id="@+id/iv_item_recipe_category_image"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:foreground="@drawable/foreground_2"
+            android:foreground="@drawable/foreground"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,6 +27,7 @@
 
         <TextView
             android:id="@+id/tv_item_recipe_category_name"
+            style="@style/FontBold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -34,7 +35,6 @@
             android:layout_marginBottom="16dp"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="16sp"
-            style="@style/FontBold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

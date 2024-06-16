@@ -33,10 +33,11 @@
                 android:id="@+id/iv_detection_photo"
                 android:layout_width="match_parent"
                 android:layout_height="380dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/detection_result"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/l_detection_result"
@@ -46,7 +47,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
-                android:hint="Hasil Deteksi"
+                android:hint="@string/detection_result"
                 app:boxCornerRadiusBottomEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
                 app:boxCornerRadiusTopEnd="12dp"
@@ -73,7 +74,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="12dp"
-        android:text="Rekomendasi"
+        android:text="@string/recipe_recommendation"
         app:cornerRadius="12dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

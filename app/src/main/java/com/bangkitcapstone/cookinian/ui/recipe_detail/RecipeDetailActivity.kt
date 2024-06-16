@@ -16,6 +16,7 @@ import com.bangkitcapstone.cookinian.databinding.ActivityRecipeDetailBinding
 import com.bangkitcapstone.cookinian.helper.Event
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
 import com.bangkitcapstone.cookinian.helper.showAlert
+import com.bangkitcapstone.cookinian.helper.showToast
 import com.bumptech.glide.Glide
 import com.google.android.material.divider.MaterialDividerItemDecoration
 
@@ -60,10 +61,18 @@ class RecipeDetailActivity : AppCompatActivity() {
                 is Result.Error -> {
                     Event(result.error).getContentIfNotHandled()?.let {
                         binding.pbRecipeDetail.visibility = View.GONE
-                        showAlert(this, "Terjadi kesalahan", it)
+                        showAlert(this, getString(R.string.recipe_detail), it)
                     }
                 }
             }
+        }
+
+        binding.llDetailInfoIngredient.setOnClickListener {
+            toggleIngredientVisibility()
+        }
+
+        binding.llDetailInfoStep.setOnClickListener {
+            toggleStepVisibility()
         }
 
         setupToolbar()
@@ -76,7 +85,7 @@ class RecipeDetailActivity : AppCompatActivity() {
                 binding.toolbar.menu.findItem(R.id.menu_bookmarks).setOnMenuItemClickListener {
                     binding.toolbar.menu.findItem(R.id.menu_bookmarks).setIcon(R.drawable.ic_bookmark)
                     viewModel.deleteRecipe(recipe)
-                    Toast.makeText(this, "Recipe removed from bookmarks", Toast.LENGTH_SHORT).show()
+                    showToast(this, getString(R.string.save_recipe_delete))
                     true
                 }
             } else {
@@ -84,7 +93,7 @@ class RecipeDetailActivity : AppCompatActivity() {
                 binding.toolbar.menu.findItem(R.id.menu_bookmarks).setOnMenuItemClickListener {
                     binding.toolbar.menu.findItem(R.id.menu_bookmarks).setIcon(R.drawable.ic_bookmark_filled)
                     viewModel.saveRecipe(recipe)
-                    Toast.makeText(this, "Recipe added to bookmarks", Toast.LENGTH_SHORT).show()
+                    showToast(this, getString(R.string.save_recipe_success))
                     true
                 }
             }
@@ -128,6 +137,26 @@ class RecipeDetailActivity : AppCompatActivity() {
                 adapter = RecipeStepAdapter(recipe.step)
                 addItemDecoration(divider)
             }
+        }
+    }
+
+    private fun toggleIngredientVisibility() {
+        if (binding.rvDetailRecipeIngredient.visibility == View.GONE) {
+            binding.rvDetailRecipeIngredient.visibility = View.VISIBLE
+            binding.icDetailInfoIngredient.setImageResource(R.drawable.ic_up)
+        } else {
+            binding.rvDetailRecipeIngredient.visibility = View.GONE
+            binding.icDetailInfoIngredient.setImageResource(R.drawable.ic_down)
+        }
+    }
+
+    private fun toggleStepVisibility() {
+        if (binding.rvDetailRecipeStep.visibility == View.GONE) {
+            binding.rvDetailRecipeStep.visibility = View.VISIBLE
+            binding.icDetailInfoStep.setImageResource(R.drawable.ic_up)
+        } else {
+            binding.rvDetailRecipeStep.visibility = View.GONE
+            binding.icDetailInfoStep.setImageResource(R.drawable.ic_down)
         }
     }
 

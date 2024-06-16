@@ -43,7 +43,7 @@ class ArticleDetailActivity : AppCompatActivity() {
                 is Result.Error -> {
                     Event(result.error).getContentIfNotHandled()?.let {
                         binding.pbArticleDetail.visibility = View.GONE
-                        showAlert(this, "Terjadi kesalahan", it)
+                        showAlert(this, getString(R.string.article_detail), it)
                     }
                 }
             }
@@ -73,11 +73,6 @@ class ArticleDetailActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.detail_recipe_menu, menu)
-        return true
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -88,5 +83,4 @@ class ArticleDetailActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 }

@@ -16,7 +16,7 @@
             android:id="@+id/iv_item_recipe_image"
             android:layout_width="0dp"
             android:layout_height="190dp"
-            android:foreground="@drawable/foreground_2"
+            android:foreground="@drawable/foreground"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,11 +61,11 @@
             android:layout_marginStart="8dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/background_info"
-            android:text="Mudah"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_item_recipe_time" />
+            app:layout_constraintStart_toEndOf="@+id/tv_item_recipe_time"
+            tools:text="Mudah" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

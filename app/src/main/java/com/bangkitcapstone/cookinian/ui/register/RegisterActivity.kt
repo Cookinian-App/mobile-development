@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +12,9 @@ import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.data.Result
 import com.bangkitcapstone.cookinian.databinding.ActivityRegisterBinding
 import com.bangkitcapstone.cookinian.helper.ViewModelFactory
+import com.bangkitcapstone.cookinian.helper.showAlert
+import com.bangkitcapstone.cookinian.helper.showToast
 import com.bangkitcapstone.cookinian.ui.login.LoginActivity
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -44,12 +44,11 @@ class RegisterActivity : AppCompatActivity() {
                 val password = edRegisterPassword.text.toString()
                 registerViewModel.register(name, email, password)
             } else {
-                Toast.makeText(this@RegisterActivity, "Semua data harus diisi", Toast.LENGTH_SHORT)
-                    .show()
+                showAlert(this@RegisterActivity, getString(R.string.register), getString(R.string.error_empty_input))
             }
         }
 
-        registerViewModel.result.observe(this@RegisterActivity) { event ->
+        registerViewModel.result.observe(this) { event ->
             event.getContentIfNotHandled()?.let { result ->
                 when (result) {
                     is Result.Loading -> {
@@ -57,29 +56,17 @@ class RegisterActivity : AppCompatActivity() {
                     }
                     is Result.Success -> {
                         binding.pbRegister.visibility = View.GONE
-                        showToast(result.data.message)
-                        startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                        showToast(this, getString(R.string.register_success))
+                        startActivity(Intent(this, LoginActivity::class.java))
                         finish()
                     }
                     is Result.Error -> {
                         binding.pbRegister.visibility = View.GONE
-                        showAlert(result.error)
+                        showAlert(this, getString(R.string.register), result.error)
                     }
                 }
             }
         }
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this@RegisterActivity, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showAlert(message: String) {
-        MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.register)
-            .setMessage(message)
-            .setPositiveButton(R.string.dialog_positive_button) { _, _ -> }
-            .show()
     }
 
     private fun playAnimation() {
@@ -96,5 +83,4 @@ class RegisterActivity : AppCompatActivity() {
             start()
         }
     }
-
 }

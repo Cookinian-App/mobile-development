@@ -23,7 +23,7 @@
             android:textCursorDrawable="@null"
             app:iconifiedByDefault="false"
             app:queryBackground="@null"
-            app:queryHint="Resep..."
+            app:queryHint="@string/search_hint"
             app:showDividers="end"
             app:theme="@style/SearchViewCustom" />
 

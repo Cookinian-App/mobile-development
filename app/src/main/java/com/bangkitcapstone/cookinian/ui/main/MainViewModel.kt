@@ -37,7 +37,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             } catch (e: HttpException) {
                 handleHttpException(e, _categories)
             } catch (e: UnknownHostException) {
-                _categories.value = Result.Error("Kesalahan jaringan: Tidak dapat menghubungkan ke server")
+                _categories.value = Result.Error("Kesalahan jaringan, tidak dapat menghubungkan ke server")
             } catch (e: Exception) {
                 _categories.value = e.message?.let { Result.Error(it) }
             }
@@ -53,7 +53,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             } catch (e: HttpException) {
                 handleHttpException(e, _recipes)
             } catch (e: UnknownHostException) {
-                _recipes.value = Result.Error( "Kesalahan jaringan: Tidak dapat menghubungkan ke server")
+                _recipes.value = Result.Error( "Kesalahan jaringan, tidak dapat menghubungkan ke server")
             } catch (e: Exception) {
                 _recipes.value = e.message?.let { Result.Error(it) }
             }
@@ -70,7 +70,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 } catch (e: HttpException) {
                     handleHttpException(e, _savedRecipe)
                 } catch (e: UnknownHostException) {
-                    _savedRecipe.value = Result.Error("Kesalahan jaringan: Tidak dapat menghubungkan ke server")
+                    _savedRecipe.value = Result.Error("Kesalahan jaringan, tidak dapat menghubungkan ke server")
                 } catch (e: Exception) {
                     _recipes.value = e.message?.let {err -> Result.Error(err) }
                 }

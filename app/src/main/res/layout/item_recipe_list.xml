@@ -17,7 +17,7 @@
             android:id="@+id/iv_item_recipe_list_image"
             android:layout_width="0dp"
             android:layout_height="210dp"
-            android:foreground="@drawable/foreground_2"
+            android:foreground="@drawable/foreground"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

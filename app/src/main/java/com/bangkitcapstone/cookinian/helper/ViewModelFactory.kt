@@ -10,7 +10,7 @@ import com.bangkitcapstone.cookinian.ui.main.MainViewModel
 import com.bangkitcapstone.cookinian.ui.profile.ProfileViewModel
 import com.bangkitcapstone.cookinian.ui.article.ArticleViewModel
 import com.bangkitcapstone.cookinian.ui.article_detail.ArticleDetailViewModel
-import com.bangkitcapstone.cookinian.ui.bookmark.BookmarkViewModel
+import com.bangkitcapstone.cookinian.ui.saved_recipe.SavedRecipeViewModel
 import com.bangkitcapstone.cookinian.ui.recipe_detail.RecipeDetailViewModel
 import com.bangkitcapstone.cookinian.ui.register.RegisterViewModel
 import com.bangkitcapstone.cookinian.ui.category_search.CategorySearchViewModel
@@ -47,8 +47,8 @@ class ViewModelFactory private constructor(private val repository: Repository) :
             return ProfileEditViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(ProfileEditPassViewModel::class.java)) {
             return ProfileEditPassViewModel(repository) as T
-        } else if (modelClass.isAssignableFrom(BookmarkViewModel::class.java)) {
-            return BookmarkViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(SavedRecipeViewModel::class.java)) {
+            return SavedRecipeViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

@@ -24,6 +24,7 @@ class RecipeAdapter(private val recipeList: List<RecipeItem>) : RecyclerView.Ada
                 .replace("jam", " Jam")
                 .replace("mnt", " Mnt")
                 .replace("j", " J")
+            binding.tvItemRecipeLevel.text = recipe.difficulty
             binding.root.setOnClickListener {
                 val intent = Intent(it.context, RecipeDetailActivity::class.java).apply {
                     putExtra("key", recipe.key)

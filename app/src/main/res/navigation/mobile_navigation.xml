@@ -8,41 +8,25 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.bangkitcapstone.cookinian.ui.main.HomeFragment"
-        android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out">
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
     </fragment>
     <fragment
         android:id="@+id/nav_article"
         android:name="com.bangkitcapstone.cookinian.ui.article.ArticleFragment"
-        android:label="RecipeFragment"
-        tools:layout="@layout/fragment_article"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out">
+        android:label="fragment_article"
+        tools:layout="@layout/fragment_article">
     </fragment>
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.bangkitcapstone.cookinian.ui.profile.ProfileFragment"
-        android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out"/>
+        android:label="profile_fragment"
+        tools:layout="@layout/fragment_profile"/>
     <fragment
-        android:id="@+id/nav_bookmark"
-        android:name="com.bangkitcapstone.cookinian.ui.bookmark.BookmarkFragment"
-        android:label="fragment_bookmark"
-        tools:layout="@layout/fragment_bookmark"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out"/>
+        android:id="@+id/nav_saved_recipe"
+        android:name="com.bangkitcapstone.cookinian.ui.saved_recipe.SavedRecipeFragment"
+        android:label="fragment_saved_recipe"
+        tools:layout="@layout/fragment_saved_recipe"/>
     <fragment
         android:id="@+id/nav_camera"
         android:name="com.bangkitcapstone.cookinian.ui.camera.CameraFragment"
