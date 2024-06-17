@@ -17,26 +17,14 @@ fun capitalizeWords(text: String): String {
 
 fun formatDescription(description: String): String {
     var cleanedDescription = description
-
-    // Menambahkan spasi setelah . ? ! : jika tidak diikuti spasi
     cleanedDescription = cleanedDescription.replace(Regex("([.?!:]+)([^\\s])"), "$1 $2")
-
-    // Menambahkan newline setelah : jika diikuti spasi dan karakter
     cleanedDescription = cleanedDescription.replace(Regex(":\\s*(\\S)"), ":\n\n$1")
-
-    // Menambahkan newline setelah huruf kecil yang diikuti huruf besar
     cleanedDescription = cleanedDescription.replace(Regex("(\\p{Lower})(\\p{Upper})"), "$1\n\n$2")
-
-    // Menambahkan newline setelah . jika diikuti spasi dan angka
     cleanedDescription = cleanedDescription.replace(Regex("\\.\\s+(?=\\d\\.)"), ".\n\n")
-
-    // Menambahkan newline setelah huruf dan titik diikuti dengan spasi dan huruf besar
     cleanedDescription = cleanedDescription.replace(Regex("(\\p{Lower})\\.\\s+(\\p{Upper})"), "$1.\n\n$2")
 
     return cleanedDescription
 }
-
-
 
 fun getHtml(htmlBody: String): CharSequence {
     val rawHtml: CharSequence = HtmlCompat.fromHtml(htmlBody, HtmlCompat.FROM_HTML_MODE_LEGACY)

@@ -19,11 +19,10 @@ import org.tensorflow.lite.task.core.BaseOptions
 import org.tensorflow.lite.task.vision.detector.Detection
 import org.tensorflow.lite.task.vision.detector.ObjectDetector
 
-
 class ObjectDetectionHelper(
-    var threshold: Float = 0.5f,
-    var maxResults: Int = 10,
-    val modelName: String = "3.tflite",
+    private var threshold: Float = 0.4f,
+    private var maxResults: Int = 6,
+    private val modelName: String = "object_detection.tflite",
     val context: Context,
     val detectionListener: DetectionListener?
 ) {

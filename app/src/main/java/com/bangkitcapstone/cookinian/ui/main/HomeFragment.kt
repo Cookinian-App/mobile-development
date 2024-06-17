@@ -133,6 +133,7 @@ class HomeFragment : Fragment() {
                     isErrorOccurred = Event(true)
                     Event(result.error).getContentIfNotHandled()?.let {
                         binding.pbHomeRecipe.visibility = View.GONE
+                        binding.tvHomeEmptyRecipe.visibility = View.VISIBLE
                         showAlert(requireContext(), getString(R.string.home), it)
                     }
                 }
@@ -158,6 +159,7 @@ class HomeFragment : Fragment() {
                     isErrorOccurred = Event(true)
                     Event(result.error).getContentIfNotHandled()?.let {
                         binding.pbHomeArticle.visibility = View.GONE
+                        binding.tvHomeEmptyCategory.visibility = View.VISIBLE
                         showAlert(requireContext(), getString(R.string.home), it)
                     }
                 }

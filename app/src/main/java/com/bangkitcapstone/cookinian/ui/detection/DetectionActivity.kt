@@ -9,7 +9,6 @@ import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.ActivityDetectionBinding
 import com.bangkitcapstone.cookinian.helper.ObjectDetectionHelper
 import org.tensorflow.lite.task.vision.detector.Detection
-import java.text.NumberFormat
 
 class DetectionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetectionBinding

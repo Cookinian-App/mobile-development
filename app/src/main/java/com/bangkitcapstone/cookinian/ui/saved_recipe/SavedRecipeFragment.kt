@@ -52,6 +52,9 @@ class SavedRecipeFragment : Fragment() {
                 savedRecipeViewModel.getSavedRecipe().observe(viewLifecycleOwner) { result ->
                     recipeAdapter = SavedRecipeAdapter(result)
                     binding.rvSavedRecipe.adapter = recipeAdapter
+                    if (result.isEmpty()) {
+                        binding.tvSavedRecipeEmpty.visibility = View.VISIBLE
+                    }
                 }
             }
         }
