@@ -16,6 +16,7 @@ import com.bangkitcapstone.cookinian.ui.register.RegisterViewModel
 import com.bangkitcapstone.cookinian.ui.category_search.CategorySearchViewModel
 import com.bangkitcapstone.cookinian.ui.profile_edit.ProfileEditViewModel
 import com.bangkitcapstone.cookinian.ui.profile_edit_pass.ProfileEditPassViewModel
+import com.bangkitcapstone.cookinian.ui.recipe_recommendation.RecipeRecommendationViewModel
 import com.bangkitcapstone.cookinian.ui.recipe_search.RecipeSearchViewModel
 import com.bangkitcapstone.cookinian.ui.splash.SplashViewModel
 
@@ -49,6 +50,8 @@ class ViewModelFactory private constructor(private val repository: Repository) :
             return ProfileEditPassViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(SavedRecipeViewModel::class.java)) {
             return SavedRecipeViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(RecipeRecommendationViewModel::class.java)) {
+            return RecipeRecommendationViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
