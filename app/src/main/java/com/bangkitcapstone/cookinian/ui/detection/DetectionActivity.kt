@@ -45,11 +45,12 @@ class DetectionActivity : AppCompatActivity() {
                         results?.let { it ->
                             if (it.isNotEmpty()) {
                                 val sortedDetections = it.sortedByDescending { it.categories[0].score }
-                                val result = sortedDetections.joinToString(", ") { detection ->
-                                    val category = detection.categories[0]
-                                    category.label
-                                }
+                                val uniqueLabels = sortedDetections.map { detection ->
+                                    detection.categories[0].label
+                                }.toSet()
+                                val result = uniqueLabels.joinToString(", ")
                                 binding.edDetectionResult.setText(result)
+                                binding.detectionOverlayView.setDetections(sortedDetections, binding.ivDetectionPhoto)
                             } else {
                                 binding.edDetectionResult.setText(getString(R.string.object_detection_failed))
                             }

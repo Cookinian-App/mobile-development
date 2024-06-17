@@ -21,7 +21,7 @@ import org.tensorflow.lite.task.vision.detector.ObjectDetector
 
 class ObjectDetectionHelper(
     private var threshold: Float = 0.4f,
-    private var maxResults: Int = 6,
+    private var maxResults: Int = 10,
     private val modelName: String = "object_detection.tflite",
     val context: Context,
     val detectionListener: DetectionListener?
@@ -58,6 +58,7 @@ class ObjectDetectionHelper(
             setupObjectDetector()
         }
 
+        val originalBitmap = toBitmap(imageUri)
         val imageProcessor = ImageProcessor.Builder()
             .add(ResizeOp(300, 300, ResizeOp.ResizeMethod.BILINEAR))
             .add(NormalizeOp(-1f, 1f))
@@ -65,14 +66,24 @@ class ObjectDetectionHelper(
             .build()
 
         val tensorImage = TensorImage(DataType.FLOAT32)
-        tensorImage.load(toBitmap(imageUri))
+        tensorImage.load(originalBitmap)
         val processedImage = imageProcessor.process(tensorImage)
 
         var inferenceTime = SystemClock.uptimeMillis()
         val results = objectDetector?.detect(processedImage)
         inferenceTime = SystemClock.uptimeMillis() - inferenceTime
+
+        results?.forEach { detection ->
+            detection.boundingBox.apply {
+                left *= originalBitmap.width / 300f
+                top *= originalBitmap.height / 300f
+                right *= originalBitmap.width / 300f
+                bottom *= originalBitmap.height / 300f
+            }
+        }
         detectionListener?.onResults(results, inferenceTime)
     }
+
 
     private fun toBitmap(imageUri: Uri): Bitmap {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
