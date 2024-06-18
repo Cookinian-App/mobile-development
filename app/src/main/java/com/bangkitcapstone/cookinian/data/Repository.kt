@@ -9,6 +9,7 @@ import androidx.paging.liveData
 import com.bangkitcapstone.cookinian.data.api.retrofit.ApiService
 import com.bangkitcapstone.cookinian.data.local.entity.ArticleItem
 import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
+import com.bangkitcapstone.cookinian.data.local.entity.RecipesRecommendationItem
 import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
 import com.bangkitcapstone.cookinian.data.local.room.CookinianDatabase
 import com.bangkitcapstone.cookinian.data.preference.UserModel
@@ -52,7 +53,22 @@ class Repository private constructor(
             }
         ).liveData
     }
-
+    @OptIn(ExperimentalPagingApi::class)
+    fun getRecipesRecommendationWithPaging(ingredientsQ: String): LiveData<PagingData<RecipesRecommendationItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 3
+            ),
+            remoteMediator =  RecipesRecommendationRemoteMediator(
+                database,
+                authApiService,
+                ingredientsQ
+            ),
+            pagingSourceFactory = {
+                database.recipesRecommendationDao().getRecipes()
+            }
+        ).liveData
+    }
     suspend fun saveRecipeFromSavedRecipeApi(userId: String) {
         val response = authApiService.getSavedRecipe(userId)
         val recipes = response.recipes
@@ -89,10 +105,8 @@ class Repository private constructor(
     suspend fun deleteSavedRecipeFromLocal(recipe: SavedRecipeEntity) {
         database.savedRecipeDao().deleteFromLocal(recipe)
     }
-
     suspend fun deleteAllSavedRecipeFromApi(userId: String) = authApiService.deleteAllSavedRecipe(userId)
     suspend fun deleteAllSavedRecipeFromLocal() = database.savedRecipeDao().deleteAll()
-
     fun isSavedRecipe(key: String): LiveData<Boolean> {
         return database.savedRecipeDao().isSavedRecipe(key)
     }
@@ -116,14 +130,12 @@ class Repository private constructor(
         ).liveData
     }
     suspend fun getArticleDetail(tag: String, key: String) = recipeApiService.getArticleDetail(tag, key)
-
     suspend fun saveThemeMode(themeMode: String) {
         userPreference.saveThemeMode(themeMode)
     }
     fun getThemeMode(): Flow<String> {
         return userPreference.getThemeMode()
     }
-
     companion object {
         fun getInstance(
             authApiService: ApiService,

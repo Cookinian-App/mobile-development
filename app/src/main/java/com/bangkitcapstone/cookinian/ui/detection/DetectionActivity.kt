@@ -1,5 +1,6 @@
 package com.bangkitcapstone.cookinian.ui.detection
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.ActivityDetectionBinding
 import com.bangkitcapstone.cookinian.helper.ObjectDetectionHelper
+import com.bangkitcapstone.cookinian.ui.recipe_recommendation.RecipeRecommendationActivity
 import org.tensorflow.lite.task.vision.detector.Detection
 
 class DetectionActivity : AppCompatActivity() {
@@ -51,6 +53,11 @@ class DetectionActivity : AppCompatActivity() {
                                 val result = uniqueLabels.joinToString(", ")
                                 binding.edDetectionResult.setText(result)
                                 binding.detectionOverlayView.setDetections(sortedDetections, binding.ivDetectionPhoto)
+                                binding.btnRecipeRecommendation.setOnClickListener {
+                                    val intent = Intent(this@DetectionActivity, RecipeRecommendationActivity::class.java)
+                                    intent.putExtra("ingredients", result)
+                                    startActivity(intent)
+                                }
                             } else {
                                 binding.edDetectionResult.setText(getString(R.string.object_detection_failed))
                             }

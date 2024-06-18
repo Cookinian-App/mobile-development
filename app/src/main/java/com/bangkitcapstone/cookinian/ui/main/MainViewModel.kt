@@ -20,20 +20,21 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     private val _savedRecipe = MutableLiveData<Result<Boolean>>()
     val savedRecipe : LiveData<Result<Boolean>> = _savedRecipe
 
-    init {
-        getSavedRecipe()
-        getCategories()
-        getRecipes()
-    }
+    // State for checking if data is fetched
+    private var isCategoriesFetched = false
+    private var isRecipesFetched = false
+    private var isSavedRecipeFetched = false
 
     fun getSession() = repository.getSession().asLiveData()
 
-    private fun getCategories() {
+    fun getCategories(forceFetch: Boolean = false) {
+        if (!forceFetch && isCategoriesFetched) return
         viewModelScope.launch {
             try {
                 _categories.value = Result.Loading
                 val result = repository.getCategory().results
                 _categories.value = Result.Success(result)
+                isCategoriesFetched = true
             } catch (e: HttpException) {
                 handleHttpException(e, _categories)
             } catch (e: UnknownHostException) {
@@ -44,35 +45,39 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    private fun getRecipes() {
+    fun getRecipes(forceFetch: Boolean = false) {
+        if (!forceFetch && isRecipesFetched) return
         viewModelScope.launch {
             try {
                 _recipes.value = Result.Loading
                 val result = repository.getRecipes().results
                 _recipes.value = Result.Success(result)
+                isRecipesFetched = true
             } catch (e: HttpException) {
                 handleHttpException(e, _recipes)
             } catch (e: UnknownHostException) {
-                _recipes.value = Result.Error( "Kesalahan jaringan, tidak dapat menghubungkan ke server")
+                _recipes.value = Result.Error("Kesalahan jaringan, tidak dapat menghubungkan ke server")
             } catch (e: Exception) {
                 _recipes.value = e.message?.let { Result.Error(it) }
             }
         }
     }
 
-    private fun getSavedRecipe() {
+    fun getSavedRecipe(forceFetch: Boolean = false) {
+        if (!forceFetch && isSavedRecipeFetched) return
         viewModelScope.launch {
             repository.getSession().collect {
                 try {
                     _savedRecipe.value = Result.Loading
                     repository.saveRecipeFromSavedRecipeApi(it.userId)
                     _savedRecipe.value = Result.Success(true)
+                    isSavedRecipeFetched = true
                 } catch (e: HttpException) {
                     handleHttpException(e, _savedRecipe)
                 } catch (e: UnknownHostException) {
                     _savedRecipe.value = Result.Error("Kesalahan jaringan, tidak dapat menghubungkan ke server")
                 } catch (e: Exception) {
-                    _recipes.value = e.message?.let {err -> Result.Error(err) }
+                    _savedRecipe.value = e.message?.let { err -> Result.Error(err) }
                 }
             }
         }

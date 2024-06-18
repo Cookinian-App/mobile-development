@@ -6,6 +6,7 @@ import com.bangkitcapstone.cookinian.data.api.response.CategoryResponse
 import com.bangkitcapstone.cookinian.data.api.response.LoginResponse
 import com.bangkitcapstone.cookinian.data.api.response.RecipeDetailResponse
 import com.bangkitcapstone.cookinian.data.api.response.RecipeResponse
+import com.bangkitcapstone.cookinian.data.api.response.RecipesRecommendationResponse
 import com.bangkitcapstone.cookinian.data.api.response.RegisterResponse
 import com.bangkitcapstone.cookinian.data.api.response.SavedRecipeResponse
 import retrofit2.http.DELETE
@@ -60,6 +61,12 @@ interface ApiService {
         @Query("s") searchQuery: String? = null,
         @Query("category") category: String? = null
     ): RecipeResponse
+
+    @GET("api/recipes/{page}")
+    suspend fun getRecommendationRecipeWithPaging(
+        @Path("page") key: Int,
+        @Query("bahan") ingredientsQ: String
+    ): RecipesRecommendationResponse
 
     @GET("recipe/{key}")
     suspend fun getDetailRecipe(

@@ -59,14 +59,17 @@ class HomeFragment : Fragment() {
             if (!isErrorOccurred.peekContent()) {
                 showAlert(requireContext(),
                     getString(R.string.error_title), getString(R.string.error_no_internet))
+                binding.tvHomeEmptyRecipe.visibility = View.VISIBLE
+                binding.tvHomeEmptyCategory.visibility = View.VISIBLE
                 isErrorOccurred = Event(true)
             }
-            return
+        } else {
+            try {
+                fetchData()
+            } catch (e: Exception) {
+                showAlert(requireContext(), getString(R.string.error_title), e.message.toString())
+            }
         }
-
-        setSavedRecipe()
-        setupRecipeRecyclerView()
-        setupCategoryRecyclerView()
 
         binding.searchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
@@ -86,6 +89,15 @@ class HomeFragment : Fragment() {
         })
 
         binding.tvHomeSeeAllRecipe.setOnClickListener { seeAllRecipe() }
+    }
+
+    private fun fetchData() {
+        mainViewModel.getSavedRecipe()
+        mainViewModel.getRecipes()
+        mainViewModel.getCategories()
+        setSavedRecipe()
+        setupRecipeRecyclerView()
+        setupCategoryRecyclerView()
     }
 
     private fun setupBanner() {
@@ -130,11 +142,9 @@ class HomeFragment : Fragment() {
                     binding.rvHomeRecipe.adapter = recipeAdapter
                 }
                 is Result.Error -> {
-                    isErrorOccurred = Event(true)
                     Event(result.error).getContentIfNotHandled()?.let {
                         binding.pbHomeRecipe.visibility = View.GONE
                         binding.tvHomeEmptyRecipe.visibility = View.VISIBLE
-                        showAlert(requireContext(), getString(R.string.home), it)
                     }
                 }
             }
@@ -156,11 +166,9 @@ class HomeFragment : Fragment() {
                     binding.rvHomeCategory.adapter = recipeCategoryAdapter
                 }
                 is Result.Error -> {
-                    isErrorOccurred = Event(true)
                     Event(result.error).getContentIfNotHandled()?.let {
                         binding.pbHomeArticle.visibility = View.GONE
                         binding.tvHomeEmptyCategory.visibility = View.VISIBLE
-                        showAlert(requireContext(), getString(R.string.home), it)
                     }
                 }
             }
@@ -175,12 +183,7 @@ class HomeFragment : Fragment() {
             when (result) {
                 is Result.Loading -> {}
                 is Result.Success -> {}
-                is Result.Error -> {
-                    isErrorOccurred = Event(true)
-                    Event(result.error).getContentIfNotHandled()?.let {
-                        showAlert(requireContext(), getString(R.string.home), it)
-                    }
-                }
+                is Result.Error -> {}
             }
         }
     }

@@ -77,4 +77,6 @@
     <string name="delete_all">Hapus semua</string>
     <string name="empty">Kosong</string>
     <string name="search_hint_ingredients">Bahan makanan…</string>
+    <string name="recipe_recommendation_title">Rekomendasi Resep</string>
+    <string name="recipe_recommendation_ingredients">Berdasarkan bahan yang anda punya: %1$s.</string>
 </resources>

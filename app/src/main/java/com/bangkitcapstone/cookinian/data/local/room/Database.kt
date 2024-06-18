@@ -6,13 +6,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.bangkitcapstone.cookinian.data.local.entity.ArticleItem
 import com.bangkitcapstone.cookinian.data.local.entity.RecipeItem
+import com.bangkitcapstone.cookinian.data.local.entity.RecipesRecommendationItem
 import com.bangkitcapstone.cookinian.data.local.entity.RemoteKeys
 import com.bangkitcapstone.cookinian.data.local.entity.SavedRecipeEntity
 
-@Database(entities = [RecipeItem::class, ArticleItem::class, RemoteKeys::class, SavedRecipeEntity::class], version = 1, exportSchema = false)
+@Database(entities = [RecipeItem::class, RecipesRecommendationItem::class, ArticleItem::class, RemoteKeys::class, SavedRecipeEntity::class], version = 1, exportSchema = false)
 abstract class CookinianDatabase : RoomDatabase(){
 
     abstract fun recipeDao(): RecipeDao
+    abstract fun recipesRecommendationDao(): RecipesRecommendationDao
     abstract fun articleDao(): ArticleDao
     abstract fun remoteKeysDao(): RemoteKeysDao
     abstract fun savedRecipeDao(): SavedRecipeDao
