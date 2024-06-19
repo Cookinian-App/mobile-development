@@ -65,6 +65,8 @@ Cookinian is an AI and Android-based cooking app designed to make meal planning 
 
 - ✅ Recipe Recommendation
 
+- ✅ Search Recipe by Category & Title
+
 - ✅ update Profile
 
 - ✅ Changing Password
