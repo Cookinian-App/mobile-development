@@ -5,7 +5,8 @@
     <string name="login">Masuk</string>
     <string name="retry">Coba lagi</string>
     <string name="greeting">Halo, %1$s!</string>
-    <string name="object_detection_failed">Deteksi gagal. Silahkan coba lagi!</string>
+    <string name="object_detection_failed">Deteksi gagal!</string>
+    <string name="object_detection_success">Deteksi berhasil!</string>
     <string name="camera_info_message">Untuk saat ini, hanya mampu mendeteksi sebanyak 13 kelas bahan makanan. \n\nHasil deteksi mungkin tidak sesuai dan membutuhkan konfirmasi lebih lanjut.</string>
     <string name="error_empty_input">Semua data harus diisi</string>
     <string name="register_success">Akun berhasil dibuat</string>
@@ -30,7 +31,7 @@
     <string name="home">Beranda</string>
     <string name="crop_cancelled">Proses dibatalkan</string>
     <string name="change_password">Ubah Kata Sandi</string>
-    <string name="change_password_success">Kata sandi anda telah diubah!</string>
+    <string name="change_password_success">Kata sandi Anda telah diubah!</string>
     <string name="old_password_diff">Kata sandi baru tidak sama!</string>
     <string name="save_recipe_success">Resep berhasil disimpan</string>
     <string name="save_recipe_delete">Resep dihapus dari penyimpanan</string>
@@ -78,5 +79,8 @@
     <string name="empty">Kosong</string>
     <string name="search_hint_ingredients">Bahan makanan…</string>
     <string name="recipe_recommendation_title">Rekomendasi Resep</string>
-    <string name="recipe_recommendation_ingredients">Berdasarkan bahan yang anda punya: %1$s.</string>
+    <string name="recipe_recommendation_ingredients">Berdasarkan bahan yang Anda punya: %1$s.</string>
+    <string name="empty_ingredients">Bahan bahan makanan Anda kosong</string>
+    <string name="detection_ingredients">Bahan makanan</string>
+    <string name="object_detection_info">Jika hasil deteksi tidak sesuai, bahan makanan bisa dimasukkan secara manual dengan mengetik dan memisahkan bahan makanan dengan tanda koma. \n\nContoh: Tomat, Cabai Merah…</string>
 </resources>

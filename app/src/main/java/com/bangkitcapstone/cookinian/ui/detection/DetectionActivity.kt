@@ -6,9 +6,12 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.bangkitcapstone.cookinian.R
 import com.bangkitcapstone.cookinian.databinding.ActivityDetectionBinding
 import com.bangkitcapstone.cookinian.helper.ObjectDetectionHelper
+import com.bangkitcapstone.cookinian.helper.showAlert
+import com.bangkitcapstone.cookinian.helper.showToast
 import com.bangkitcapstone.cookinian.ui.recipe_recommendation.RecipeRecommendationActivity
 import org.tensorflow.lite.task.vision.detector.Detection
 
@@ -29,8 +32,28 @@ class DetectionActivity : AppCompatActivity() {
             analyzeImage(it)
         }
 
+        binding.btnRecipeRecommendation.setOnClickListener {
+            getRecommendationRecipes()
+        }
+
+        binding.fabDetectionInfo.setOnClickListener {
+            showAlert(this, getString(R.string.detection_result) ,getString(R.string.object_detection_info))
+        }
+
         setupToolbar()
     }
+
+    private fun getRecommendationRecipes() {
+        val resultText = binding.edDetectionResult.text.toString().trim()
+        if (resultText.isNotEmpty()) {
+            val intent = Intent(this@DetectionActivity, RecipeRecommendationActivity::class.java)
+            intent.putExtra("ingredients", resultText)
+            startActivity(intent)
+        } else {
+            showToast(this@DetectionActivity, getString(R.string.empty_ingredients))
+        }
+    }
+
 
     private fun analyzeImage(uri: Uri) {
         objectDetectionHelper = ObjectDetectionHelper(
@@ -51,15 +74,11 @@ class DetectionActivity : AppCompatActivity() {
                                     detection.categories[0].label
                                 }.toSet()
                                 val result = uniqueLabels.joinToString(", ")
-                                binding.edDetectionResult.setText(result)
                                 binding.detectionOverlayView.setDetections(sortedDetections, binding.ivDetectionPhoto)
-                                binding.btnRecipeRecommendation.setOnClickListener {
-                                    val intent = Intent(this@DetectionActivity, RecipeRecommendationActivity::class.java)
-                                    intent.putExtra("ingredients", result)
-                                    startActivity(intent)
-                                }
+                                binding.edDetectionResult.setText(result)
+                                binding.lDetectionResult.helperText = getString(R.string.object_detection_success)
                             } else {
-                                binding.edDetectionResult.setText(getString(R.string.object_detection_failed))
+                                binding.lDetectionResult.helperText = getString(R.string.object_detection_failed)
                             }
                         }
                     }

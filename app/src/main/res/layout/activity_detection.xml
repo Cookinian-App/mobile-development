@@ -38,11 +38,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
                     android:adjustViewBounds="true"
-                    app:shapeAppearanceOverlay="@style/RoundedImageView"
-                    android:contentDescription="@string/detection_result" />
+                    android:contentDescription="@string/detection_result"
+                    android:gravity="center"
+                    app:shapeAppearanceOverlay="@style/RoundedImageView" />
 
                 <com.bangkitcapstone.cookinian.helper.OverlayView
                     android:id="@+id/detection_overlay_view"
@@ -58,13 +57,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:hint="@string/detection_result"
+                android:hint="@string/detection_ingredients"
                 app:boxCornerRadiusBottomEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
                 app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusTopStart="12dp">
+                app:boxCornerRadiusTopStart="12dp"
+                app:helperText="@string/object_detection_success">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_detection_result"
@@ -75,19 +75,44 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/btn_recipe_recommendation"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="12dp"
-        android:text="@string/recipe_recommendation"
-        app:cornerRadius="12dp" />
+        android:layout_marginBottom="12dp">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_detection_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/delete_all"
+            android:src="@drawable/ic_info"
+            app:elevation="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_recipe_recommendation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_recipe_recommendation" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_recipe_recommendation"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="12dp"
+            android:text="@string/recipe_recommendation"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_sparkles"
+            app:iconGravity="textEnd"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/fab_detection_info"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

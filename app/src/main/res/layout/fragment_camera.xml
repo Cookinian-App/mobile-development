@@ -65,12 +65,11 @@
             android:background="@drawable/background_search"
             android:backgroundTint="@color/green"
             android:contentDescription="@string/take_picture"
-            android:src="@drawable/ic_camera"
+            android:src="@drawable/ic_circle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btn_info"

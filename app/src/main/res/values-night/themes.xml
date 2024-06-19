@@ -3,6 +3,9 @@
         <item name="colorPrimary">@color/green</item>
         <item name="colorOnPrimary">@color/white_dm</item>
 
+        <item name="colorAccent">@color/green</item>
+        <item name="colorTertiary">@color/black_dm</item>
+
         <item name="colorPrimaryContainer">@color/white_dm</item>
         <item name="colorOnPrimaryContainer">@color/black_sec_dm</item>
 

@@ -26,12 +26,11 @@ class RecipeRecommendationActivity : AppCompatActivity() {
         binding = ActivityRecipeRecommendationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val query = intent.getStringExtra("ingredients")
+        val query = intent.getStringExtra("ingredients")!!
 
         setupToolbar()
-        if (query != null) {
-            setupRecipesRecommendationRecyclerView(query)
-        }
+
+        setupRecipesRecommendationRecyclerView(query)
 
         binding.tvRecommendationRecipe.text = getString(R.string.recipe_recommendation_ingredients, query)
     }

@@ -41,17 +41,17 @@ class WelcomeActivity : AppCompatActivity() {
             repeatMode = ObjectAnimator.REVERSE
         }.start()
 
-        val title = ObjectAnimator.ofFloat(binding.tvWelcomeTitle, View.ALPHA, 1f).setDuration(500)
-        val message = ObjectAnimator.ofFloat(binding.tvWelcomeMessage, View.ALPHA, 1f).setDuration(500)
-        val login = ObjectAnimator.ofFloat(binding.btnToLogin, View.ALPHA, 1f).setDuration(500)
-        val register = ObjectAnimator.ofFloat(binding.btnToRegister, View.ALPHA, 1f).setDuration(500)
+        val title = ObjectAnimator.ofFloat(binding.tvWelcomeTitle, View.ALPHA, 1f).setDuration(400)
+        val message = ObjectAnimator.ofFloat(binding.tvWelcomeMessage, View.ALPHA, 1f).setDuration(400)
+        val login = ObjectAnimator.ofFloat(binding.btnToLogin, View.ALPHA, 1f).setDuration(400)
+        val register = ObjectAnimator.ofFloat(binding.btnToRegister, View.ALPHA, 1f).setDuration(400)
         val together = AnimatorSet().apply {
             playTogether(login, register)
         }
 
         AnimatorSet().apply {
             playSequentially(title, message, together)
-            startDelay = 500
+            startDelay = 400
             start()
         }
     }
