@@ -37,7 +37,7 @@ Cookinian is an AI and Android-based cooking app designed to make meal planning 
 
 - ✅ Motion Layout
 
-- ✅ Material Guideline
+- ✅ Material Components
 
 - ✅ Jetpack Navigation
 
@@ -57,7 +57,11 @@ Cookinian is an AI and Android-based cooking app designed to make meal planning 
 
 - ✅ CameraX
 
-- ✅ Glide 
+- ✅ Glide
+
+- ✅ UCrop
+ 
+- ✅ CircleImageView 
 
 ### feature
 
