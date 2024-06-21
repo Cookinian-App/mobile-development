@@ -1,8 +1,8 @@
 ## Cookinian App
 
-<img alt="ui light mobile app" title="ui light mobile app" src="https://github.com/Cookinian-App/.github/blob/main/profile/Banner%201.png">
+<img alt="ui light mobile app" title="ui light mobile app" src="https://github.com/Cookinian-App/.github/blob/main/profile/UI%20Light.png">
 
-<img alt="ui night mobile app" title="ui night mobile app" src="https://github.com/Cookinian-App/.github/blob/main/profile/Banner%201.png">
+<img alt="ui night mobile app" title="ui night mobile app" src="https://github.com/Cookinian-App/.github/blob/main/profile/UI%20Night.png">
 
 Cookinian is an AI and Android-based cooking app designed to make meal planning easy for users. With its ingredient scanning feature, the app instantly provides personalized recipe recommendations, complete with detailed cooking steps. Cookinian helps users save time and reduce menu confusion, while encouraging creativity in cooking with ingredients that are readily available at home. In this repository is the design for the android application for the Cookinian application.
 
